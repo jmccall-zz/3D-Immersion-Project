@@ -15,8 +15,10 @@ function Update () {
 }
 
 function throwBall(direction : Vector3, obj : Transform) {
-	obj.parent = null;
-	obj.rigidbody.useGravity = (true);
-	obj.rigidbody.AddForce(direction * Magnitude, ForceMode.Impulse);
+	if (obj.parent != null) {
+		obj.parent = null;
+		obj.rigidbody.useGravity = (true);
+		obj.rigidbody.AddForce(direction * Magnitude, ForceMode.Impulse);
+	}
 }
 

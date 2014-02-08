@@ -62,17 +62,36 @@
      <Compile Include="Assets\OVR\Scripts\OVRPresetManager.cs" />
      <Compile Include="Assets\OVR\Scripts\OVRUtils.cs" />
      <Compile Include="Assets\Scripts\SerialScript.cs" />
+     <Compile Include="Assets\Tuscany\Models\Birds\BirdsBehaviour.cs" />
+     <Compile Include="Assets\Tuscany\Water (Basic)\Sources\Scripts\WaterSimple.cs" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
+     <None Include="Assets\Tuscany\Models\Materials\TransparentTerrain.shader" />
+     <None Include="Assets\Tuscany\Models\Materials\Vertex color unlit 3.shader" />
+     <None Include="Assets\Tuscany\Models\Materials\Vertex color unlit 1.shader" />
+     <None Include="Assets\Tuscany\Particles\Shaders\Particle Alpha Blend_IgnoreFog.shader" />
+     <None Include="Assets\Tuscany\Models\Materials\Vertex color unlit 5.shader" />
+     <None Include="Assets\Tuscany\Models\Materials\Vertex color unlit 6.shader" />
+     <None Include="Assets\Tuscany\Models\Materials\DoubleSided.shader" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
      <None Include="Assets\MovementAnimsetProLite\readme.txt" />
      <None Include="Assets\testfile.txt" />
+     <None Include="Assets\Tuscany\Water (Basic)\Sources\Shaders\FX-Water Simple.shader" />
      <None Include="Assets\OVR\OVRImageEffects\OVRLensCorrection_CA.shader" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
+     <None Include="Assets\Tuscany\Models\Materials\DoubleSided ButterFly.shader" />
+     <None Include="Assets\Tuscany\Models\Materials\AlphaTest-DiffuseDoublesided.shader" />
+     <None Include="Assets\Tuscany\Models\Materials\Vertex color unlit 4.shader" />
+     <None Include="Assets\Tuscany\Particles\Shaders\AddSmooth_Layer.shader" />
+     <None Include="Assets\Tuscany\Models\Materials\Vertex color unlit 8.shader" />
      <None Include="Assets\OVR\OVRImageEffects\OVRLensCorrection.shader" />
      <None Include="Assets\OVR\Shaders\OVRGUIShader.shader" />
+     <None Include="Assets\Tuscany\Models\Materials\Vertex color unlit 2.shader" />
      <None Include="Assets\Plugins\donotdelete.txt" />
+     <None Include="Assets\Tuscany\Models\Materials\Vertex color unlit 7.shader" />
+     <None Include="Assets\Tuscany\Particles\Shaders\Add_Layer.shader" />
+     <None Include="Assets\Tuscany\Models\Materials\AlphaTest-DiffuseBack.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
