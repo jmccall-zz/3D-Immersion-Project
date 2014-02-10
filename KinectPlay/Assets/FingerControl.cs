@@ -20,10 +20,17 @@ public class FingerControl : MonoBehaviour {
 	void Update () {
 		
 		// Adjust all joints for each finger
-		adjustJointTilts ("LeftHandIndex1", degrees: Models.fingers[0]);
-		adjustJointTilts ("LeftHandMiddle1", degrees: Models.fingers[1]);
-		adjustJointTilts ("LeftHandRing1", degrees: Models.fingers[2]);
-		adjustJointTilts ("LeftHandPinky1", degrees: Models.fingers[3]);
+		if (ZigSkeleton.mirror == true) {
+			adjustJointTilts ("LeftHandIndex1", degrees: Models.fingers [0]);
+			adjustJointTilts ("LeftHandMiddle1", degrees: Models.fingers [1]);
+			adjustJointTilts ("LeftHandRing1", degrees: Models.fingers [2]);
+			adjustJointTilts ("LeftHandPinky1", degrees: Models.fingers [3]);
+		} else {
+			adjustJointTilts ("RightHandIndex1", degrees: Models.fingers [0]);
+			adjustJointTilts ("RightHandMiddle1", degrees: Models.fingers [1]);
+			adjustJointTilts ("RightHandRing1", degrees: Models.fingers [2]);
+			adjustJointTilts ("RightHandPinky1", degrees: Models.fingers [3]);
+		}
 	}
 	
 	

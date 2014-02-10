@@ -33,7 +33,7 @@ public class ZigSkeleton : MonoBehaviour
     public Transform RightKnee;
     public Transform RightAnkle;
     public Transform RightFoot;
-    public bool mirror = false;
+    static public bool mirror = false;
     public bool UpdateJointPositions = false;
     public bool UpdateRootPosition = false;
     public bool UpdateOrientation = true;
