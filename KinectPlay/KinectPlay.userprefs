@@ -1,8 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\OVR\Scripts\OVRMainMenu.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\ZigFu\Scripts\UserControls\ZigSkeleton.cs">
     <Files>
       <File FileName="Assets\OVR\Scripts\OVRMainMenu.cs" Line="214" Column="24" />
+      <File FileName="Assets\ZigFu\Scripts\UserControls\ZigSkeleton.cs" Line="31" Column="2" />
+      <File FileName="Assets\FingerControl\Models.cs" Line="8" Column="47" />
+      <File FileName="Assets\FingerControl.cs" Line="32" Column="29" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
