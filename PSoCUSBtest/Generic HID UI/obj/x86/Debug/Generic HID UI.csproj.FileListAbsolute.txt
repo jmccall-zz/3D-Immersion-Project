@@ -1,0 +1,27 @@
+C:\Users\rlrm\documents\visual studio 2010\Projects\Generic HID UI\Generic HID UI\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\rlrm\documents\visual studio 2010\Projects\Generic HID UI\Generic HID UI\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\rlrm\documents\visual studio 2010\Projects\Generic HID UI\Generic HID UI\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\rlrm\documents\visual studio 2010\Projects\Generic HID UI\Generic HID UI\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\rlrm\documents\visual studio 2010\Projects\Generic HID UI\Generic HID UI\bin\Debug\Generic HID UI.exe
+C:\Users\rlrm\documents\visual studio 2010\Projects\Generic HID UI\Generic HID UI\bin\Debug\Generic HID UI.pdb
+C:\Users\rlrm\documents\visual studio 2010\Projects\Generic HID UI\Generic HID UI\bin\Debug\CyUSB.dll
+C:\Users\rlrm\documents\visual studio 2010\Projects\Generic HID UI\Generic HID UI\obj\x86\Debug\Generic HID UI.exe
+C:\Users\rlrm\documents\visual studio 2010\Projects\Generic HID UI\Generic HID UI\obj\x86\Debug\Generic HID UI.pdb
+C:\Users\rlrm\documents\visual studio 2010\Projects\Generic HID UI\Generic HID UI\obj\x86\Debug\WindowsFormsApplication1.DutyCycleTextBox.resources
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\obj\x86\Debug\Generic HID UI.exe
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\obj\x86\Debug\Generic HID UI.pdb
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\obj\x86\Debug\ResolveAssemblyReference.cache
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\obj\x86\Debug\WindowsFormsApplication1.GenericHidForm.resources
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\obj\x86\Debug\GenerateResource.read.1.tlog
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\obj\x86\Debug\GenerateResource.write.1.tlog
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\bin\Debug\Generic HID UI.exe
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\bin\Debug\Generic HID UI.pdb
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\bin\Debug\Generic HID UI.exe.config
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\obj\x86\Debug\ResGen.read.1.tlog
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\obj\x86\Debug\ResGen.write.1.tlog
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\bin\Debug\Generic HID UI.exe.manifest
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\bin\Debug\Generic HID UI.application
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\obj\x86\Debug\Generic HID UI.exe.manifest
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\obj\x86\Debug\Generic HID UI.application
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\bin\Debug\CyUSB.dll

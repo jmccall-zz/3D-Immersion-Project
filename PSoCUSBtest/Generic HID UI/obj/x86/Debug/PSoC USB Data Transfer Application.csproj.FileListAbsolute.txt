@@ -1,0 +1,99 @@
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\bin\Debug\Generic HID UI.exe.config
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\obj\x86\Debug\Generic HID UI.exe
+R:\Work Documents\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\obj\x86\Debug\Generic HID UI.pdb
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\bin\Debug\Generic HID UI.exe.config
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\obj\x86\Debug\Generic HID UI.exe
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\PC Interfaces\Windows\Generic HID UI\Generic HID UI\obj\x86\Debug\Generic HID UI.pdb
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Generic HID UI\Generic HID UI\bin\Debug\Generic HID UI.exe.config
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Generic HID UI\Generic HID UI\obj\x86\Debug\Generic HID UI.exe
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Generic HID UI\Generic HID UI\obj\x86\Debug\Generic HID UI.pdb
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\PSoC USB Data Transfer Application\Generic HID UI\bin\Debug\Generic HID UI.exe.config
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\PSoC USB Data Transfer Application\Generic HID UI\obj\x86\Debug\Generic HID UI.exe
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\PSoC USB Data Transfer Application\Generic HID UI\obj\x86\Debug\Generic HID UI.pdb
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Windows PC Application\Generic HID UI\bin\Debug\Generic HID UI.exe.config
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Windows PC Application\Generic HID UI\obj\x86\Debug\Generic HID UI.exe
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Windows PC Application\Generic HID UI\obj\x86\Debug\Generic HID UI.pdb
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Windows PC Application\Generic HID UI\bin\Debug\Generic HID UI.exe.manifest
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Windows PC Application\Generic HID UI\bin\Debug\Generic HID UI.application
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Windows PC Application\Generic HID UI\bin\Debug\Generic HID UI.exe
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Windows PC Application\Generic HID UI\bin\Debug\Generic HID UI.pdb
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Windows PC Application\Generic HID UI\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Windows PC Application\Generic HID UI\obj\x86\Debug\WindowsFormsApplication1.GenericHidForm.resources
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Windows PC Application\Generic HID UI\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Windows PC Application\Generic HID UI\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Windows PC Application\Generic HID UI\obj\x86\Debug\ResGen.read.1.tlog
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Windows PC Application\Generic HID UI\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Windows PC Application\Generic HID UI\obj\x86\Debug\ResGen.write.1.tlog
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Windows PC Application\Generic HID UI\obj\x86\Debug\Generic HID UI.exe.manifest
+C:\Users\RLRM\Documents\!!Work Documents!!\2012 - Q1\HID Data Transfer AN\Project Files\Windows PC Application\Generic HID UI\obj\x86\Debug\Generic HID UI.application
+C:\Users\Kevin-Patxi\Downloads\AN82072(PSoC Creator 2.1 SP1)\AN82072\Host Applications\Windows Application\Source Code\Generic HID UI\bin\Debug\Generic HID UI.exe.config
+C:\Users\Kevin-Patxi\Downloads\AN82072(PSoC Creator 2.1 SP1)\AN82072\Host Applications\Windows Application\Source Code\Generic HID UI\obj\x86\Debug\Generic HID UI.exe
+C:\Users\Kevin-Patxi\Downloads\AN82072(PSoC Creator 2.1 SP1)\AN82072\Host Applications\Windows Application\Source Code\Generic HID UI\bin\Debug\Generic HID UI.exe.manifest
+C:\Users\Kevin-Patxi\Downloads\AN82072(PSoC Creator 2.1 SP1)\AN82072\Host Applications\Windows Application\Source Code\Generic HID UI\bin\Debug\Generic HID UI.application
+C:\Users\Kevin-Patxi\Downloads\AN82072(PSoC Creator 2.1 SP1)\AN82072\Host Applications\Windows Application\Source Code\Generic HID UI\bin\Debug\Generic HID UI.exe
+C:\Users\Kevin-Patxi\Downloads\AN82072(PSoC Creator 2.1 SP1)\AN82072\Host Applications\Windows Application\Source Code\Generic HID UI\bin\Debug\Generic HID UI.pdb
+C:\Users\Kevin-Patxi\Downloads\AN82072(PSoC Creator 2.1 SP1)\AN82072\Host Applications\Windows Application\Source Code\Generic HID UI\obj\x86\Debug\PSoC USB Data Transfer Application.csprojResolveAssemblyReference.cache
+C:\Users\Kevin-Patxi\Downloads\AN82072(PSoC Creator 2.1 SP1)\AN82072\Host Applications\Windows Application\Source Code\Generic HID UI\obj\x86\Debug\WindowsFormsApplication1.GenericHidForm.resources
+C:\Users\Kevin-Patxi\Downloads\AN82072(PSoC Creator 2.1 SP1)\AN82072\Host Applications\Windows Application\Source Code\Generic HID UI\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\Kevin-Patxi\Downloads\AN82072(PSoC Creator 2.1 SP1)\AN82072\Host Applications\Windows Application\Source Code\Generic HID UI\obj\x86\Debug\PSoC USB Data Transfer Application.csproj.GenerateResource.Cache
+C:\Users\Kevin-Patxi\Downloads\AN82072(PSoC Creator 2.1 SP1)\AN82072\Host Applications\Windows Application\Source Code\Generic HID UI\obj\x86\Debug\Generic HID UI.exe.manifest
+C:\Users\Kevin-Patxi\Downloads\AN82072(PSoC Creator 2.1 SP1)\AN82072\Host Applications\Windows Application\Source Code\Generic HID UI\obj\x86\Debug\Generic HID UI.application
+C:\Users\Kevin-Patxi\Downloads\AN82072(PSoC Creator 2.1 SP1)\AN82072\Host Applications\Windows Application\Source Code\Generic HID UI\obj\x86\Debug\Generic HID UI.pdb
+E:\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe.config
+E:\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.exe
+E:\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.pdb
+C:\Users\klebras\Desktop\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe.config
+C:\Users\klebras\Desktop\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.exe
+C:\Users\klebras\Desktop\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.pdb
+C:\Users\klebras\Desktop\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe.manifest
+C:\Users\klebras\Desktop\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.application
+C:\Users\klebras\Desktop\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe
+C:\Users\klebras\Desktop\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.pdb
+C:\Users\klebras\Desktop\PSoCUSBtest\Generic HID UI\obj\x86\Debug\PSoC USB Data Transfer Application.csprojResolveAssemblyReference.cache
+C:\Users\klebras\Desktop\PSoCUSBtest\Generic HID UI\obj\x86\Debug\WindowsFormsApplication1.GenericHidForm.resources
+C:\Users\klebras\Desktop\PSoCUSBtest\Generic HID UI\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\klebras\Desktop\PSoCUSBtest\Generic HID UI\obj\x86\Debug\PSoC USB Data Transfer Application.csproj.GenerateResource.Cache
+C:\Users\klebras\Desktop\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.exe.manifest
+C:\Users\klebras\Desktop\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.application
+C:\Users\klebras\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe.config
+C:\Users\klebras\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.exe
+C:\Users\klebras\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.pdb
+C:\Users\klebras\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe.manifest
+C:\Users\klebras\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.application
+C:\Users\klebras\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe
+C:\Users\klebras\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.pdb
+C:\Users\klebras\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\PSoC USB Data Transfer Application.csprojResolveAssemblyReference.cache
+C:\Users\klebras\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\WindowsFormsApplication1.GenericHidForm.resources
+C:\Users\klebras\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\klebras\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\PSoC USB Data Transfer Application.csproj.GenerateResource.Cache
+C:\Users\klebras\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.exe.manifest
+C:\Users\klebras\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.application
+C:\Users\ckaminer\Dropbox\CMPE129\3DImmersionProjects\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe.config
+C:\Users\ckaminer\Dropbox\CMPE129\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.exe
+C:\Users\ckaminer\Dropbox\CMPE129\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.pdb
+C:\Users\jmccall\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe.config
+C:\Users\jmccall\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.exe
+C:\Users\jmccall\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.pdb
+C:\Users\tatphan\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe.config
+C:\Users\tatphan\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.exe
+C:\Users\tatphan\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.pdb
+C:\Users\tatphan\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe.manifest
+C:\Users\tatphan\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.application
+C:\Users\tatphan\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe
+C:\Users\tatphan\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.pdb
+C:\Users\tatphan\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\PSoC USB Data Transfer Application.csprojResolveAssemblyReference.cache
+C:\Users\tatphan\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\WindowsFormsApplication1.GenericHidForm.resources
+C:\Users\tatphan\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\tatphan\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\PSoC USB Data Transfer Application.csproj.GenerateResource.Cache
+C:\Users\tatphan\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.exe.manifest
+C:\Users\tatphan\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.application
+C:\Users\jmccall\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\PSoC USB Data Transfer Application.csprojResolveAssemblyReference.cache
+C:\Users\jmccall\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\WindowsFormsApplication1.GenericHidForm.resources
+C:\Users\jmccall\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\jmccall\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\PSoC USB Data Transfer Application.csproj.GenerateResource.Cache
+C:\Users\jmccall\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe.manifest
+C:\Users\jmccall\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.application
+C:\Users\jmccall\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe
+C:\Users\jmccall\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.pdb
+C:\Users\jmccall\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.exe.manifest
+C:\Users\jmccall\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.application
