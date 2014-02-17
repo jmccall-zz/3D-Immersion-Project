@@ -1,0 +1,4 @@
+C:/Users/Kevin-Patxi/Downloads/AN82072(PSoC\ Creator\ 2.1\ SP1)/AN82072/PSoC\ Projects/Project\ 1/Project\ 1.cydsn/CortexM3/ARM_GCC_441/Debug/CyBootAsmGnu.o : C:/Users/Kevin-Patxi/Downloads/AN82072(PSoC\ Creator\ 2.1\ SP1)/AN82072/PSoC\ Projects/Project\ 1/Project\ 1.cydsn/Generated_Source/PSoC5/CyBootAsmGnu.s 
+
+C:/Users/Kevin-Patxi/Downloads/AN82072(PSoC\ Creator\ 2.1\ SP1)/AN82072/PSoC\ Projects/Project\ 1/Project\ 1.cydsn/Generated_Source/PSoC5/CyBootAsmGnu.s : 
+
