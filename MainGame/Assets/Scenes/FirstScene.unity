@@ -2535,7 +2535,6 @@ GameObject:
   - 23: {fileID: 1662274086}
   - 54: {fileID: 1662274091}
   - 75: {fileID: 1662274090}
-  - 114: {fileID: 1662274092}
   - 114: {fileID: 1662274093}
   - 114: {fileID: 1662274094}
   m_Layer: 0
@@ -2622,17 +2621,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &1662274092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1662274085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 261ad3f8632259f4d93e97e37f2db981, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1662274093
 MonoBehaviour:
   m_ObjectHideFlags: 0
