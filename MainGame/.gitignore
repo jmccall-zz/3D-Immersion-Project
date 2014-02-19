@@ -1,13 +1,13 @@
 # Unity .gitignore file.
 .DS_Store
-./Library
-./Library/*
-*.booproj
-*.unityproj
-*.csproj
-*.sln
-*.userprefs
-Temp
-*.pidb
-Build
+MainGame/Library
+MainGame/Library/*
+MainGame/*.booproj
+MainGame/*.unityproj
+MainGame/*.csproj
+MainGame/*.sln
+MainGame*.userprefs
+MainGame/Temp
+MainGame/*.pidb
+MainGame/Build
 
