@@ -49,6 +49,12 @@
             this.DutyTextBox = new System.Windows.Forms.NumericUpDown();
             this.LED_State_CheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.AdcValueBox7 = new System.Windows.Forms.RichTextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.AdcValueBox6 = new System.Windows.Forms.RichTextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.AdcValueBox5 = new System.Windows.Forms.RichTextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -258,6 +264,12 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label13);
+            this.groupBox3.Controls.Add(this.AdcValueBox7);
+            this.groupBox3.Controls.Add(this.label12);
+            this.groupBox3.Controls.Add(this.AdcValueBox6);
+            this.groupBox3.Controls.Add(this.label11);
+            this.groupBox3.Controls.Add(this.AdcValueBox5);
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.label8);
@@ -270,9 +282,68 @@
             this.groupBox3.Controls.Add(this.AdcValueBox);
             this.groupBox3.Location = new System.Drawing.Point(10, 95);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(234, 151);
+            this.groupBox3.Size = new System.Drawing.Size(229, 249);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(28, 220);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(39, 13);
+            this.label13.TabIndex = 15;
+            this.label13.Text = "Z-Acc:";
+            // 
+            // AdcValueBox7
+            // 
+            this.AdcValueBox7.BackColor = System.Drawing.SystemColors.Control;
+            this.AdcValueBox7.Location = new System.Drawing.Point(86, 211);
+            this.AdcValueBox7.Name = "AdcValueBox7";
+            this.AdcValueBox7.ReadOnly = true;
+            this.AdcValueBox7.Size = new System.Drawing.Size(78, 23);
+            this.AdcValueBox7.TabIndex = 14;
+            this.AdcValueBox7.Text = "";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(28, 191);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(39, 13);
+            this.label12.TabIndex = 13;
+            this.label12.Text = "Y-Acc:";
+            this.label12.Click += new System.EventHandler(this.label12_Click);
+            // 
+            // AdcValueBox6
+            // 
+            this.AdcValueBox6.BackColor = System.Drawing.SystemColors.Control;
+            this.AdcValueBox6.Location = new System.Drawing.Point(86, 182);
+            this.AdcValueBox6.Name = "AdcValueBox6";
+            this.AdcValueBox6.ReadOnly = true;
+            this.AdcValueBox6.Size = new System.Drawing.Size(78, 23);
+            this.AdcValueBox6.TabIndex = 12;
+            this.AdcValueBox6.Text = "";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(28, 162);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(39, 13);
+            this.label11.TabIndex = 11;
+            this.label11.Text = "X-Acc:";
+            this.label11.Click += new System.EventHandler(this.label11_Click);
+            // 
+            // AdcValueBox5
+            // 
+            this.AdcValueBox5.BackColor = System.Drawing.SystemColors.Control;
+            this.AdcValueBox5.Location = new System.Drawing.Point(86, 153);
+            this.AdcValueBox5.Name = "AdcValueBox5";
+            this.AdcValueBox5.ReadOnly = true;
+            this.AdcValueBox5.Size = new System.Drawing.Size(78, 23);
+            this.AdcValueBox5.TabIndex = 10;
+            this.AdcValueBox5.Text = "";
             // 
             // label10
             // 
@@ -335,7 +406,7 @@
             // 
             this.richTextBox1.BackColor = System.Drawing.SystemColors.Menu;
             this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Location = new System.Drawing.Point(16, 252);
+            this.richTextBox1.Location = new System.Drawing.Point(10, 350);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.richTextBox1.Size = new System.Drawing.Size(308, 50);
@@ -345,15 +416,19 @@
             // 
             // InputTimer
             // 
-            this.InputTimer.Interval = 10;
+            this.InputTimer.Interval = 20;
             this.InputTimer.Tick += new System.EventHandler(this.InputTimer_Tick);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
             // 
             // GenericHidForm
             // 
             this.AcceptButton = this.PWM_Button;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(427, 301);
+            this.ClientSize = new System.Drawing.Size(427, 390);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
@@ -405,6 +480,12 @@
         private System.Windows.Forms.RichTextBox AdcValueBox4;
         private System.Windows.Forms.RichTextBox AdcValueBox3;
         private System.Windows.Forms.RichTextBox AdcValueBox2;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.RichTextBox AdcValueBox7;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.RichTextBox AdcValueBox6;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.RichTextBox AdcValueBox5;
     }
 }
 

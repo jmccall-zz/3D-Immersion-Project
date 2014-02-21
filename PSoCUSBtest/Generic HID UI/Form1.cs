@@ -36,7 +36,12 @@ namespace WindowsFormsApplication1
         const uint Finger3_Byte2_Position = 6;
         const uint Finger4_Byte1_Position = 7;
         const uint Finger4_Byte2_Position = 8;
-
+        const uint ACCX_Byte1_Position = 9;
+        const uint ACCX_Byte2_Position = 10;
+        const uint ACCY_Byte1_Position = 11;
+        const uint ACCY_Byte2_Position = 12;
+        const uint ACCZ_Byte1_Position = 13;
+        const uint ACCZ_Byte2_Position = 14;
         
         //Constants fro Output Buffer Array
         const uint LED_State_Position = 1;
@@ -57,13 +62,23 @@ namespace WindowsFormsApplication1
         uint finger3_2 = 0;
         uint finger4_1 = 0;
         uint finger4_2 = 0;
+        uint Xacc_H = 0;
+        uint Xacc_L = 0;
+        uint Yacc_H = 0;
+        uint Yacc_L = 0;
+        uint Zacc_H = 0;
+        uint Zacc_L = 0;
 
-        static uint Filter_Size = 5;
+        static uint Filter_Size = 2;
 
         uint[]  finger1Array = new uint[Filter_Size];
         uint[]  finger2Array = new uint[Filter_Size];
         uint[]  finger3Array = new uint[Filter_Size];
         uint[]  finger4Array = new uint[Filter_Size];
+
+        uint Xacc = 0;
+        uint Yacc = 0;
+        uint Zacc = 0;
 
         uint FingerCNT = 0;
 
@@ -275,6 +290,13 @@ namespace WindowsFormsApplication1
 
                 debugcnt++;
 
+                Finger1HLDR = 0;
+                Finger2HLDR = 0;
+                Finger3HLDR = 0;
+                Finger4HLDR = 0;
+
+
+
                 finger1_1 = myHidDevice.Inputs.DataBuf[Finger1_Byte1_Position];
                 finger1_2 = myHidDevice.Inputs.DataBuf[Finger1_Byte2_Position];
                 finger2_1 = myHidDevice.Inputs.DataBuf[Finger2_Byte1_Position];
@@ -284,18 +306,28 @@ namespace WindowsFormsApplication1
                 finger4_1 = myHidDevice.Inputs.DataBuf[Finger4_Byte1_Position];
                 finger4_2 = myHidDevice.Inputs.DataBuf[Finger4_Byte2_Position];
 
+
+                Xacc_H = myHidDevice.Inputs.DataBuf[ACCX_Byte1_Position];
+                Xacc_L = myHidDevice.Inputs.DataBuf[ACCX_Byte2_Position];
+                Yacc_H = myHidDevice.Inputs.DataBuf[ACCY_Byte1_Position];
+                Yacc_L = myHidDevice.Inputs.DataBuf[ACCY_Byte2_Position];
+                Zacc_H = myHidDevice.Inputs.DataBuf[ACCZ_Byte1_Position];
+                Zacc_L = myHidDevice.Inputs.DataBuf[ACCZ_Byte2_Position];
+
+                Xacc = (Xacc_H << 8) + Xacc_L;
+                Yacc = (Yacc_H << 8) + Yacc_L;
+                Zacc = (Zacc_H << 8) + Zacc_L;
+
+                
+           
+
                 FingerCNT = FingerCNT % Filter_Size;
 
                     finger1Array[FingerCNT]= (finger1_1 << 8) + finger1_2;
                     finger2Array[FingerCNT] = (finger2_1 << 8) + finger2_2;
                     finger3Array[FingerCNT] = (finger3_1 << 8) + finger3_2;
                     finger4Array[FingerCNT] = (finger4_1 << 8) + finger4_2;
-
-
-
-
-
-                                
+       
                 for (i = 0; i < Filter_Size; i++) { 
                 
                     Finger1HLDR = finger1Array[i] + Finger1HLDR;
@@ -318,10 +350,51 @@ namespace WindowsFormsApplication1
 
                 String debugcntst = finger1_1.ToString();
 
+                String XACEL;
+                String YACEL;
+                String ZACEL;
+
+                if (Xacc > 32768)
+                {
+                    Xacc = 65536 - Xacc;
+                    XACEL = "-"+Xacc.ToString();
+
+                }
+                else{
+
+                    XACEL = Xacc.ToString();
+                }
+                if (Yacc > 32768)
+                {
+                    Yacc = 65536 - Yacc;
+                    YACEL = "-"+Yacc.ToString();
+                }
+                else { 
+                    YACEL = Yacc.ToString();
+                }
+                if (Zacc > 32768)
+                {
+                    Zacc = 65536 - Zacc;
+                    ZACEL = "-"+Zacc.ToString();
+                }
+                else
+                {
+                    ZACEL = Zacc.ToString();
+                }
+
+
+          
+
+
                 AdcValueBox.Text = finger1_Val;
                 AdcValueBox2.Text = finger2_Val;
                 AdcValueBox3.Text = finger3_Val;
                 AdcValueBox4.Text = finger4_Val;// finger4_Val;
+
+                AdcValueBox5.Text = XACEL;
+                AdcValueBox6.Text = YACEL;
+                AdcValueBox7.Text = ZACEL;
+
 
                 try
                 {
@@ -416,6 +489,16 @@ namespace WindowsFormsApplication1
         }
 
         private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
         {
 
         }
