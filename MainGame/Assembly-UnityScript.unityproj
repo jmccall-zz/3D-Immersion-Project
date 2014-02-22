@@ -67,11 +67,11 @@
  <Reference Include="CyUSB">
  <HintPath>Assets\CyUSB.dll</HintPath>
  </Reference>
- <Reference Include="OpenNI.Net">
- <HintPath>Assets\ZigFu\Scripts\_Internal\OpenNI.Net.dll</HintPath>
- </Reference>
  <Reference Include="ZDK">
  <HintPath>Assets\ZigFu\Scripts\_Internal\ZDK.dll</HintPath>
+ </Reference>
+ <Reference Include="OpenNI.Net">
+ <HintPath>Assets\ZigFu\Scripts\_Internal\OpenNI.Net.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
