@@ -6,7 +6,8 @@ using System;
 public class Models : MonoBehaviour {
 	
 	static public float[] fingers = new float[4];
-	private string [] readLines = new string[4];
+	static public float[] accelerometer = new float[3];
+	private string [] readLines = new string[7];
 	// Path to file with data for each finger
 	private string path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\testfile.txt");
 	public GUIText readings;
@@ -21,8 +22,12 @@ public class Models : MonoBehaviour {
 	void Update() {
 		/* Updates every frame */
 		try {
-			string [] lines = readSelectLines (path, numToRead: 4);
+			string [] lines = readSelectLines (path, numToRead: 7);
 			float [] dims = stringArrayToFloatArrary (lines);
+			// accelerometer (0, 1, 2) --> (x, y, z)
+			accelerometer[0] = dims[4];
+			accelerometer[1] = dims[5];
+			accelerometer[2] = dims[6];
 			/* Scale text file values */
 			/*
 			fingers[0] = (dims[0] - 2000) / 3;
@@ -32,43 +37,43 @@ public class Models : MonoBehaviour {
 			*/
 			////////////////////////index block definitions//////////////////
 			
-			int Index_Finger_Block_0  = 54000;
-			int Index_Finger_Block_15 = 48000;
-			int Index_Finger_Block_30 = 37000;
-			int Index_Finger_Block_45 = 30000;
-			int Index_Finger_Block_60 = 27000;	
-			int Index_Finger_Block_75 = 25000;
-			int Index_Finger_Block_90 = 1700;	
+			int Index_Finger_Block_0  = 32700;
+			int Index_Finger_Block_15 = 26800;
+			int Index_Finger_Block_30 = 23000;
+			int Index_Finger_Block_45 = 21000;
+			int Index_Finger_Block_60 = 13000;	
+			int Index_Finger_Block_75 = 10000;
+			int Index_Finger_Block_90 = 7000;	
 			
 			
 			////////////////////////middle finger block definitions//////////////
-			int Middle_Finger_Block_0  = 54800;
-			int Middle_Finger_Block_15 = 44000;
-			int Middle_Finger_Block_30 = 40000;
-			int Middle_Finger_Block_45 = 35000;
-			int Middle_Finger_Block_60 = 20000;
-			int Middle_Finger_Block_75 = 12000;
-			int Middle_Finger_Block_90 = 1500;
+			int Middle_Finger_Block_0  = 31000;
+			int Middle_Finger_Block_15 = 22000;
+			int Middle_Finger_Block_30 = 10000;
+			int Middle_Finger_Block_45 = 4400;
+			int Middle_Finger_Block_60 = 3000;
+			int Middle_Finger_Block_75 = 1000;
+			int Middle_Finger_Block_90 = 200;
 			//////////////////////ring finger block definitions//////////////////
 			
 			
-			int Ring_Finger_Block_0  =  55000;
-			int Ring_Finger_Block_15 =  50000;
-			int Ring_Finger_Block_30 =  45000;
-			int Ring_Finger_Block_45 =  42000;
-			int Ring_Finger_Block_60 =  30000;
-			int Ring_Finger_Block_75 =  23000;
-			int Ring_Finger_Block_90 =  18000;
+			int Ring_Finger_Block_0  =  39000;
+			int Ring_Finger_Block_15 =  26000;
+			int Ring_Finger_Block_30 =  20000;
+			int Ring_Finger_Block_45 =  16000;
+			int Ring_Finger_Block_60 =  14000;
+			int Ring_Finger_Block_75 =  13000;
+			int Ring_Finger_Block_90 =  12000;
 			
 			
 			/////////////////////pinky block definitions////////////////////
-			int Pinky_Finger_Block_0  =  36000;
-			int Pinky_Finger_Block_15 =  27000;
-			int Pinky_Finger_Block_30 =  15000;
-			int Pinky_Finger_Block_45 =  5000;
-			int Pinky_Finger_Block_60 =  1000; 
-			int Pinky_Finger_Block_75 =  600;
-			int Pinky_Finger_Block_90 =  200;
+			int Pinky_Finger_Block_0  =  14000;
+			int Pinky_Finger_Block_15 =  2000;
+			int Pinky_Finger_Block_30 =  1000;
+			int Pinky_Finger_Block_45 =  500;
+			int Pinky_Finger_Block_60 =  400; 
+			int Pinky_Finger_Block_75 =  200;
+			int Pinky_Finger_Block_90 =  100;
 			
 			
 			/////////////////////////////midddle finger calibration mapping//////////////
@@ -233,14 +238,18 @@ public class Models : MonoBehaviour {
 			}
 			
 			// Update the readings on the display!
-			readings.text = "Finger 0: " + fingers[0] +
+			readings.text = 
+				"Finger 0: " + fingers[0] +
 				"\nFinger 1: " + fingers[1] +
-					"\nFinger 2: " + fingers[2] +
-					"\nFinger 3: " + fingers[3];
+				"\nFinger 2: " + fingers[2] +
+				"\nFinger 3: " + fingers[3] +
+				"\nACEL_X: " + accelerometer[0] +
+				"\nACEL_Y: " + accelerometer[1] +
+				"\nACEL_Z: " + accelerometer[2];
 			
 		} catch (Exception e) {
 			errorcounter++;
-			Debug.Log("Couldn't update fingers: "+errorcounter + e.StackTrace);
+			Debug.Log("Couldn't update fingers: "+errorcounter + e.ToString() + e.StackTrace);
 		}
 		
 		
@@ -274,6 +283,8 @@ public class Models : MonoBehaviour {
 				for (int i = 0; i < numToRead; i++) {
 					// Read a line
 					line = sr.ReadLine();
+					if (line == null)
+						break;
 					readLines[i] = line;
 					//Debug.Log("Debug: " + line);
 				}
@@ -286,6 +297,7 @@ public class Models : MonoBehaviour {
 		
 		return readLines;
 	}
+
 }
 
 

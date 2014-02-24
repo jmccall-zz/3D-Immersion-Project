@@ -400,11 +400,15 @@ namespace WindowsFormsApplication1
                 {
                     string mydocpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                     StringBuilder sb = new StringBuilder();
-
-                    sb.AppendLine(finger1_Val);
+                    
                     sb.AppendLine(finger2_Val);
                     sb.AppendLine(finger3_Val);
                     sb.AppendLine(finger4_Val);
+                    sb.AppendLine(finger1_Val);
+                    sb.AppendLine(XACEL);
+                    sb.AppendLine(YACEL);
+                    sb.AppendLine(ZACEL);
+
                     using (var fileStream = new FileStream(mydocpath + @"\testfile.txt", FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
                     using (StreamWriter outfile = new StreamWriter(fileStream))
                     {

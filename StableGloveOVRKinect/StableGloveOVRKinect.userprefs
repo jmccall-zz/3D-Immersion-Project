@@ -1,18 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace />
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\MainGame\Assets\Scripts\CatchDelegate.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\MainGame\Assets\Scripts\Models.cs">
     <Files>
-      <File FileName="..\MainGame\Assets\Scripts\RecordAndMove.js" Line="1" Column="1" />
-      <File FileName="Assets\FingerControl.cs" Line="1" Column="1" />
-      <File FileName="Assets\Models.cs" Line="12" Column="26" />
-      <File FileName="..\MainGame\Assets\Scripts\RecordAndMoveCalibrate.cs" Line="10" Column="1" />
-      <File FileName="..\MainGame\Assets\Scripts\CatchDelegate.js" Line="1" Column="1" />
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\ZigFu\Scripts\Zig.cs">
-    <Files>
-      <File FileName="Assets\ZigFu\Scripts\Zig.cs" Line="30" Column="1" />
->>>>>>> 3c94fbaf073b9935f2e03a4bb5b030eb4ba6208c
+      <File FileName="..\MainGame\Assets\Scripts\Models.cs" Line="10" Column="44" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

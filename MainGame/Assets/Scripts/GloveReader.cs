@@ -10,15 +10,21 @@ public class GloveReader {
 	public bool init;
 	public float[] sensorValues;
 	private string [] readLines;
+	static int numOfDataPoints = 7;
 
 	public GloveReader() {
 		init = true;	
 	}
 
 	public float[] getValues() {
-		string [] lines = readSelectLines (path, numToRead: 4);
-		float [] dims = stringArrayToFloatArrary (lines);
-		return dims;
+		string [] lines = readSelectLines (path, numOfDataPoints);
+		float [] dims;
+		if (lines != null){
+			dims = stringArrayToFloatArrary (lines);
+			return dims;
+		} else {
+			return null;
+		}
 	}
 
 	private float [] stringArrayToFloatArrary(string [] array) {
@@ -27,6 +33,8 @@ public class GloveReader {
 		float num;
 		
 		for (int i = 0; i < array.Length; i++) {
+			//Debug.Log(i);
+			//Debug.Log(array);
 			num = float.Parse(array[i]);
 			floatArray[i] = num;
 		}
@@ -34,7 +42,7 @@ public class GloveReader {
 		return floatArray;
 	}
 
-	private string [] readSelectLines(string filePath, int numToRead = 4) {
+	private string [] readSelectLines(string filePath, int numToRead) {
 		/* Read the specified number of lines from a file starting with the first line.  This function
 		 * returns an array of strings, indexed or each line in the file.
 		 *
@@ -56,7 +64,7 @@ public class GloveReader {
 			}
 			// Catch any file reading exceptions
 		} catch (IOException e) {
-			Debug.LogError("The file could not be read: " + e.Message);
+			Debug.Log("The file could not be read: " + e.Message);
 			readLines = null;
 		}
 		

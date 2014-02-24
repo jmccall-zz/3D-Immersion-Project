@@ -100,3 +100,16 @@ C:\Users\jmccall\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\
 C:\Users\ckaminer\Documents\GitHub\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe.config
 C:\Users\ckaminer\Documents\GitHub\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.exe
 C:\Users\ckaminer\Documents\GitHub\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.pdb
+C:\Users\jmccall\Documents\Github\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe.config
+C:\Users\jmccall\Documents\Github\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.exe
+C:\Users\jmccall\Documents\Github\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.pdb
+C:\Users\jmccall\Documents\Github\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe.manifest
+C:\Users\jmccall\Documents\Github\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.application
+C:\Users\jmccall\Documents\Github\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe
+C:\Users\jmccall\Documents\Github\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.pdb
+C:\Users\jmccall\Documents\Github\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\obj\x86\Debug\PSoC USB Data Transfer Application.csprojResolveAssemblyReference.cache
+C:\Users\jmccall\Documents\Github\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\obj\x86\Debug\WindowsFormsApplication1.GenericHidForm.resources
+C:\Users\jmccall\Documents\Github\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\jmccall\Documents\Github\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\obj\x86\Debug\PSoC USB Data Transfer Application.csproj.GenerateResource.Cache
+C:\Users\jmccall\Documents\Github\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.exe.manifest
+C:\Users\jmccall\Documents\Github\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.application
