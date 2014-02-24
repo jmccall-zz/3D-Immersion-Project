@@ -60,7 +60,7 @@ public class WristControl : MonoBehaviour {
 			Debug.Log (rotation_x);
 			Debug.Log (rotation_y);
 			Debug.Log (rotation_z);
-			float rot_y = 180+transform.eulerAngles.y;
+			float rot_y = 180 + transform.parent.transform.eulerAngles.y;
 			transform.eulerAngles = new Vector3(rotation_x,rot_y, rotation_z);
 		}
 	}

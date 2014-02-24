@@ -20,14 +20,14 @@ public class GloveReader {
 		string [] lines = readSelectLines (path, numOfDataPoints);
 		float [] dims;
 		if (lines != null){
-			dims = stringArrayToFloatArrary (lines);
+			dims = stringArrayToFloatArray (lines);
 			return dims;
 		} else {
 			return null;
 		}
 	}
 
-	private float [] stringArrayToFloatArrary(string [] array) {
+	private float [] stringArrayToFloatArray(string [] array) {
 		/* Convert an array of strings to array of floats */
 		float [] floatArray = new float [array.Length];
 		float num;
@@ -35,6 +35,7 @@ public class GloveReader {
 		for (int i = 0; i < array.Length; i++) {
 			//Debug.Log(i);
 			//Debug.Log(array);
+			Debug.Log("Index: " + i.ToString() + " Value: " + array[i]);
 			num = float.Parse(array[i]);
 			floatArray[i] = num;
 		}
@@ -57,6 +58,8 @@ public class GloveReader {
 				for (int i = 0; i < numToRead; i++) {
 					// Read a line
 					line = sr.ReadLine();
+					if (line == null)
+						break;
 					readLines[i] = line;
 					//Debug.Log("Debug: " + line);
 				}

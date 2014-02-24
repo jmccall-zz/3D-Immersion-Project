@@ -23,7 +23,7 @@ public class Models : MonoBehaviour {
 		/* Updates every frame */
 		try {
 			string [] lines = readSelectLines (path, numToRead: 7);
-			float [] dims = stringArrayToFloatArrary (lines);
+			float [] dims = stringArrayToFloatArray (lines);
 			// accelerometer (0, 1, 2) --> (x, y, z)
 			accelerometer[0] = dims[4];
 			accelerometer[1] = dims[5];
@@ -255,12 +255,13 @@ public class Models : MonoBehaviour {
 		
 	}
 	
-	float [] stringArrayToFloatArrary(string [] array) {
+	float [] stringArrayToFloatArray(string [] array) {
 		/* Convert an array of strings to array of floats */
 		float [] floatArray = new float [array.Length];
 		float num;
 		
 		for (int i = 0; i < array.Length; i++) {
+			//Debug.Log("Index: " + i.ToString() + " Value: " + array[i]);
 			num = float.Parse(array[i]);
 			floatArray[i] = num;
 		}
@@ -269,7 +270,7 @@ public class Models : MonoBehaviour {
 	}
 	
 	
-	string [] readSelectLines(string filePath, int numToRead = 4) {
+	string [] readSelectLines(string filePath, int numToRead = 7) {
 		/* Read the specified number of lines from a file starting with the first line.  This function
 		 * returns an array of strings, indexed or each line in the file.
 		 *

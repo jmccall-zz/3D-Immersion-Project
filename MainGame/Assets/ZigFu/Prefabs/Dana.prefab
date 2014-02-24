@@ -1236,9 +1236,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
   m_LocalPosition: {x: 6.27744257e-08, y: -.515757799, z: .718055725}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 400002}
-  - {fileID: 400134}
+  m_Children: []
   m_Father: {fileID: 0}
 --- !u!1002 &400001
 EditorExtensionImpl:
@@ -1249,11 +1247,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 100002}
-  m_LocalRotation: {x: 0, y: -0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
+  m_LocalPosition: {x: 0, y: -.515757799, z: .718055725}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 400000}
+  m_Father: {fileID: 0}
 --- !u!1002 &400003
 EditorExtensionImpl:
   serializedVersion: 6
@@ -2235,14 +2233,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 100134}
-  m_LocalRotation: {x: 0, y: -0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: .963793993, z: .0398552492}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
+  m_LocalPosition: {x: 0, y: .448036194, z: .678200483}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400022}
   - {fileID: 400012}
   - {fileID: 400132}
-  m_Father: {fileID: 400000}
+  m_Father: {fileID: 0}
 --- !u!1002 &400135
 EditorExtensionImpl:
   serializedVersion: 6
@@ -2299,7 +2297,6 @@ MonoBehaviour:
   RightKnee: {fileID: 400010}
   RightAnkle: {fileID: 400008}
   RightFoot: {fileID: 0}
-  mirror: 1
   UpdateJointPositions: 0
   UpdateRootPosition: 1
   UpdateOrientation: 1
