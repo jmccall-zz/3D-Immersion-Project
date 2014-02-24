@@ -1,5 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace />
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workbench ActiveDocument="..\MainGame\Assets\Scripts\CatchDelegate.js">
     <Files>
       <File FileName="..\MainGame\Assets\Scripts\RecordAndMove.js" Line="1" Column="1" />
@@ -7,6 +8,11 @@
       <File FileName="Assets\Models.cs" Line="12" Column="26" />
       <File FileName="..\MainGame\Assets\Scripts\RecordAndMoveCalibrate.cs" Line="10" Column="1" />
       <File FileName="..\MainGame\Assets\Scripts\CatchDelegate.js" Line="1" Column="1" />
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\ZigFu\Scripts\Zig.cs">
+    <Files>
+      <File FileName="Assets\ZigFu\Scripts\Zig.cs" Line="30" Column="1" />
+>>>>>>> 3c94fbaf073b9935f2e03a4bb5b030eb4ba6208c
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
