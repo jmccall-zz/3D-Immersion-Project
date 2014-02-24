@@ -648,10 +648,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1878209479}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c16b56ee70fd864baea01738ecaf44d, type: 3}
+  m_Script: {fileID: 11500000, guid: 705f0880f79d9764db86f3c59c013d36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moving: 0
 --- !u!45 &1878209486
 Skybox:
   m_ObjectHideFlags: 0

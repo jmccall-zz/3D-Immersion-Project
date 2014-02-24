@@ -97,3 +97,6 @@ C:\Users\jmccall\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\bin\Debu
 C:\Users\jmccall\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.pdb
 C:\Users\jmccall\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.exe.manifest
 C:\Users\jmccall\Dropbox\3DImmersionProjects\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.application
+C:\Users\ckaminer\Documents\GitHub\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\bin\Debug\Generic HID UI.exe.config
+C:\Users\ckaminer\Documents\GitHub\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.exe
+C:\Users\ckaminer\Documents\GitHub\3D-Immersion-Project\PSoCUSBtest\Generic HID UI\obj\x86\Debug\Generic HID UI.pdb
