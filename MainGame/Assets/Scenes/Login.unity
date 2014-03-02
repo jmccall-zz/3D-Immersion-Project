@@ -163,10 +163,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1411969436}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 575b4a14d6779b54f83526d54a267499, type: 3}
+  m_Script: {fileID: 11500000, guid: 12ed382f354634540bea16587190a8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textFieldString: 
+  calibration_scene_name: CalibrateGlove
+  game_scene_name: AvatarFrontfacing
+  db_name: RehabStats.sqdb
+  user_table_name: UserProfiles
+  calib_table_name: CalibData
+  first_name: First Name
+  last_name: Last Name
+  txt_field_width: 100
+  button_width: 100
+  user_constraints: 
 --- !u!1 &2142703587
 GameObject:
   m_ObjectHideFlags: 0

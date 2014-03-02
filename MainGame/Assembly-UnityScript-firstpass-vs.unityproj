@@ -61,16 +61,12 @@
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
      <None Include="Assets\MovementAnimsetProLite\readme.txt" />
-     <None Include="Assets\testfile.txt" />
      <None Include="Assets\OVR\OVRImageEffects\OVRLensCorrection_CA.shader" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
      <None Include="Assets\OVR\OVRImageEffects\OVRLensCorrection.shader" />
      <None Include="Assets\OVR\Shaders\OVRGUIShader.shader" />
      <None Include="Assets\Plugins\donotdelete.txt" />
- <Reference Include="CyUSB">
- <HintPath>Assets\CyUSB.dll</HintPath>
- </Reference>
  <Reference Include="OpenNI.Net">
  <HintPath>Assets\ZigFu\Scripts\_Internal\OpenNI.Net.dll</HintPath>
  </Reference>
