@@ -1,14 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\ZigFu\Scripts\UserEngagers\ZigEngageSingleUser.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Menu.js">
     <Files>
       <File FileName="Assets\ZigFu\Scripts\Zig.cs" Line="7" Column="23" />
-      <File FileName="Assets\ZigFu\Scripts\UserControls\ZigSkeleton.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GloveReader.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\FingerControl.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Models.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\WristControl.cs" Line="1" Column="1" />
-      <File FileName="Assets\ZigFu\Scripts\UserEngagers\ZigEngageSingleUser.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Menu.js" Line="7" Column="65" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
