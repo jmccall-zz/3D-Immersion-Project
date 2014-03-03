@@ -757,7 +757,7 @@ Transform:
   m_PrefabInternal: {fileID: 1265287309}
   m_GameObject: {fileID: 322051146}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 0, y: -.84591794, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 543422101}
@@ -808,7 +808,6 @@ MonoBehaviour:
   RightKnee: {fileID: 201919355}
   RightAnkle: {fileID: 1088008314}
   RightFoot: {fileID: 0}
-  mirror: 1
   UpdateJointPositions: 0
   UpdateRootPosition: 1
   UpdateOrientation: 1
@@ -1131,6 +1130,7 @@ GameObject:
   - 114: {fileID: 492472377}
   - 114: {fileID: 492472378}
   - 114: {fileID: 492472379}
+  - 114: {fileID: 492472380}
   m_Layer: 0
   m_Name: OVRCameraController
   m_TagString: Untagged
@@ -1211,6 +1211,19 @@ MonoBehaviour:
   maximumX: 360
   minimumY: -60
   maximumY: 60
+--- !u!114 &492472380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 492472375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 575b4a14d6779b54f83526d54a267499, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textFieldString: Name
+  MenuState: 0
 --- !u!1 &499664267
 GameObject:
   m_ObjectHideFlags: 0
@@ -2231,7 +2244,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 974316900}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.418065071, y: 1.63469934, z: -5.39881134}
+  m_LocalPosition: {x: -.418065071, y: 1.60344911, z: -5.39881134}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 322051147}
@@ -2628,11 +2641,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400106, guid: a7c62f22f4031a64880e37cf282bc1fb, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -.84591794
       objectReference: {fileID: 0}
     - target: {fileID: 400106, guid: a7c62f22f4031a64880e37cf282bc1fb, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400106, guid: a7c62f22f4031a64880e37cf282bc1fb, type: 2}
       propertyPath: m_LocalRotation.x
@@ -3389,7 +3402,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1662274085}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.1920929e-07, z: .358332157}
+  m_LocalPosition: {x: 0, y: -.678097248, z: -1.91723418}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2046790678}
