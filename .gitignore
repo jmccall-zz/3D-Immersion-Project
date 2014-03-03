@@ -6,8 +6,9 @@ MainGame/*.booproj
 MainGame/*.unityproj
 MainGame/*.csproj
 MainGame/*.sln
-MainGame*.userprefs
+MainGame/*.userprefs
 MainGame/Temp
 MainGame/*.pidb
 MainGame/Build
+MainGame/RehabStats.sqdb
 
