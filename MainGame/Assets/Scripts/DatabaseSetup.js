@@ -75,34 +75,34 @@ public var calib_field_names = new Array (
 );	
 public var calib_field_values = new Array (
 	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT",
-	"INT"
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL",
+	"REAL"
 );
 public var calib_constraints = "FOREIGN KEY(user_id) REFERENCES " + user_table_name + "(" + user_field_names[0] + ")";
 
@@ -190,6 +190,8 @@ function LoginOptions() {
 			failed_user_login = false;
 			failed_user_create = false;
 			Debug.Log("User Found: " + results[0].ToString());
+			// Set active user for project
+			SetActiveUser(first_name, last_name);
 			Application.LoadLevel(game_scene_name);
 		}
 		//Debug.Log("Array length: " + results.Count.ToString());
@@ -216,6 +218,8 @@ function LoginOptions() {
 			Debug.Log("Creating User: " + first_name + " " + last_name);
 			// Insert user's name into database
 			db_control.InsertIntoSpecific(user_table_name, Array("first_name", "last_name"), Array(first_name, last_name));
+			// Set active user for project
+			SetActiveUser(first_name, last_name);
 			Application.LoadLevel("CalibrateGlove");
 		}
 	}
@@ -260,80 +264,15 @@ function DeleteUser(first_name : String, last_name : String) {
 	return results;
 }
 
+function SetActiveUser(first_name : String, last_name : String) {
+	var query = "SELECT p_id FROM UserProfiles WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
+	var results = db_control.BasicQuery(query);
+	//var thishere : int = results[0];
+	//Debug.Log(thishere.ToString());
+	//PlayerPrefs.SetInt("ActiveUser", results(0));
+}
+
 function OnApplicationQuit() {
 	db_control.CloseDB ();
 	Debug.Log ("Closed Database");
 }
-
-
-
-/*Right now, it'll load TestDB.sqdb in the project's root folder.
-
-
-// These variables just hold info to display in our GUI
-var firstName : String = "First Name";
-var lastName : String = "Last Name"; 
-var DatabaseEntryStringWidth = 100;
-var scrollPosition : Vector2;
-var databaseData : ArrayList = new ArrayList();
-
-// This GUI provides us with a way to enter data into our database
-//  as well as a way to view it
-function OnGUI(){
-	GUI.Box(Rect (25,25,Screen.width - 50, Screen.height - 50),""); 
-	GUILayout.BeginArea(Rect(50, 50, Screen.width - 100, Screen.height - 100));
-	// This first block allows us to enter new entries into our table
-	GUILayout.BeginHorizontal();
-	firstName = GUILayout.TextField(firstName, GUILayout.Width (DatabaseEntryStringWidth));
-	lastName = GUILayout.TextField(lastName, GUILayout.Width (DatabaseEntryStringWidth));
-	GUILayout.EndHorizontal();
-	
-	if (GUILayout.Button("Add to database")){
-		// Insert the data
-		InsertRow(firstName,lastName);
-		// And update the readout of the database
-		databaseData = ReadFullTable();
-	}
-	// This second block gives us a button that will display/refresh the contents of our database
-	GUILayout.BeginHorizontal();
-	if (GUILayout.Button ("Read Database"))	
-		databaseData = ReadFullTable();
-	if (GUILayout.Button("Clear"))
-		databaseData.Clear();
-	GUILayout.EndHorizontal();
-	
-	GUILayout.Label("Database Contents");
-	scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Height(100));
-	for (var line : ArrayList in databaseData){
-		GUILayout.BeginHorizontal();
-		for (var s in line){
-			GUILayout.Label(s.ToString(), GUILayout.Width(DatabaseEntryStringWidth));
-		}
-		GUILayout.EndHorizontal();
-	}
-	
-	GUILayout.EndScrollView();
-	if (GUILayout.Button("Delete All Data")){
-		DeleteTableContents();
-		databaseData = ReadFullTable();
-	}
-	
-	GUILayout.EndArea();
-}
-
-// Wrapper function for inserting our specific entries into our specific database and table for this file
-function InsertRow(firstName, lastName){
-	var values = new Array(("'"+firstName+"'"),("'"+lastName+"'"));
-	db.InsertInto(TableName, values);
-}
-
-// Wrapper function, so we only mess with our table.
-function ReadFullTable(){
-	return db.ReadFullTable(TableName);
-}
-
-// Another wrapper function...
-function DeleteTableContents(){
-	db.DeleteTableContents(TableName);
-}
-*/
