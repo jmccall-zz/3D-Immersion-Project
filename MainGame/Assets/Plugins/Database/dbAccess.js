@@ -118,7 +118,7 @@ class dbAccess {
             query += "', '" + values[i];
         }
         query += "')";
-        Debug.Log("Attempted query" + query);
+        Debug.Log("Attempted query: " + query);
         dbcmd = dbcon.CreateCommand();
         dbcmd.CommandText = query; 
         reader = dbcmd.ExecuteReader();
