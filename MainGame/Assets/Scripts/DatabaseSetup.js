@@ -36,7 +36,7 @@ public var user_field_names = new Array (
 	"last_name"
 );
 public var user_field_values = new Array (
-	"INT PRIMARY KEY",
+	"INTEGER PRIMARY KEY",
 	"VARCHAR(100)",
 	"VARCHAR(100)"
 );
@@ -74,7 +74,7 @@ public var calib_field_names = new Array (
 	"pinky_90"
 );	
 public var calib_field_values = new Array (
-	"INT",
+	"INTEGER",
 	"REAL",
 	"REAL",
 	"REAL",
@@ -143,22 +143,26 @@ function Update () {
 }
 
 function OnGUI() {
-
+	// Set up display box.  It's just about full screen
 	GUI.Box(new Rect (25,25,Screen.width - 50, Screen.height - 50),"");
 	GUILayout.BeginArea(new Rect(50, 50, Screen.width - 100, Screen.height - 100));
-	// Check if user has already been found
+	
+	// If a user has not been found already, display login menu
 	if (!user_found){
 		LoginOptions();
 	} else {
 		Debug.Log("A User Has Been Found: " + first_name + " " + last_name);
 	}
+	
+	// Display helpful messages for failed user logins, creations, deletions
 	if (failed_user_login)
 		DisplayHorizLabel("Login Failed. User Not Found");
 	if (failed_user_create)
 		DisplayHorizLabel("User Already Exists. Please Login");
 	if (deleted_user)
 		DisplayHorizLabel("User Deleted");
-	// Show all users
+		
+	// Show all users currently in database
 	ShowUsers();
 	GUILayout.EndArea ();
 	
@@ -172,6 +176,7 @@ function LoginOptions() {
 	GUILayout.EndHorizontal();
 	
 	GUILayout.BeginHorizontal();
+	// Attempt to search and find a user in the database
 	if (GUILayout.Button("Login", GUILayout.Width(button_width))){
 		query = "SELECT first_name, last_name FROM UserProfiles WHERE first_name='" + 
 			first_name + 
@@ -184,21 +189,19 @@ function LoginOptions() {
 			failed_user_login = true;
 			failed_user_create = false;
 			Debug.Log("User Does Not Exists");
-		// Login successful now print information on user
+		// Login successful now skip calibration and head to game
 		} else {
 			user_found = true;
 			failed_user_login = false;
 			failed_user_create = false;
-			Debug.Log("User Found: " + results[0].ToString());
 			// Set active user for project
 			SetActiveUser(first_name, last_name);
+			db_control.CloseDB ();
+			Debug.Log ("Closed Database");
 			Application.LoadLevel(game_scene_name);
 		}
-		//Debug.Log("Array length: " + results.Count.ToString());
-		for each (row in results){
-			Debug.Log(row.ToString());
-		}
 	}
+	// Attempt to create a user here
 	if (GUILayout.Button("Create User", GUILayout.Width(button_width))) {
 		query = "SELECT first_name, last_name FROM UserProfiles WHERE first_name='" + 
 			first_name + 
@@ -217,9 +220,12 @@ function LoginOptions() {
 			failed_user_create = false;
 			Debug.Log("Creating User: " + first_name + " " + last_name);
 			// Insert user's name into database
-			db_control.InsertIntoSpecific(user_table_name, Array("first_name", "last_name"), Array(first_name, last_name));
+			query = "INSERT INTO UserProfiles VALUES (NULL,'" + first_name + "','" + last_name + "');";
+			db_control.BasicQuery(query);
 			// Set active user for project
 			SetActiveUser(first_name, last_name);
+			db_control.CloseDB ();
+			Debug.Log ("Closed Database");
 			Application.LoadLevel("CalibrateGlove");
 		}
 	}
@@ -237,6 +243,7 @@ function LoginOptions() {
 	GUILayout.EndHorizontal();
 }
 
+/* Display all rows in the UserProfiles database.  This is helpful for debugging purposes. */
 function ShowUsers(){
 	database_data = db_control.ReadFullTable("UserProfiles");
 	GUILayout.Label("Database Contents");
@@ -245,6 +252,7 @@ function ShowUsers(){
 		GUILayout.BeginHorizontal();
 		for (var s in line){
 			GUILayout.Label(s.ToString(), GUILayout.Width(0));
+			Debug.Log("Line Array Count: " + line.Count.ToString() + "\n" + line[0].ToString());
 		}
 		GUILayout.EndHorizontal();
 	}
@@ -264,14 +272,18 @@ function DeleteUser(first_name : String, last_name : String) {
 	return results;
 }
 
+/* Set the active user for the project. Do this using PlayerPrefs as they can be accessed throughout the project */
 function SetActiveUser(first_name : String, last_name : String) {
 	var query = "SELECT p_id FROM UserProfiles WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
 	var results = db_control.BasicQuery(query);
-	//var thishere : int = results[0];
-	//Debug.Log(thishere.ToString());
-	//PlayerPrefs.SetInt("ActiveUser", results(0));
+	// Set the PlayerPref
+	PlayerPrefs.SetInt("ActiveUser", results[0][0]);
 }
 
+
+/* When play mode is stopped make sure to close the database.  This helps avoid some database
+   issues upon early exit.
+*/
 function OnApplicationQuit() {
 	db_control.CloseDB ();
 	Debug.Log ("Closed Database");
