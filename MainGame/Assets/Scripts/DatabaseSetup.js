@@ -13,7 +13,7 @@ private var db_control : dbAccess;
 private var user_found = false;
 private var failed_user_login = false;
 private var failed_user_create = false;
-private var deleted_user = false;
+private var failed_user_delete = false;
 private var row;
 private var query;
 private var scroll_position : Vector2;
@@ -134,6 +134,9 @@ function Start () {
 	} else {
 		Debug.Log ("Calibration Table Already Exists");
 	}
+	
+	// Set database table information in player prefs
+	SetDatabasePrefs();
 
 }
 
@@ -159,8 +162,8 @@ function OnGUI() {
 		DisplayHorizLabel("Login Failed. User Not Found");
 	if (failed_user_create)
 		DisplayHorizLabel("User Already Exists. Please Login");
-	if (deleted_user)
-		DisplayHorizLabel("User Deleted");
+	if (failed_user_delete)
+		DisplayHorizLabel("Failed to Delete User");
 		
 	// Show all users currently in database
 	ShowUsers();
@@ -178,6 +181,9 @@ function LoginOptions() {
 	GUILayout.BeginHorizontal();
 	// Attempt to search and find a user in the database
 	if (GUILayout.Button("Login", GUILayout.Width(button_width))){
+		// A user creation or deletion was not atempted
+		failed_user_create = false;
+		failed_user_delete = false;
 		query = "SELECT first_name, last_name FROM UserProfiles WHERE first_name='" + 
 			first_name + 
 			"' AND last_name='" +
@@ -203,6 +209,9 @@ function LoginOptions() {
 	}
 	// Attempt to create a user here
 	if (GUILayout.Button("Create User", GUILayout.Width(button_width))) {
+		// A user deletion or login was not attempted
+		failed_user_delete = false;
+		failed_user_login = false;
 		query = "SELECT first_name, last_name FROM UserProfiles WHERE first_name='" + 
 			first_name + 
 			"' AND last_name='" +
@@ -212,11 +221,9 @@ function LoginOptions() {
 		// If a user was found show that it already exists
 		if (results.Count > 0) {
 			failed_user_create = true;
-			failed_user_login = false;
 			Debug.Log("This User Already Exists");
 		} else {
 			user_found = true;
-			failed_user_login = false;
 			failed_user_create = false;
 			Debug.Log("Creating User: " + first_name + " " + last_name);
 			// Insert user's name into database
@@ -230,14 +237,11 @@ function LoginOptions() {
 		}
 	}
 	
+	// Attempt to delete a user
 	if (GUILayout.Button("Delete User", GUILayout.Width(button_width))) {
-			
 		DeleteUser(first_name, last_name);
-		deleted_user = true;
 		failed_user_create = false;
-		failed_user_login = false;
-		Debug.Log("Deleting user: " + first_name + " " + last_name);
-		
+		failed_user_login = false;		
 	}
 	
 	GUILayout.EndHorizontal();
@@ -259,17 +263,34 @@ function ShowUsers(){
 	GUILayout.EndScrollView();
 }
 
+/* Display a horizontal label. This label will get its own horizontal space */
 function DisplayHorizLabel(msg : String){
 	GUILayout.BeginHorizontal();
 	GUILayout.Label(msg);
 	GUILayout.EndHorizontal();
 }
 
+/* Delete any calibration data for specified user before removing the user from our user profiles table */
 function DeleteUser(first_name : String, last_name : String) {
-	var query = "DELETE FROM " + user_table_name + " WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
+	// Grab the users p_id
+	var query = "SELECT p_id FROM UserProfiles WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
 	var results = db_control.BasicQuery(query);
-	Debug.Log(results.Count);
-	return results;
+	// If a user was found attempt to delete any calibration data that may exist
+	if (results.Count > 0) {
+		DisplayHorizLabel("Deleting user: " + first_name + " " + last_name);
+		var user_id = results[0][0];
+		Debug.Log("user_id: " + user_id);
+		// Delete calibration data if it exists
+		query = "DELETE FROM " + calib_table_name + " WHERE user_id=" + user_id + ";";
+		results = db_control.BasicQuery(query);
+		
+		// Delete user from UserProfiles
+		query = "DELETE FROM " + user_table_name + " WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
+		results = db_control.BasicQuery(query);
+		failed_user_delete = false;
+	} else {
+		failed_user_delete = true;
+	}	
 }
 
 /* Set the active user for the project. Do this using PlayerPrefs as they can be accessed throughout the project */
@@ -280,6 +301,12 @@ function SetActiveUser(first_name : String, last_name : String) {
 	PlayerPrefs.SetInt("ActiveUser", results[0][0]);
 }
 
+/* Set database preferences for future processes */
+function SetDatabasePrefs() {
+	PlayerPrefs.SetString("DBName", db_name);
+	PlayerPrefs.SetString("CalibrationTable", calib_table_name);
+	PlayerPrefs.SetString("UserTable", user_table_name);
+}
 
 /* When play mode is stopped make sure to close the database.  This helps avoid some database
    issues upon early exit.

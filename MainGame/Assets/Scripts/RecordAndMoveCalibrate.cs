@@ -6,6 +6,7 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 	private bool moving = false;
 	private static float amount;
 	GloveReader reader;
+	private dbAccess db_control;
 	private float[] calibrationDataPoints = new float[28];
 	private int transitionCount = 0;
 	// Which fingers are represented by lines in the text file
@@ -19,6 +20,9 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 		moving = false;
 		reader = new GloveReader ();
 		amount = 0.25f;
+		// Initialize new database instance
+		db_control = new dbAccess();
+
 	}
 	
 	// Update is called once per frame
