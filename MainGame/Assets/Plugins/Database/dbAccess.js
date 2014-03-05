@@ -156,9 +156,11 @@ class dbAccess {
  
  
     function CloseDB(){
-        reader.Close(); // clean everything up
+    	if (reader != null)
+        	reader.Close(); // clean everything up
         reader = null; 
-        dbcmd.Dispose(); 
+        if (dbcmd != null)
+       	 dbcmd.Dispose(); 
         dbcmd = null; 
         dbcon.Close(); 
         dbcon = null; 
