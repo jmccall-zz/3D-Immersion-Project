@@ -184,7 +184,7 @@ function LoginOptions() {
 		// A user creation or deletion was not atempted
 		failed_user_create = false;
 		failed_user_delete = false;
-		query = "SELECT first_name, last_name FROM UserProfiles WHERE first_name='" + 
+		query = "SELECT first_name, last_name FROM " + user_table_name + " WHERE first_name='" + 
 			first_name + 
 			"' AND last_name='" +
 			last_name +
@@ -202,9 +202,7 @@ function LoginOptions() {
 			failed_user_create = false;
 			// Set active user for project
 			SetActiveUser(first_name, last_name);
-			db_control.CloseDB ();
-			Debug.Log ("Closed Database");
-			Application.LoadLevel(game_scene_name);
+			LoadNextScene();
 		}
 	}
 	// Attempt to create a user here
@@ -212,7 +210,7 @@ function LoginOptions() {
 		// A user deletion or login was not attempted
 		failed_user_delete = false;
 		failed_user_login = false;
-		query = "SELECT first_name, last_name FROM UserProfiles WHERE first_name='" + 
+		query = "SELECT first_name, last_name FROM " + user_table_name + " WHERE first_name='" + 
 			first_name + 
 			"' AND last_name='" +
 			last_name +
@@ -227,13 +225,11 @@ function LoginOptions() {
 			failed_user_create = false;
 			Debug.Log("Creating User: " + first_name + " " + last_name);
 			// Insert user's name into database
-			query = "INSERT INTO UserProfiles VALUES (NULL,'" + first_name + "','" + last_name + "');";
+			query = "INSERT INTO " + user_table_name + " VALUES (NULL,'" + first_name + "','" + last_name + "');";
 			db_control.BasicQuery(query);
 			// Set active user for project
 			SetActiveUser(first_name, last_name);
-			db_control.CloseDB ();
-			Debug.Log ("Closed Database");
-			Application.LoadLevel("CalibrateGlove");
+			LoadNextScene();
 		}
 	}
 	
@@ -250,13 +246,12 @@ function LoginOptions() {
 /* Display all rows in the UserProfiles database.  This is helpful for debugging purposes. */
 function ShowUsers(){
 	database_data = db_control.ReadFullTable("UserProfiles");
-	GUILayout.Label("Database Contents");
+	//GUILayout.Label("Database Contents");
 	scrollPosition = GUILayout.BeginScrollView(scroll_position, GUILayout.Height(100));
 	for (var line : ArrayList in database_data){
 		GUILayout.BeginHorizontal();
 		for (var s in line){
 			GUILayout.Label(s.ToString(), GUILayout.Width(0));
-			Debug.Log("Line Array Count: " + line.Count.ToString() + "\n" + line[0].ToString());
 		}
 		GUILayout.EndHorizontal();
 	}
@@ -273,13 +268,13 @@ function DisplayHorizLabel(msg : String){
 /* Delete any calibration data for specified user before removing the user from our user profiles table */
 function DeleteUser(first_name : String, last_name : String) {
 	// Grab the users p_id
-	var query = "SELECT p_id FROM UserProfiles WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
+	var query = "SELECT p_id FROM " + user_table_name + " WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
 	var results = db_control.BasicQuery(query);
 	// If a user was found attempt to delete any calibration data that may exist
 	if (results.Count > 0) {
 		DisplayHorizLabel("Deleting user: " + first_name + " " + last_name);
 		var user_id = results[0][0];
-		Debug.Log("user_id: " + user_id);
+
 		// Delete calibration data if it exists
 		query = "DELETE FROM " + calib_table_name + " WHERE user_id=" + user_id + ";";
 		results = db_control.BasicQuery(query);
@@ -295,7 +290,7 @@ function DeleteUser(first_name : String, last_name : String) {
 
 /* Set the active user for the project. Do this using PlayerPrefs as they can be accessed throughout the project */
 function SetActiveUser(first_name : String, last_name : String) {
-	var query = "SELECT p_id FROM UserProfiles WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
+	var query = "SELECT p_id FROM " + user_table_name + " WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
 	var results = db_control.BasicQuery(query);
 	// Set the PlayerPref
 	PlayerPrefs.SetInt("ActiveUser", results[0][0]);
@@ -308,10 +303,34 @@ function SetDatabasePrefs() {
 	PlayerPrefs.SetString("UserTable", user_table_name);
 }
 
-/* When play mode is stopped make sure to close the database.  This helps avoid some database
-   issues upon early exit.
+/* 
+Load the next appropriate scene.  If the user does not have any calibration data, they will be
+directed to the calibration scene. Other wise to the game scene 
+*/
+function LoadNextScene(){
+	var user_id = PlayerPrefs.GetInt("ActiveUser");
+	var query = "SELECT COUNT(*) FROM " + calib_table_name + " WHERE user_id=" + user_id + ";";
+	var results = db_control.BasicQuery(query);
+
+	// If a zero count is returned by the query, proceed to calibration scene
+	if (results[0][0] < 1) {
+		Application.LoadLevel(calibration_scene_name);
+	// If a calibration entry is found, go straight to our game scene
+	} else {
+		Application.LoadLevel(game_scene_name);
+	}
+	
+	db_control.CloseDB ();
+	Debug.Log ("Closed Database");
+	
+}
+
+/* 
+When play mode is stopped make sure to close the database.  This helps avoid some database
+issues upon early exit.
 */
 function OnApplicationQuit() {
 	db_control.CloseDB ();
 	Debug.Log ("Closed Database");
+	PlayerPrefs.Save();
 }
