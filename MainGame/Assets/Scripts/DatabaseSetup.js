@@ -14,6 +14,7 @@ private var user_found = false;
 private var failed_user_login = false;
 private var failed_user_create = false;
 private var failed_user_delete = false;
+private var force_calibration = false;
 private var row;
 private var query;
 private var scroll_position : Vector2;
@@ -21,7 +22,7 @@ private var results : ArrayList = new ArrayList();
 private var database_data : ArrayList = new ArrayList();
 
 public var calibration_scene_name = "CalibrateGlove";
-public var game_scene_name = "AvatarFrontfacing";
+public var game_scene_name = "ReachBack";
 public var db_name = "RehabStats.sqdb";
 public var user_table_name = "UserProfiles";
 public var calib_table_name = "CalibData";
@@ -112,6 +113,7 @@ function Start () {
 	var user_table_exists;
 	var calib_table_exists;
 	db_control = new dbAccess();
+	Debug.Log("USERRRR: " + PlayerPrefs.GetInt("thissssss"));
 
 	// Open up database.  Will create database if it doesn't exist.
 	db_control.OpenDB (db_name);
@@ -176,10 +178,13 @@ function LoginOptions() {
 	GUILayout.BeginHorizontal();
 	first_name = GUILayout.TextField(first_name, GUILayout.Width (txt_field_width));
 	last_name = GUILayout.TextField(last_name, GUILayout.Width (txt_field_width));
+	force_calibration = GUI.Toggle(Rect(220, 0, 150, 30), force_calibration, "Force Calibration");
 	GUILayout.EndHorizontal();
 	
 	GUILayout.BeginHorizontal();
-	// Attempt to search and find a user in the database
+	
+	/*****************************************************************/
+	// Attempt to login with user name
 	if (GUILayout.Button("Login", GUILayout.Width(button_width))){
 		// A user creation or deletion was not atempted
 		failed_user_create = false;
@@ -205,6 +210,8 @@ function LoginOptions() {
 			LoadNextScene();
 		}
 	}
+	
+	/*******************************************************************/
 	// Attempt to create a user here
 	if (GUILayout.Button("Create User", GUILayout.Width(button_width))) {
 		// A user deletion or login was not attempted
@@ -232,7 +239,7 @@ function LoginOptions() {
 			LoadNextScene();
 		}
 	}
-	
+	/*******************************************************************/
 	// Attempt to delete a user
 	if (GUILayout.Button("Delete User", GUILayout.Width(button_width))) {
 		DeleteUser(first_name, last_name);
@@ -274,10 +281,9 @@ function DeleteUser(first_name : String, last_name : String) {
 	if (results.Count > 0) {
 		DisplayHorizLabel("Deleting user: " + first_name + " " + last_name);
 		var user_id = results[0][0];
-
-		// Delete calibration data if it exists
-		query = "DELETE FROM " + calib_table_name + " WHERE user_id=" + user_id + ";";
-		results = db_control.BasicQuery(query);
+		
+		// Delete any calibration data the user may have
+		DeleteCalibrationData(user_id);
 		
 		// Delete user from UserProfiles
 		query = "DELETE FROM " + user_table_name + " WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
@@ -286,6 +292,12 @@ function DeleteUser(first_name : String, last_name : String) {
 	} else {
 		failed_user_delete = true;
 	}	
+}
+
+/* Delete calibration data for a user if it exists */
+function DeleteCalibrationData(user_id : int) {
+		var query = "DELETE FROM " + calib_table_name + " WHERE user_id=" + user_id + ";";
+		var results = db_control.BasicQuery(query);
 }
 
 /* Set the active user for the project. Do this using PlayerPrefs as they can be accessed throughout the project */
@@ -312,11 +324,18 @@ function LoadNextScene(){
 	var query = "SELECT COUNT(*) FROM " + calib_table_name + " WHERE user_id=" + user_id + ";";
 	var results = db_control.BasicQuery(query);
 
-	// If a zero count is returned by the query, proceed to calibration scene
-	if (results[0][0] < 1) {
+	// If a zero count is returned by the query OR force_calibration is true, proceed to calibration scene
+	if ((results[0][0] < 1) || (force_calibration)){
+		// If calibration is forced by the user, attempt to delete any existing calibration data
+		if (force_calibration) {
+			Debug.Log("Forcing Calibration for user");
+			DeleteCalibrationData(PlayerPrefs.GetInt("ActiveUser"));
+		}
 		Application.LoadLevel(calibration_scene_name);
+		Debug.Log("Loading Calibration Scene");
 	// If a calibration entry is found, go straight to our game scene
 	} else {
+	Debug.Log("Loading Game Scene");
 		Application.LoadLevel(game_scene_name);
 	}
 	
