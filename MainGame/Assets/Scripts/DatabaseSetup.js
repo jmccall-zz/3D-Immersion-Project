@@ -28,6 +28,39 @@ public var user_table_name = "UserProfiles";
 public var calib_table_name = "CalibData";
 public var first_name = "First Name";
 public var last_name = "Last Name";
+public var default_first_name = 'Bob';
+public var default_last_name = 'Builder';
+public var default_calib_data = new Array (
+	1,
+	32700,
+	26800,
+	23000,
+	21000,
+	13000,	
+	10000,
+	7000,	
+	31000,
+	22000,
+	10000,
+	4400,
+	3000,
+	1000,
+	200,
+	39000,
+	26000,
+	20000,
+	16000,
+	14000,
+	13000,
+	12000,
+	14000,
+	2000,
+	1000,
+	500,
+	400, 
+	200,
+	100
+);
 public var txt_field_width : int = 100;
 public var button_width : int = 100;
 
@@ -125,14 +158,14 @@ function Start () {
 	// Check if user profile table exists and create it if not
 	if (!user_table_exists) {
 		Debug.Log ("Creating Table: " + user_table_name);
-		db_control.CreateTable (user_table_name, user_field_names, user_field_values, user_constraints);
+		SetupUserTable();
 	} else {
 		Debug.Log ("User Table Already Exists");
 	}
 	// Check if calibration table exists and create it if not
 	if (!calib_table_exists) {
 		Debug.Log ("Creating Table: " + calib_table_name);
-		db_control.CreateTable (calib_table_name, calib_field_names, calib_field_values, calib_constraints);
+		SetupCalibrationTable();
 	} else {
 		Debug.Log ("Calibration Table Already Exists");
 	}
@@ -270,6 +303,23 @@ function DisplayHorizLabel(msg : String){
 	GUILayout.BeginHorizontal();
 	GUILayout.Label(msg);
 	GUILayout.EndHorizontal();
+}
+
+/* Create a user table with the public database information.  Also add a default user as first entry */
+function SetupUserTable() {
+	var query = "INSERT INTO " + user_table_name + " VALUES (NULL,'" + default_first_name + "','" + default_last_name + "');";
+	// Create user table
+	db_control.CreateTable (user_table_name, user_field_names, user_field_values, user_constraints);
+	// Insert user with first name 'DEFAULT' and last name 'DEFAULT'
+	db_control.BasicQuery(query);
+}
+
+/* Create a calibration table and store publicly defined default values */
+function SetupCalibrationTable() {
+	// Create table
+	db_control.CreateTable (calib_table_name, calib_field_names, calib_field_values, calib_constraints);
+	// Insert default data
+	db_control.InsertInto (calib_table_name, default_calib_data);
 }
 
 /* Delete any calibration data for specified user before removing the user from our user profiles table */
