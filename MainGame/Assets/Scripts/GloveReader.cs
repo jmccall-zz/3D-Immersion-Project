@@ -26,21 +26,65 @@ public class GloveReader {
 	static int numOfDataPoints = 7;
 	int [] fingerZones;
 
-	int user_id;
-
+	// Database Player Preference Information (from Login Scene)
+	public int active_user;
+	public string db_name;
+	public string calibration_table_name;
+	private dbAccess db_control;
+	
 	public GloveReader() {
 		init = true;
 		IsGrab = false;
+		// Instantiate database access object
+		db_control = new dbAccess();
 		// Read from global user id: user_id = ...
-		fingerZones = readDb (user_id);
+		// Get active user from player prefs. Use default user 1 if no active user is set
+		active_user = PlayerPrefs.GetInt("ActiveUser", 1);
+		db_name = PlayerPrefs.GetString("DBName", "RehabStats.sqdb");
+		calibration_table_name = PlayerPrefs.GetString("CalibrationTable", "CalibData");
+		fingerZones = readDB (active_user);
 	}
 
-	public void ScaleValues () {
+	/*public void ScaleValues () {
 
-	}
+	}*/
 
-	private int [] readDb(int user_id) {
-		return;
+	private int [] readDB(int user_id) {
+		int [] fingerBlocks = new int [28];
+		string query;
+		ArrayList results = new ArrayList();
+		ArrayList row = new ArrayList();
+		// Open up our database
+		db_control.OpenDB(db_name);
+		Debug.Log("Openned Database");
+		// Pull entire calibration data row for this user
+		query = "SELECT * FROM " + calibration_table_name + " WHERE user_id=" + user_id + ";";
+		results = db_control.BasicQuery(query);
+		Debug.Log("Pulling data for user: " + user_id);
+		Debug.Log("Calibration pull array length: " + results.Count);
+		if (results.Count > 0) {
+			// Capture first row of returned data
+			row = (ArrayList) results[0];
+			Debug.Log("Elements in row: " + row.Count);
+			// FIXME: Remove user_id from array at index 0
+			//row = row.RemoveAt(0);
+			for (int i = 1; i < row.Count; i++) {
+				fingerBlocks[i - 1] = Convert.ToInt32(row[i]);
+			}
+			Debug.Log("Calibration contents: \n" + fingerBlocks[0] +
+			          "\n" + fingerBlocks[1] +
+			          "\n" + fingerBlocks[2] +
+			          "\n" + fingerBlocks[3] +
+			          "\n" + fingerBlocks[4] + "\n...\n" +
+			          "\n" + fingerBlocks[25] +
+			          "\n" + fingerBlocks[26] +
+			          "\n" + fingerBlocks[27]);
+		}
+
+		// Close the database to avoid locking
+		db_control.CloseDB();
+		Debug.Log("Closed Database");
+		return fingerBlocks;
 	}
 
 	public void UpdateGestures(){
