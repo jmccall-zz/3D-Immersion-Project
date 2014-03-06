@@ -202,6 +202,7 @@ function OnGUI() {
 		
 	// Show all users currently in database
 	ShowUsers();
+	ShowCalibrations();
 	GUILayout.EndArea ();
 	
 }
@@ -283,9 +284,24 @@ function LoginOptions() {
 	GUILayout.EndHorizontal();
 }
 
-/* Display all rows in the UserProfiles database.  This is helpful for debugging purposes. */
+/* Display all rows in the UserProfiles table.  This is helpful for debugging purposes. */
 function ShowUsers(){
 	database_data = db_control.ReadFullTable("UserProfiles");
+	//GUILayout.Label("Database Contents");
+	scrollPosition = GUILayout.BeginScrollView(scroll_position, GUILayout.Height(100));
+	for (var line : ArrayList in database_data){
+		GUILayout.BeginHorizontal();
+		for (var s in line){
+			GUILayout.Label(s.ToString(), GUILayout.Width(0));
+		}
+		GUILayout.EndHorizontal();
+	}
+	GUILayout.EndScrollView();
+}
+
+/* Display all rows in the CalibData table.  This is helpful for debugging purposes. */
+function ShowCalibrations(){
+	database_data = db_control.ReadFullTable("CalibData");
 	//GUILayout.Label("Database Contents");
 	scrollPosition = GUILayout.BeginScrollView(scroll_position, GUILayout.Height(100));
 	for (var line : ArrayList in database_data){
