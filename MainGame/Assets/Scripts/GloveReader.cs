@@ -24,7 +24,7 @@ public class GloveReader {
 	public float[] sensorValues;
 	private string [] readLines;
 	static int numOfDataPoints = 7;
-	int [] fingerZones;
+	public int [] fingerZones;
 
 	// Database Player Preference Information (from Login Scene)
 	public int active_user;
@@ -66,8 +66,7 @@ public class GloveReader {
 			// Capture first row of returned data
 			row = (ArrayList) results[0];
 			Debug.Log("Elements in row: " + row.Count);
-			// FIXME: Remove user_id from array at index 0
-			//row = row.RemoveAt(0);
+			// Convert values to intgers
 			for (int i = 1; i < row.Count; i++) {
 				fingerBlocks[i - 1] = Convert.ToInt32(row[i]);
 			}

@@ -11,19 +11,21 @@ public class Models : MonoBehaviour {
 	// Path to file with data for each finger
 	private string path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\testfile.txt");
 	public GUIText readings;
-	
+
+	private GloveReader reader;
+
 	int errorcounter = 0;
 	
 	
-	void start() {
+	void Start() {
 		/* Initialization */
+		reader = new GloveReader();
 	}
 	
 	void Update() {
 		/* Updates every frame */
 		try {
-			string [] lines = readSelectLines (path, numToRead: 7);
-			float [] dims = stringArrayToFloatArray (lines);
+			float [] dims = reader.getValues();
 			// accelerometer (0, 1, 2) --> (x, y, z)
 			accelerometer[0] = dims[4];
 			accelerometer[1] = dims[5];
@@ -37,43 +39,43 @@ public class Models : MonoBehaviour {
 			*/
 			////////////////////////index block definitions//////////////////
 			
-			int Index_Finger_Block_0  = 32700;
-			int Index_Finger_Block_15 = 26800;
-			int Index_Finger_Block_30 = 23000;
-			int Index_Finger_Block_45 = 21000;
-			int Index_Finger_Block_60 = 13000;	
-			int Index_Finger_Block_75 = 10000;
-			int Index_Finger_Block_90 = 7000;	
+			int Index_Finger_Block_0  = reader.fingerZones[0];
+			int Index_Finger_Block_15 = reader.fingerZones[1];
+			int Index_Finger_Block_30 = reader.fingerZones[2];
+			int Index_Finger_Block_45 = reader.fingerZones[3];
+			int Index_Finger_Block_60 = reader.fingerZones[4];	
+			int Index_Finger_Block_75 = reader.fingerZones[5];
+			int Index_Finger_Block_90 = reader.fingerZones[6];	
 			
 			
 			////////////////////////middle finger block definitions//////////////
-			int Middle_Finger_Block_0  = 31000;
-			int Middle_Finger_Block_15 = 22000;
-			int Middle_Finger_Block_30 = 10000;
-			int Middle_Finger_Block_45 = 4400;
-			int Middle_Finger_Block_60 = 3000;
-			int Middle_Finger_Block_75 = 1000;
-			int Middle_Finger_Block_90 = 200;
+			int Middle_Finger_Block_0  = reader.fingerZones[7];
+			int Middle_Finger_Block_15 = reader.fingerZones[8];
+			int Middle_Finger_Block_30 = reader.fingerZones[9];
+			int Middle_Finger_Block_45 = reader.fingerZones[10];
+			int Middle_Finger_Block_60 = reader.fingerZones[11];
+			int Middle_Finger_Block_75 = reader.fingerZones[12];
+			int Middle_Finger_Block_90 = reader.fingerZones[13];
 			//////////////////////ring finger block definitions//////////////////
 			
 			
-			int Ring_Finger_Block_0  =  39000;
-			int Ring_Finger_Block_15 =  26000;
-			int Ring_Finger_Block_30 =  20000;
-			int Ring_Finger_Block_45 =  16000;
-			int Ring_Finger_Block_60 =  14000;
-			int Ring_Finger_Block_75 =  13000;
-			int Ring_Finger_Block_90 =  12000;
+			int Ring_Finger_Block_0  =  reader.fingerZones[14];
+			int Ring_Finger_Block_15 =  reader.fingerZones[15];
+			int Ring_Finger_Block_30 =  reader.fingerZones[16];
+			int Ring_Finger_Block_45 =  reader.fingerZones[17];
+			int Ring_Finger_Block_60 =  reader.fingerZones[18];
+			int Ring_Finger_Block_75 =  reader.fingerZones[19];
+			int Ring_Finger_Block_90 =  reader.fingerZones[20];
 			
 			
 			/////////////////////pinky block definitions////////////////////
-			int Pinky_Finger_Block_0  =  14000;
-			int Pinky_Finger_Block_15 =  2000;
-			int Pinky_Finger_Block_30 =  1000;
-			int Pinky_Finger_Block_45 =  500;
-			int Pinky_Finger_Block_60 =  400; 
-			int Pinky_Finger_Block_75 =  200;
-			int Pinky_Finger_Block_90 =  100;
+			int Pinky_Finger_Block_0  =  reader.fingerZones[21];
+			int Pinky_Finger_Block_15 =  reader.fingerZones[22];
+			int Pinky_Finger_Block_30 =  reader.fingerZones[23];
+			int Pinky_Finger_Block_45 =  reader.fingerZones[24];
+			int Pinky_Finger_Block_60 =  reader.fingerZones[25]; 
+			int Pinky_Finger_Block_75 =  reader.fingerZones[26];
+			int Pinky_Finger_Block_90 =  reader.fingerZones[27];
 			
 			
 			/////////////////////////////midddle finger calibration mapping//////////////
@@ -251,54 +253,7 @@ public class Models : MonoBehaviour {
 			errorcounter++;
 			//Debug.Log("Couldn't update fingers: "+errorcounter + e.ToString() + e.StackTrace);
 		}
-		
-		
 	}
-	
-	float [] stringArrayToFloatArray(string [] array) {
-		/* Convert an array of strings to array of floats */
-		float [] floatArray = new float [array.Length];
-		float num;
-		
-		for (int i = 0; i < array.Length; i++) {
-			//Debug.Log("Index: " + i.ToString() + " Value: " + array[i]);
-			num = float.Parse(array[i]);
-			floatArray[i] = num;
-		}
-		
-		return floatArray;
-	}
-	
-	
-	string [] readSelectLines(string filePath, int numToRead = 7) {
-		/* Read the specified number of lines from a file starting with the first line.  This function
-		 * returns an array of strings, indexed or each line in the file.
-		 *
-		 *@ param linesToRead: Number of lines to read from file starting at top
-		 */
-		string line;
-		try {
-			// Use stream reader object to execute file reads
-			using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
-			using (StreamReader sr = new StreamReader(fileStream)) {
-				for (int i = 0; i < numToRead; i++) {
-					// Read a line
-					line = sr.ReadLine();
-					if (line == null)
-						break;
-					readLines[i] = line;
-					//Debug.Log("Debug: " + line);
-				}
-				sr.Close ();
-			}
-			// Catch any file reading exceptions
-		} catch (IOException e) {
-			Debug.LogError("The file could not be read: " + e.Message);
-		}
-		
-		return readLines;
-	}
-
 }
 
 
