@@ -49,40 +49,38 @@ public class GloveReader {
 
 	}*/
 
+	/* 
+	 * This function will grab calibration data for the active user defined in PlayerPrefs.
+	 * This calibration data will be stored into and returned in the form of an integer array.
+	 */
 	private int [] readDB(int user_id) {
 		int [] fingerBlocks = new int [28];
 		string query;
 		ArrayList results = new ArrayList();
 		ArrayList row = new ArrayList();
+
 		// Open up our database
 		db_control.OpenDB(db_name);
-		Debug.Log("Openned Database");
+
 		// Pull entire calibration data row for this user
 		query = "SELECT * FROM " + calibration_table_name + " WHERE user_id=" + user_id + ";";
 		results = db_control.BasicQuery(query);
 		Debug.Log("Pulling data for user: " + user_id);
-		Debug.Log("Calibration pull array length: " + results.Count);
+
+		// If a row is returned by the query, fill the integer array with data
 		if (results.Count > 0) {
 			// Capture first row of returned data
 			row = (ArrayList) results[0];
-			Debug.Log("Elements in row: " + row.Count);
 			// Convert values to intgers
 			for (int i = 1; i < row.Count; i++) {
 				fingerBlocks[i - 1] = Convert.ToInt32(row[i]);
 			}
-			Debug.Log("Calibration contents: \n" + fingerBlocks[0] +
-			          "\n" + fingerBlocks[1] +
-			          "\n" + fingerBlocks[2] +
-			          "\n" + fingerBlocks[3] +
-			          "\n" + fingerBlocks[4] + "\n...\n" +
-			          "\n" + fingerBlocks[25] +
-			          "\n" + fingerBlocks[26] +
-			          "\n" + fingerBlocks[27]);
+		} else {
+			Debug.Log("No calibration data was found for user: " + user_id);
 		}
 
 		// Close the database to avoid locking
 		db_control.CloseDB();
-		Debug.Log("Closed Database");
 		return fingerBlocks;
 	}
 

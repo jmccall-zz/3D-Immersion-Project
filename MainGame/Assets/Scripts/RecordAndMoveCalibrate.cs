@@ -5,6 +5,7 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 	
 	private bool moving = false;
 	private static float amount;
+	public GUIText instructions;
 	GloveReader reader;
 
 	private dbAccess db_control;
@@ -15,6 +16,7 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 
 	public const int MAX_TRANSITIONS = 6;
 	private int transitionCount = 0;
+	private int percent_extension;
 	// Which fingers are represented by lines in the text file
 	private int indexFingerIndex = 1;
 	private int middleFingerIndex = 2;
@@ -63,6 +65,13 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 			if (position.x % 20 == 0) moving = false;
 		}
 		transform.position = position;
+
+		// Update GUI text to display proper instructions
+		percent_extension = (int) ((transitionCount * 15) + (transitionCount + (transitionCount * 0.67)));
+		instructions.text = "Copy the hand position \n" +
+			"shown in the image. \n" +
+			"Finger Extention: " + 
+			percent_extension + "%";
 	}
 
 	void Record() {
@@ -130,7 +139,6 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 		// Instantiate instance of db access controller and open up our database
 		db_control = new dbAccess ();
 		db_control.OpenDB (db_name);
-		Debug.Log ("Openned Database!");
 	}
 
 	// This function will insert our calibration data points as a row in the calibration database table
@@ -140,7 +148,6 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 
 	void OnApplicationQuit() {
 		db_control.CloseDB ();
-		Debug.Log ("Closed Database");
 		PlayerPrefs.Save ();
 	}
 }

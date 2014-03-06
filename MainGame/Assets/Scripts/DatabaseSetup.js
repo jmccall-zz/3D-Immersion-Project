@@ -150,7 +150,6 @@ function Start () {
 
 	// Open up database.  Will create database if it doesn't exist.
 	db_control.OpenDB (db_name);
-	Debug.Log ("Opened Database");
 
 	user_table_exists = db_control.TableExists(user_table_name);
 	calib_table_exists = db_control.TableExists(calib_table_name);
@@ -405,9 +404,7 @@ function LoadNextScene(){
 		Application.LoadLevel(game_scene_name);
 	}
 	
-	db_control.CloseDB ();
-	Debug.Log ("Closed Database");
-	
+	db_control.CloseDB ();	
 }
 
 /* 
@@ -416,6 +413,5 @@ issues upon early exit.
 */
 function OnApplicationQuit() {
 	db_control.CloseDB ();
-	Debug.Log ("Closed Database");
 	PlayerPrefs.Save();
 }

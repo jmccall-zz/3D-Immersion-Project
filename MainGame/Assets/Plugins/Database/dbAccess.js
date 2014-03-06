@@ -18,6 +18,7 @@ class dbAccess {
     connection = "URI=file:" + p; // we set the connection to our database
     dbcon = new SqliteConnection(connection);
     dbcon.Open();
+    Debug.Log("Openned Database");
     }
  
     function BasicQuery(q : String){ // run a baic Sqlite query
@@ -164,6 +165,7 @@ class dbAccess {
         dbcmd = null; 
         dbcon.Close(); 
         dbcon = null; 
+        Debug.Log("Closed Database");
     }
  
 }

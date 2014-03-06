@@ -238,7 +238,14 @@ public class Models : MonoBehaviour {
 				int scale = (Pinky_Finger_Block_75-Pinky_Finger_Block_90)/15;
 				fingers[3] = 90-(dims[0]-Pinky_Finger_Block_90)/scale;
 			}
-			
+
+			/*DEBUG: Print out the current value of our fingers */
+			Debug.Log("Fingers: " +
+			          "\n0: " + fingers[0] +
+			          "\n1: " + fingers[1] + 
+			          "\n2: " + fingers[2] + 
+			          "\n3: " + fingers[3]);
+
 			// Update the readings on the display!
 			readings.text = 
 				"Finger 0: " + fingers[0] +
