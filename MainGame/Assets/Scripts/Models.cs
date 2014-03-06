@@ -249,7 +249,7 @@ public class Models : MonoBehaviour {
 			
 		} catch (Exception e) {
 			errorcounter++;
-			Debug.Log("Couldn't update fingers: "+errorcounter + e.ToString() + e.StackTrace);
+			//Debug.Log("Couldn't update fingers: "+errorcounter + e.ToString() + e.StackTrace);
 		}
 		
 		

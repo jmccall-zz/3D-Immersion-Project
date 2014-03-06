@@ -15,8 +15,8 @@ function Start () {
 }
 
 function FixedUpdate () {
-	childTrans = trans.GetChild(0);
-	Debug.Log(childTrans);
+//	childTrans = trans.GetChild(0);
+//	Debug.Log(childTrans);
 	/*if (childTrans) {
 		childTrans.rigidbody.velocity = Vector3(0,0,0);
 		childTrans.localPosition = Vector3(0,0,0);

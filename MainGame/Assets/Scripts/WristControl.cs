@@ -57,9 +57,9 @@ public class WristControl : MonoBehaviour {
 			float asinAlph = Mathf.Asin(alpha);
 			rotation_z = -Mathf.Rad2Deg * Mathf.Atan2(wrist_rotation_x, wrist_rotation_z);
 			//wrist.z = 0;
-			Debug.Log (rotation_x);
-			Debug.Log (rotation_y);
-			Debug.Log (rotation_z);
+			//Debug.Log (rotation_x);
+			//Debug.Log (rotation_y);
+			//Debug.Log (rotation_z);
 			float rot_y = 180 + transform.parent.transform.eulerAngles.y;
 			transform.eulerAngles = new Vector3(rotation_x,rot_y, rotation_z);
 		}

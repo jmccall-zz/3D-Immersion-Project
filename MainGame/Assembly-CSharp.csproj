@@ -62,6 +62,7 @@
      <Compile Include="Assets\OVR\Scripts\OVRPresetManager.cs" />
      <Compile Include="Assets\OVR\Scripts\OVRUtils.cs" />
      <Compile Include="Assets\Scripts\CameraSwitch.cs" />
+     <Compile Include="Assets\Scripts\CylinderLogic.cs" />
      <Compile Include="Assets\Scripts\FingerControl.cs" />
      <Compile Include="Assets\Scripts\GloveReader.cs" />
      <Compile Include="Assets\Scripts\Models.cs" />

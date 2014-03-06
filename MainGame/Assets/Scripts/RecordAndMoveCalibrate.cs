@@ -63,8 +63,8 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 	}
 
 	void Record() {
-		//float [] values = reader.getValues();
-		float[] values = {10, 20, 30, 40};
+		float [] values = reader.getValues();
+		//float[] values = {10, 20, 30, 40};
 		Debug.Log ("Values: " + values [0] + values [1] + values [2] + values [3]);
 
 		if (transitionCount == 0) {
