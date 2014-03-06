@@ -27,6 +27,8 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 	private string calibration_table_name;
 	private string user_table_name;
 
+	public string next_level = "ReachBack";
+
 
 	// Use this for initialization
 	void Start () {
@@ -49,6 +51,7 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 		// should be full now.  Let's store this data in the database now.
 		if (transitionCount > MAX_TRANSITIONS){
 			SaveData();
+			Application.LoadLevel(next_level);
 		}
 		if(Input.GetKeyDown("space") && position.x % 20 == 0) {
 			Record();
@@ -67,36 +70,43 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 		//float[] values = {10, 20, 30, 40};
 		Debug.Log ("Values: " + values [0] + values [1] + values [2] + values [3]);
 
+		// 0 degrees
 		if (transitionCount == 0) {
 			calibrationDataPoints[1] = values[indexFingerIndex];
 			calibrationDataPoints[8] = values[middleFingerIndex];
 			calibrationDataPoints[15] = values[ringFingerIndex];
 			calibrationDataPoints[22] = values[pinkyFingerIndex];
+		// 15 degrees
 		} else if (transitionCount == 1) {
 			calibrationDataPoints[2] = values[indexFingerIndex];
 			calibrationDataPoints[9] = values[middleFingerIndex];
 			calibrationDataPoints[16] = values[ringFingerIndex];
 			calibrationDataPoints[23] = values[pinkyFingerIndex];
+		// 30 degrees
 		} else if (transitionCount == 2) {
 			calibrationDataPoints[3] = values[indexFingerIndex];
 			calibrationDataPoints[10] = values[middleFingerIndex];
 			calibrationDataPoints[17] = values[ringFingerIndex];
 			calibrationDataPoints[24] = values[pinkyFingerIndex];
+		// 45 degrees
 		} else if (transitionCount == 3) {
 			calibrationDataPoints[4] = values[indexFingerIndex];
 			calibrationDataPoints[11] = values[middleFingerIndex];
 			calibrationDataPoints[18] = values[ringFingerIndex];
 			calibrationDataPoints[25] = values[pinkyFingerIndex];
+		// 60 degrees
 		} else if (transitionCount == 4) {
 			calibrationDataPoints[5] = values[indexFingerIndex];
 			calibrationDataPoints[12] = values[middleFingerIndex];
 			calibrationDataPoints[19] = values[ringFingerIndex];
 			calibrationDataPoints[26] = values[pinkyFingerIndex];
+		// 75 degrees
 		} else if (transitionCount == 5) {
 			calibrationDataPoints[6] = values[indexFingerIndex];
 			calibrationDataPoints[13] = values[middleFingerIndex];
 			calibrationDataPoints[20] = values[ringFingerIndex];
 			calibrationDataPoints[27] = values[pinkyFingerIndex];
+		// 90 degrees
 		} else if (transitionCount == 6) {
 			calibrationDataPoints[7] = values[indexFingerIndex];
 			calibrationDataPoints[14] = values[middleFingerIndex];
@@ -109,14 +119,13 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 
 	// Setup our database here.  First grab all data saved as PlayerPreferences and capture it locally.
 	// Next instantiate our database access object and open the database
-	//
 	void SetupDatabase() {
 		Debug.Log ("Setting up the database for calibration");
 		// Capture DB info from Player Preferences
-		active_user = PlayerPrefs.GetInt ("ActiveUser");
-		db_name = PlayerPrefs.GetString ("DBName");
-		calibration_table_name = PlayerPrefs.GetString ("CalibrationTable");
-		user_table_name = PlayerPrefs.GetString ("UserTable");
+		active_user = PlayerPrefs.GetInt ("ActiveUser", 1);
+		db_name = PlayerPrefs.GetString ("DBName", "RehabStats.sqdb");
+		calibration_table_name = PlayerPrefs.GetString ("CalibrationTable", "CalibTable");
+		user_table_name = PlayerPrefs.GetString ("UserTable", "UserProfiles");
 
 		// Instantiate instance of db access controller and open up our database
 		db_control = new dbAccess ();
