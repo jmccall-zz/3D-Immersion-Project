@@ -168,12 +168,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   calibration_scene_name: CalibrateGlove
-  game_scene_name: AvatarFrontfacing
+  game_scene_name: ReachBack
   db_name: RehabStats.sqdb
   user_table_name: UserProfiles
   calib_table_name: CalibData
   first_name: First Name
   last_name: Last Name
+  default_first_name: Bob
+  default_last_name: Builder
   txt_field_width: 100
   button_width: 100
   user_constraints: 
