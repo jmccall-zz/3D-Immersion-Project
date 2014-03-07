@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   calibration_scene_name: CalibrateGlove
-  game_scene_name: AvatarFrontfacing
+  game_scene_name: ReachBack
   db_name: RehabStats.sqdb
   user_table_name: UserProfiles
   calib_table_name: CalibData

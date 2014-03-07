@@ -16,7 +16,7 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 
 	public const int MAX_TRANSITIONS = 6;
 	private int transitionCount = 0;
-	private int percent_extension;
+	private int[] finger_extensions = {100, 83, 66, 50, 33, 17, 0};
 	// Which fingers are represented by lines in the text file
 	private int indexFingerIndex = 1;
 	private int middleFingerIndex = 2;
@@ -55,6 +55,13 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 			SaveData();
 			Application.LoadLevel(next_level);
 		}
+
+		// Update GUI text to display proper instructions
+		instructions.text = "Copy the hand position \n" +
+			"shown in the image. \n" +
+				"Finger Extention: " + 
+				finger_extensions[transitionCount] + "%";
+
 		if(Input.GetKeyDown("space") && position.x % 20 == 0) {
 			Record();
 			transitionCount++;
@@ -65,13 +72,6 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 			if (position.x % 20 == 0) moving = false;
 		}
 		transform.position = position;
-
-		// Update GUI text to display proper instructions
-		percent_extension = (int) ((transitionCount * 15) + (transitionCount + (transitionCount * 0.67)));
-		instructions.text = "Copy the hand position \n" +
-			"shown in the image. \n" +
-			"Finger Extention: " + 
-			percent_extension + "%";
 	}
 
 	void Record() {
