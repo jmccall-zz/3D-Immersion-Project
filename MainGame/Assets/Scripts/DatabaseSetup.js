@@ -156,12 +156,14 @@ function Start () {
 
 	// Check if user profile table exists and create it if not
 	if (!user_table_exists) {
+		Debug.Log ("Creating Table: " + user_table_name);
 		SetupUserTable();
 	} else {
 		Debug.Log ("User Table Already Exists");
 	}
 	// Check if calibration table exists and create it if not
 	if (!calib_table_exists) {
+		Debug.Log ("Creating Table: " + calib_table_name);
 		SetupCalibrationTable();
 	} else {
 		Debug.Log ("Calibration Table Already Exists");
@@ -198,10 +200,8 @@ function OnGUI() {
 		DisplayHorizLabel("Failed to Delete User");
 		
 	// Show all users currently in database
-	if (!user_found) {
-		ShowUsers();
-		ShowCalibrations();
-	}
+	ShowUsers();
+	ShowCalibrations();
 	GUILayout.EndArea ();
 	
 }
@@ -324,7 +324,6 @@ function DisplayHorizLabel(msg : String){
 function SetupUserTable() {
 	var query = "INSERT INTO " + user_table_name + " VALUES (NULL,'" + default_first_name + "','" + default_last_name + "');";
 	// Create user table
-	Debug.Log ("Creating Table: " + user_table_name);
 	db_control.CreateTable (user_table_name, user_field_names, user_field_values, user_constraints);
 	// Insert user with first name 'DEFAULT' and last name 'DEFAULT'
 	db_control.BasicQuery(query);
@@ -333,7 +332,6 @@ function SetupUserTable() {
 /* Create a calibration table and store publicly defined default values */
 function SetupCalibrationTable() {
 	// Create table
-	Debug.Log ("Creating Table: " + calib_table_name);
 	db_control.CreateTable (calib_table_name, calib_field_names, calib_field_values, calib_constraints);
 	// Insert default data
 	db_control.InsertInto (calib_table_name, default_calib_data);
