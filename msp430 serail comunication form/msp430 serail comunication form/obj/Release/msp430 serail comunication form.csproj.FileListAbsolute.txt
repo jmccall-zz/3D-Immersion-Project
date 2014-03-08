@@ -1,0 +1,9 @@
+C:\Users\klebras\Documents\Visual Studio 2013\Projects\msp430 serail comunication form\msp430 serail comunication form\bin\Release\msp430 serail comunication form.exe.config
+C:\Users\klebras\Documents\Visual Studio 2013\Projects\msp430 serail comunication form\msp430 serail comunication form\bin\Release\msp430 serail comunication form.exe
+C:\Users\klebras\Documents\Visual Studio 2013\Projects\msp430 serail comunication form\msp430 serail comunication form\bin\Release\msp430 serail comunication form.pdb
+C:\Users\klebras\Documents\Visual Studio 2013\Projects\msp430 serail comunication form\msp430 serail comunication form\obj\Release\msp430 serail comunication form.csprojResolveAssemblyReference.cache
+C:\Users\klebras\Documents\Visual Studio 2013\Projects\msp430 serail comunication form\msp430 serail comunication form\obj\Release\msp430_serail_comunication_form.GLOVE_DATA.resources
+C:\Users\klebras\Documents\Visual Studio 2013\Projects\msp430 serail comunication form\msp430 serail comunication form\obj\Release\msp430_serail_comunication_form.Properties.Resources.resources
+C:\Users\klebras\Documents\Visual Studio 2013\Projects\msp430 serail comunication form\msp430 serail comunication form\obj\Release\msp430 serail comunication form.csproj.GenerateResource.Cache
+C:\Users\klebras\Documents\Visual Studio 2013\Projects\msp430 serail comunication form\msp430 serail comunication form\obj\Release\msp430 serail comunication form.exe
+C:\Users\klebras\Documents\Visual Studio 2013\Projects\msp430 serail comunication form\msp430 serail comunication form\obj\Release\msp430 serail comunication form.pdb

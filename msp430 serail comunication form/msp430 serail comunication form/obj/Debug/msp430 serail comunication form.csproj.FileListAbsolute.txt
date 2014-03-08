@@ -1,0 +1,21 @@
+c:\users\klebras\documents\visual studio 2013\Projects\msp430 serail comunication form\msp430 serail comunication form\bin\Debug\msp430 serail comunication form.exe.config
+c:\users\klebras\documents\visual studio 2013\Projects\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430 serail comunication form.csprojResolveAssemblyReference.cache
+c:\users\klebras\documents\visual studio 2013\Projects\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430_serail_comunication_form.GLOVE_DATA.resources
+c:\users\klebras\documents\visual studio 2013\Projects\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430_serail_comunication_form.Properties.Resources.resources
+c:\users\klebras\documents\visual studio 2013\Projects\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430 serail comunication form.csproj.GenerateResource.Cache
+c:\users\klebras\documents\visual studio 2013\Projects\msp430 serail comunication form\msp430 serail comunication form\bin\Debug\msp430 serail comunication form.exe
+c:\users\klebras\documents\visual studio 2013\Projects\msp430 serail comunication form\msp430 serail comunication form\bin\Debug\msp430 serail comunication form.pdb
+c:\users\klebras\documents\visual studio 2013\Projects\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430 serail comunication form.exe
+c:\users\klebras\documents\visual studio 2013\Projects\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430 serail comunication form.pdb
+C:\Users\klebras\Dropbox\3DImmersionProjects\msp430 serail comunication form\msp430 serail comunication form\bin\Debug\msp430 serail comunication form.exe.config
+C:\Users\klebras\Dropbox\3DImmersionProjects\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430 serail comunication form.exe
+C:\Users\klebras\Dropbox\3DImmersionProjects\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430 serail comunication form.pdb
+C:\Users\klebras\Dropbox\3DImmersionProjects\msp430 serail comunication form\msp430 serail comunication form\bin\Debug\msp430 serail comunication form.exe
+C:\Users\klebras\Dropbox\3DImmersionProjects\msp430 serail comunication form\msp430 serail comunication form\bin\Debug\msp430 serail comunication form.pdb
+C:\Users\klebras\Dropbox\3DImmersionProjects\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430 serail comunication form.csprojResolveAssemblyReference.cache
+C:\Users\klebras\Dropbox\3DImmersionProjects\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430_serail_comunication_form.GLOVE_DATA.resources
+C:\Users\klebras\Dropbox\3DImmersionProjects\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430_serail_comunication_form.Properties.Resources.resources
+C:\Users\klebras\Dropbox\3DImmersionProjects\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430 serail comunication form.csproj.GenerateResource.Cache
+C:\Users\ckaminer\Documents\GitHub\3D-Immersion-Project\msp430 serail comunication form\msp430 serail comunication form\bin\Debug\msp430 serail comunication form.exe.config
+C:\Users\ckaminer\Documents\GitHub\3D-Immersion-Project\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430 serail comunication form.exe
+C:\Users\ckaminer\Documents\GitHub\3D-Immersion-Project\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430 serail comunication form.pdb
