@@ -6,17 +6,17 @@ using System;
 
 
 public class GloveReader {
-	public const int IndexFinger = 0;	
-	public const int MiddleFinger = 7;
-	public const int RingFinger = 14;
-	public const int PinkyFinger = 21;
-	public const int ZeroDegrees = 0;
-	public const int FifteenDegrees = 1;
-	public const int ThirtyDegrees = 2;
-	public const int FortyFiveDegrees = 3;
-	public const int SixtyDegrees = 4;
-	public const int SeventyFiveDegrees = 5;
-	public const int NinetyDegrees = 6;
+	private const int IndexFinger = 0;	
+	private const int MiddleFinger = 7;
+	private const int RingFinger = 14;
+	private const int PinkyFinger = 21;
+	private const int ZeroDegrees = 0;
+	private const int FifteenDegrees = 1;
+	private const int ThirtyDegrees = 2;
+	private const int FortyFiveDegrees = 3;
+	private const int SixtyDegrees = 4;
+	private const int SeventyFiveDegrees = 5;
+	private const int NinetyDegrees = 6;
 
 	private string right_hand_path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\testfile.txt");
 	private string left_hand_path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\GloveData.txt");
@@ -111,7 +111,10 @@ public class GloveReader {
 	public void UpdateGestures(){
 		float [] sensorVal = this.getValues ();
 
-		if (sensorVal[0] < 13000 || sensorVal[1] < 200 || sensorVal[2] < 12000 || sensorVal[3] < 4000) {
+		if (sensorVal[0] < rightFingerZones[IndexFinger + FortyFiveDegrees] ||
+		    sensorVal[1] < rightFingerZones[MiddleFinger + FortyFiveDegrees] || 
+		    sensorVal[2] < rightFingerZones[RingFinger + FortyFiveDegrees] || 
+		    sensorVal[3] < rightFingerZones[PinkyFinger + FortyFiveDegrees]) {
 			IsGrab = true;
 		} else if (sensorVal[0] > 13000 && sensorVal[1] > 200 && sensorVal[2] > 12000 && sensorVal[3] > 4000) {
 			IsGrab = false;
