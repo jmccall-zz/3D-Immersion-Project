@@ -24,14 +24,18 @@ public class GloveReader {
 	public bool IsGrab;
 	public float[] sensorValues;
 	private string [] readLines;
+	private ArrayList allFingerZones;
 	static int numOfDataPointsR = 7;
 	static int numOfDataPointsL = 4;
-	public int [] fingerZones;
+	public int[] rightFingerZones;
+	public int[] leftFingerZones;
+
 
 	// Database Player Preference Information (from Login Scene)
 	public int active_user;
 	public string db_name;
-	public string calibration_table_name;
+	public string right_calibration_table;
+	public string left_calibration_table;
 	private dbAccess db_control;
 	
 	public GloveReader() {
@@ -43,47 +47,65 @@ public class GloveReader {
 		// Get active user from player prefs. Use default user 1 if no active user is set
 		active_user = PlayerPrefs.GetInt("ActiveUser", 1);
 		db_name = PlayerPrefs.GetString("DBName", "RehabStats.sqdb");
-		calibration_table_name = PlayerPrefs.GetString("CalibrationTable", "CalibData");
-		fingerZones = readDB (active_user);
+		right_calibration_table = PlayerPrefs.GetString("RightCalibrationTable", "RightCalibration");
+		left_calibration_table = PlayerPrefs.GetString ("LeftCalibrationTable", "LeftCalibration"); 
+		allFingerZones = readDB (active_user);
+		rightFingerZones = (int[]) allFingerZones [0];
+		leftFingerZones = (int[]) allFingerZones [1];
 	}
-
-	/*public void ScaleValues () {
-
-	}*/
 
 	/* 
 	 * This function will grab calibration data for the active user defined in PlayerPrefs.
-	 * This calibration data will be stored into and returned in the form of an integer array.
+	 * Right and left hand data is retrieved from the database and stored in separate integer
+	 * lists. These lists are returned in one array list object. It's up to the caller to 
+	 * break them apart
 	 */
-	private int [] readDB(int user_id) {
-		int [] fingerBlocks = new int [28];
+	private ArrayList readDB(int user_id) {
+		ArrayList fingerBlocks = new ArrayList();
+		int [] rightFingerBlocks = new int [28];
+		int [] leftFingerBlocks = new int [28];
+
+
+		rightFingerBlocks = GetCalibrationRow (right_calibration_table, user_id);
+		leftFingerBlocks = GetCalibrationRow (left_calibration_table, user_id);
+		fingerBlocks.Add (rightFingerBlocks);
+		fingerBlocks.Add (leftFingerBlocks);
+
+		return fingerBlocks;
+	}
+
+	/* 
+	 * This function pulls a single row of calibration data from the database and returns
+	 * it in the form of an integer array.
+	 */ 
+	private int [] GetCalibrationRow(string table_name, int user_id) {
+		int [] blocks = new int[28];
 		string query;
 		ArrayList results = new ArrayList();
 		ArrayList row = new ArrayList();
-
 		// Open up our database
 		db_control.OpenDB(db_name);
-
-		// Pull entire calibration data row for this user
-		query = "SELECT * FROM " + calibration_table_name + " WHERE user_id=" + user_id + ";";
+		
+		// Pull entire right hand calibration data row for this user
+		query = "SELECT * FROM " + table_name + " WHERE user_id=" + user_id + ";";
 		results = db_control.BasicQuery(query);
-		Debug.Log("Pulling data for user: " + user_id);
-
+		Debug.Log("Pulling calibrations from: " + table_name + " for user: " + user_id);
+		
 		// If a row is returned by the query, fill the integer array with data
 		if (results.Count > 0) {
 			// Capture first row of returned data
 			row = (ArrayList) results[0];
 			// Convert values to intgers
 			for (int i = 1; i < row.Count; i++) {
-				fingerBlocks[i - 1] = Convert.ToInt32(row[i]);
+				blocks[i - 1] = Convert.ToInt32(row[i]);
 			}
 		} else {
 			Debug.Log("No calibration data was found for user: " + user_id);
 		}
-
+		
 		// Close the database to avoid locking
 		db_control.CloseDB();
-		return fingerBlocks;
+		return blocks;
 	}
 
 	public void UpdateGestures(){
