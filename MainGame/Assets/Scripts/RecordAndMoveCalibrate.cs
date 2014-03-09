@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class RecordAndMoveCalibrate : MonoBehaviour {
@@ -15,14 +15,18 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 	private float[] rightCalibrationPoints = new float[29];
 	private float[] leftCalibrationPoints = new float[29];
 	
-	public const int MAX_TRANSITIONS = 6;
+	public const int MAX_TRANSITIONS = 13;
 	private int transitionCount = 0;
-	private int[] finger_extensions = {100, 83, 66, 50, 33, 17, 0};
+	private int[] finger_extensions = {100, 83, 66, 50, 33, 17, 0, 100, 83, 66, 50, 33, 17, 0, 54};
 	// Which fingers are represented by lines in the text file
-	private int indexFingerIndex = 1;
-	private int middleFingerIndex = 2;
-	private int ringFingerIndex = 3;
-	private int pinkyFingerIndex = 0;
+	private int rightIndexFingerIndex = 1;
+	private int rightMiddleFingerIndex = 2;
+	private int rightRingFingerIndex = 3;
+	private int rightPinkyFingerIndex = 0;
+	private int leftIndexFingerIndex = 8;
+	private int leftMiddleFingerIndex = 9;
+	private int leftRingFingerIndex = 10;
+	private int leftPinkyFingerIndex = 7;
 	
 	// Database Player Preference Information (from Login Scene)
 	private int active_user;
@@ -54,14 +58,22 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 		// We've gone through all the images at this point so our calibration data structure
 		// should be full now.  Let's store this data in the database now.
 		if (transitionCount > MAX_TRANSITIONS){
+			SaveData();
 			Application.LoadLevel(next_level);
+		} else {
+			// Update GUI text to display proper instructions
+			instructions.text = "Copy the hand position \n" +
+				"shown in the image. \n" +
+				"Finger Extension: " + 
+				finger_extensions[transitionCount] + "%";
 		}
 		
 		// Update GUI text to display proper instructions
 		instructions.text = "Copy the hand position \n" +
 			"shown in the image. \n" +
-				"Finger Extention: " + 
+				"Finger Extension: " + 
 				finger_extensions[transitionCount] + "%";
+		Debug.Log("Length of finger extensions: " + finger_extensions.Length + "\nTransition Count: " + transitionCount);
 		
 		if(Input.GetKeyDown("space") && position.x % 20 == 0) {
 			Record();
@@ -76,8 +88,9 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 	}
 	
 	void Record() {
-		float [] values = reader.getValues();
-		int index;
+		float [] values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+		//float [] values = reader.getValues();
+		int index = 0;
 		//float[] values = {10, 20, 30, 40};
 		Debug.Log ("Values: " + values [0] + values [1] + values [2] + values [3]);
 
@@ -85,66 +98,20 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 		if (transitionCount < 7) {
 			// Set base index for reference
 			index = transitionCount + 1;
-			rightCalibrationPoints [index] = values[indexFingerIndex];
-			rightCalibrationPoints [index + 7] = values[middleFingerIndex];	
-			rightCalibrationPoints [index + 14] = values[ringFingerIndex];	
-			rightCalibrationPoints [index + 15] = values[pinkyFingerIndex];	
+			rightCalibrationPoints [index] = values[rightIndexFingerIndex];
+			rightCalibrationPoints [index + 7] = values[rightMiddleFingerIndex];	
+			rightCalibrationPoints [index + 14] = values[rightRingFingerIndex];	
+			rightCalibrationPoints [index + 21] = values[rightPinkyFingerIndex];	
 		} else if (transitionCount < 14) {
 			// Set base index for reference
 			index = transitionCount - 6;
-			leftCalibrationPoints [index] = values[indexFingerIndex];
-			leftCalibrationPoints [index + 7] = values[middleFingerIndex];	
-			leftCalibrationPoints [index + 14] = values[ringFingerIndex];	
-			leftCalibrationPoints [index + 15] = values[pinkyFingerIndex];	
+			leftCalibrationPoints [index] = values[leftIndexFingerIndex];
+			leftCalibrationPoints [index + 7] = values[leftMiddleFingerIndex];	
+			leftCalibrationPoints [index + 14] = values[leftRingFingerIndex];	
+			leftCalibrationPoints [index + 21] = values[leftPinkyFingerIndex];	
 		} else {
 			Debug.Log("End of scene. No more data to capture.");
 		}
-
-		/*// 0 degrees
-		if (transitionCount == 0) {
-			rightCalibrationPoints[1] = values[indexFingerIndex];
-			rightCalibrationPoints[8] = values[middleFingerIndex];
-			rightCalibrationPoints[15] = values[ringFingerIndex];
-			rightCalibrationPoints[22] = values[pinkyFingerIndex];
-			// 15 degrees
-		} else if (transitionCount == 1) {
-			rightCalibrationPoints[2] = values[indexFingerIndex];
-			rightCalibrationPoints[9] = values[middleFingerIndex];
-			rightCalibrationPoints[16] = values[ringFingerIndex];
-			rightCalibrationPoints[23] = values[pinkyFingerIndex];
-			// 30 degrees
-		} else if (transitionCount == 2) {
-			rightCalibrationPoints[3] = values[indexFingerIndex];
-			rightCalibrationPoints[10] = values[middleFingerIndex];
-			rightCalibrationPoints[17] = values[ringFingerIndex];
-			rightCalibrationPoints[24] = values[pinkyFingerIndex];
-			// 45 degrees
-		} else if (transitionCount == 3) {
-			rightCalibrationPoints[4] = values[indexFingerIndex];
-			rightCalibrationPoints[11] = values[middleFingerIndex];
-			rightCalibrationPoints[18] = values[ringFingerIndex];
-			rightCalibrationPoints[25] = values[pinkyFingerIndex];
-			// 60 degrees
-		} else if (transitionCount == 4) {
-			rightCalibrationPoints[5] = values[indexFingerIndex];
-			rightCalibrationPoints[12] = values[middleFingerIndex];
-			rightCalibrationPoints[19] = values[ringFingerIndex];
-			rightCalibrationPoints[26] = values[pinkyFingerIndex];
-			// 75 degrees
-		} else if (transitionCount == 5) {
-			rightCalibrationPoints[6] = values[indexFingerIndex];
-			rightCalibrationPoints[13] = values[middleFingerIndex];
-			rightCalibrationPoints[20] = values[ringFingerIndex];
-			rightCalibrationPoints[27] = values[pinkyFingerIndex];
-			// 90 degrees
-		} else if (transitionCount == 6) {
-			rightCalibrationPoints[7] = values[indexFingerIndex];
-			rightCalibrationPoints[14] = values[middleFingerIndex];
-			rightCalibrationPoints[21] = values[ringFingerIndex];
-			rightCalibrationPoints[28] = values[pinkyFingerIndex];
-		} else {
-			Debug.Log("End of scene. No more data to capture.");
-		}*/
 	}
 	
 	// Setup our database here.  First grab all data saved as PlayerPreferences and capture it locally.
@@ -165,6 +132,8 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 	
 	// This function will insert our calibration data points as a row in the calibration database table
 	void SaveData(){
+		db_control.InsertInto(right_calibration_table, rightCalibrationPoints);
+		db_control.InsertInto(left_calibration_table, leftCalibrationPoints);
 	}
 	
 	void OnApplicationQuit() {
