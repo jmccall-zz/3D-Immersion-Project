@@ -8,6 +8,7 @@ public class CylinderLogic : MonoBehaviour {
 	private Vector3 scl;
 	private int state;
 	private Transform grabTrans;
+	public string Hand = "Right";
 	GloveReader GloveData;
 	
 	void Start () {
@@ -28,16 +29,16 @@ public class CylinderLogic : MonoBehaviour {
 			trans.position = grabTrans.position;
 		}
 		
-		if(!GloveData.IsGrab) {
+		if(!GloveData.RightIsGrab) {
 			state = 0;
 		}
 		GloveData.UpdateGestures();	
-		Debug.Log (GloveData.IsGrab);
+		Debug.Log (GloveData.RightIsGrab);
 	}
 	
 	void OnCollisionEnter (Collision collision) {
 		Debug.Log(collision.transform.name);
-		if(collision.transform.name == "GrabObject" && GloveData.IsGrab) {
+		if(collision.transform.name == "GrabObject" && GloveData.RightIsGrab) {
 			state = 1;
 			grabTrans = collision.transform;
 		}

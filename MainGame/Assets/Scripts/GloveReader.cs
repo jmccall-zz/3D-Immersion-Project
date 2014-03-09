@@ -21,7 +21,8 @@ public class GloveReader {
 	private string right_hand_path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\testfile.txt");
 	private string left_hand_path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\GloveData.txt");
 	public bool init;
-	public bool IsGrab;
+	public bool RightIsGrab;
+	public bool LeftIsGrab;
 	public float[] sensorValues;
 	private string [] readLines;
 	private ArrayList allFingerZones;
@@ -40,7 +41,8 @@ public class GloveReader {
 	
 	public GloveReader() {
 		init = true;
-		IsGrab = false;
+		RightIsGrab = false;
+		LeftIsGrab = false;
 		// Instantiate database access object
 		db_control = new dbAccess();
 		// Read from global user id: user_id = ...
@@ -111,24 +113,45 @@ public class GloveReader {
 	public void UpdateGestures(){
 		float [] sensorVal = this.getValues ();
 
+		// Update Right Hand Grab gesture
 		if (sensorVal[0] < rightFingerZones[IndexFinger + FortyFiveDegrees] ||
 		    sensorVal[1] < rightFingerZones[MiddleFinger + FortyFiveDegrees] || 
 		    sensorVal[2] < rightFingerZones[RingFinger + FortyFiveDegrees] || 
 		    sensorVal[3] < rightFingerZones[PinkyFinger + FortyFiveDegrees]) {
-			IsGrab = true;
-		} else if (sensorVal[0] > 13000 && sensorVal[1] > 200 && sensorVal[2] > 12000 && sensorVal[3] > 4000) {
-			IsGrab = false;
+			RightIsGrab = true;
+		} else if (sensorVal[0] > rightFingerZones[IndexFinger + FortyFiveDegrees] ||
+		           sensorVal[1] > rightFingerZones[MiddleFinger + FortyFiveDegrees] || 
+		           sensorVal[2] > rightFingerZones[RingFinger + FortyFiveDegrees] || 
+		           sensorVal[3] > rightFingerZones[PinkyFinger + FortyFiveDegrees]) {
+			RightIsGrab = false;
+		}
+
+		// Update Left Hand Grab gesture
+		if (sensorVal[0] < leftFingerZones[IndexFinger + FortyFiveDegrees] ||
+		    sensorVal[1] < leftFingerZones[MiddleFinger + FortyFiveDegrees] || 
+		    sensorVal[2] < leftFingerZones[RingFinger + FortyFiveDegrees] || 
+		    sensorVal[3] < leftFingerZones[PinkyFinger + FortyFiveDegrees]) {
+			LeftIsGrab = true;
+		} else if (sensorVal[0] > leftFingerZones[IndexFinger + FortyFiveDegrees] ||
+		           sensorVal[1] > leftFingerZones[MiddleFinger + FortyFiveDegrees] || 
+		           sensorVal[2] > leftFingerZones[RingFinger + FortyFiveDegrees] || 
+		           sensorVal[3] > leftFingerZones[PinkyFinger + FortyFiveDegrees]) {
+			LeftIsGrab = false;
 		}
 	}
 
 	public float[] getValues() {
+		// Get strings from both right hand and left hand files
 		string [] lines_one = readSelectLines (right_hand_path, numOfDataPointsR);
 		string [] lines_two = readSelectLines (left_hand_path, numOfDataPointsL);
+		// Float arrays for right and left and hands
 		float [] f_array_R;
 		float [] f_array_L;
-		if (lines_one != null && lines_two != null){
+		if (lines_one != null && lines_two != null) {
+			// Get float arrays
 			f_array_R = stringArrayToFloatArray (lines_one);
 			f_array_L = stringArrayToFloatArray (lines_two);
+			// Combine right hand and left hand arrays into one array
 			float [] dims = new float[f_array_R.Length + f_array_L.Length];
 			f_array_R.CopyTo(dims, 0);
 			f_array_L.CopyTo(dims, f_array_R.Length);
