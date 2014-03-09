@@ -12,7 +12,8 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 	// These 29 fields represent all the columns in the calibration table.  Storing them in 
 	// a large list allows us to simple pass the structure into a database control function
 	// for the database insertion. NOTE: Index zero is the active user_id.
-	private float[] calibrationDataPoints = new float[29];
+	private float[] rightCalibrationPoints = new float[29];
+	private float[] leftCalibrationPoints = new float[29];
 	
 	public const int MAX_TRANSITIONS = 6;
 	private int transitionCount = 0;
@@ -26,8 +27,9 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 	// Database Player Preference Information (from Login Scene)
 	private int active_user;
 	private string db_name;
-	private string calibration_table_name;
-	private string user_table_name;
+	private string right_calibration_table;
+	private string left_calibration_table;
+	private string user_table;
 	
 	public string next_level = "ReachBack";
 	
@@ -40,8 +42,8 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 		
 		// Set up database info and open connection
 		SetupDatabase ();
-		calibrationDataPoints [0] = active_user;
-		//db_control.InsertInto(calibration_table_name, calibrationDataPoints);
+		rightCalibrationPoints [0] = leftCalibrationPoints [0] = active_user;
+		//db_control.InsertInto(calibration_table_name, rightCalibrationPoints);
 		
 	}
 	
@@ -52,7 +54,6 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 		// We've gone through all the images at this point so our calibration data structure
 		// should be full now.  Let's store this data in the database now.
 		if (transitionCount > MAX_TRANSITIONS){
-			SaveData();
 			Application.LoadLevel(next_level);
 		}
 		
@@ -76,54 +77,74 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 	
 	void Record() {
 		float [] values = reader.getValues();
+		int index;
 		//float[] values = {10, 20, 30, 40};
 		Debug.Log ("Values: " + values [0] + values [1] + values [2] + values [3]);
-		
-		// 0 degrees
-		if (transitionCount == 0) {
-			calibrationDataPoints[1] = values[indexFingerIndex];
-			calibrationDataPoints[8] = values[middleFingerIndex];
-			calibrationDataPoints[15] = values[ringFingerIndex];
-			calibrationDataPoints[22] = values[pinkyFingerIndex];
-			// 15 degrees
-		} else if (transitionCount == 1) {
-			calibrationDataPoints[2] = values[indexFingerIndex];
-			calibrationDataPoints[9] = values[middleFingerIndex];
-			calibrationDataPoints[16] = values[ringFingerIndex];
-			calibrationDataPoints[23] = values[pinkyFingerIndex];
-			// 30 degrees
-		} else if (transitionCount == 2) {
-			calibrationDataPoints[3] = values[indexFingerIndex];
-			calibrationDataPoints[10] = values[middleFingerIndex];
-			calibrationDataPoints[17] = values[ringFingerIndex];
-			calibrationDataPoints[24] = values[pinkyFingerIndex];
-			// 45 degrees
-		} else if (transitionCount == 3) {
-			calibrationDataPoints[4] = values[indexFingerIndex];
-			calibrationDataPoints[11] = values[middleFingerIndex];
-			calibrationDataPoints[18] = values[ringFingerIndex];
-			calibrationDataPoints[25] = values[pinkyFingerIndex];
-			// 60 degrees
-		} else if (transitionCount == 4) {
-			calibrationDataPoints[5] = values[indexFingerIndex];
-			calibrationDataPoints[12] = values[middleFingerIndex];
-			calibrationDataPoints[19] = values[ringFingerIndex];
-			calibrationDataPoints[26] = values[pinkyFingerIndex];
-			// 75 degrees
-		} else if (transitionCount == 5) {
-			calibrationDataPoints[6] = values[indexFingerIndex];
-			calibrationDataPoints[13] = values[middleFingerIndex];
-			calibrationDataPoints[20] = values[ringFingerIndex];
-			calibrationDataPoints[27] = values[pinkyFingerIndex];
-			// 90 degrees
-		} else if (transitionCount == 6) {
-			calibrationDataPoints[7] = values[indexFingerIndex];
-			calibrationDataPoints[14] = values[middleFingerIndex];
-			calibrationDataPoints[21] = values[ringFingerIndex];
-			calibrationDataPoints[28] = values[pinkyFingerIndex];
+
+		// Set calibrations for the right hand during first 7 transitions
+		if (transitionCount < 7) {
+			// Set base index for reference
+			index = transitionCount + 1;
+			rightCalibrationPoints [index] = values[indexFingerIndex];
+			rightCalibrationPoints [index + 7] = values[middleFingerIndex];	
+			rightCalibrationPoints [index + 14] = values[ringFingerIndex];	
+			rightCalibrationPoints [index + 15] = values[pinkyFingerIndex];	
+		} else if (transitionCount < 14) {
+			// Set base index for reference
+			index = transitionCount - 6;
+			leftCalibrationPoints [index] = values[indexFingerIndex];
+			leftCalibrationPoints [index + 7] = values[middleFingerIndex];	
+			leftCalibrationPoints [index + 14] = values[ringFingerIndex];	
+			leftCalibrationPoints [index + 15] = values[pinkyFingerIndex];	
 		} else {
 			Debug.Log("End of scene. No more data to capture.");
 		}
+
+		/*// 0 degrees
+		if (transitionCount == 0) {
+			rightCalibrationPoints[1] = values[indexFingerIndex];
+			rightCalibrationPoints[8] = values[middleFingerIndex];
+			rightCalibrationPoints[15] = values[ringFingerIndex];
+			rightCalibrationPoints[22] = values[pinkyFingerIndex];
+			// 15 degrees
+		} else if (transitionCount == 1) {
+			rightCalibrationPoints[2] = values[indexFingerIndex];
+			rightCalibrationPoints[9] = values[middleFingerIndex];
+			rightCalibrationPoints[16] = values[ringFingerIndex];
+			rightCalibrationPoints[23] = values[pinkyFingerIndex];
+			// 30 degrees
+		} else if (transitionCount == 2) {
+			rightCalibrationPoints[3] = values[indexFingerIndex];
+			rightCalibrationPoints[10] = values[middleFingerIndex];
+			rightCalibrationPoints[17] = values[ringFingerIndex];
+			rightCalibrationPoints[24] = values[pinkyFingerIndex];
+			// 45 degrees
+		} else if (transitionCount == 3) {
+			rightCalibrationPoints[4] = values[indexFingerIndex];
+			rightCalibrationPoints[11] = values[middleFingerIndex];
+			rightCalibrationPoints[18] = values[ringFingerIndex];
+			rightCalibrationPoints[25] = values[pinkyFingerIndex];
+			// 60 degrees
+		} else if (transitionCount == 4) {
+			rightCalibrationPoints[5] = values[indexFingerIndex];
+			rightCalibrationPoints[12] = values[middleFingerIndex];
+			rightCalibrationPoints[19] = values[ringFingerIndex];
+			rightCalibrationPoints[26] = values[pinkyFingerIndex];
+			// 75 degrees
+		} else if (transitionCount == 5) {
+			rightCalibrationPoints[6] = values[indexFingerIndex];
+			rightCalibrationPoints[13] = values[middleFingerIndex];
+			rightCalibrationPoints[20] = values[ringFingerIndex];
+			rightCalibrationPoints[27] = values[pinkyFingerIndex];
+			// 90 degrees
+		} else if (transitionCount == 6) {
+			rightCalibrationPoints[7] = values[indexFingerIndex];
+			rightCalibrationPoints[14] = values[middleFingerIndex];
+			rightCalibrationPoints[21] = values[ringFingerIndex];
+			rightCalibrationPoints[28] = values[pinkyFingerIndex];
+		} else {
+			Debug.Log("End of scene. No more data to capture.");
+		}*/
 	}
 	
 	// Setup our database here.  First grab all data saved as PlayerPreferences and capture it locally.
@@ -133,8 +154,9 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 		// Capture DB info from Player Preferences
 		active_user = PlayerPrefs.GetInt ("ActiveUser", 1);
 		db_name = PlayerPrefs.GetString ("DBName", "RehabStats.sqdb");
-		calibration_table_name = PlayerPrefs.GetString ("CalibrationTable", "CalibTable");
-		user_table_name = PlayerPrefs.GetString ("UserTable", "UserProfiles");
+		right_calibration_table = PlayerPrefs.GetString ("RightCalibrationTable", "RightCalibration");
+		left_calibration_table = PlayerPrefs.GetString ("LeftCalibrationTable", "LeftCalibration");
+		user_table = PlayerPrefs.GetString ("UserTable", "UserProfiles");
 		
 		// Instantiate instance of db access controller and open up our database
 		db_control = new dbAccess ();
@@ -143,7 +165,6 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 	
 	// This function will insert our calibration data points as a row in the calibration database table
 	void SaveData(){
-		db_control.InsertInto (calibration_table_name, calibrationDataPoints);
 	}
 	
 	void OnApplicationQuit() {

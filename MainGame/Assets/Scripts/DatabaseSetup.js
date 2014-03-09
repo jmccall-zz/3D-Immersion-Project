@@ -396,8 +396,8 @@ function DeleteUser(first_name : String, last_name : String) {
 function DeleteCalibrationData(user_id : int) {
 		var query = "DELETE FROM " + right_calib_table + " WHERE user_id=" + user_id + ";";
 		var results = db_control.BasicQuery(query);
-		var query = "DELETE FROM " + left_calib_table + " WHERE user_id=" + user_id + ";";
-		var results = db_control.BasicQuery(query);
+		query = "DELETE FROM " + left_calib_table + " WHERE user_id=" + user_id + ";";
+		results = db_control.BasicQuery(query);
 }
 
 /* Set the active user for the project. Do this using PlayerPrefs as they can be accessed throughout the project */
