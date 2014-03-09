@@ -1,16 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GloveReader.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\WristControl.cs">
     <Files>
-      <File FileName="Assets\Scripts\WristControl.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GrabLogic.js" Line="28" Column="2" />
-      <File FileName="Assets\Scripts\GloveReader.cs" Line="19" Column="36" />
-      <File FileName="Assets\Scripts\Models.cs" Line="26" Column="20" />
-      <File FileName="Assets\Scripts\CylinderLogic.cs" Line="12" Column="2" />
-      <File FileName="Assets\Scripts\WristControl.cs" Line="61" Column="10" />
-      <File FileName="Assets\Scripts\FingerControl.cs" Line="24" Column="55" />
-      <File FileName="Assets\Scripts\DatabaseSetup.js" Line="10" Column="1" />
-      <File FileName="Assets\Scripts\RecordAndMoveCalibrate.cs" Line="104" Column="57" />
+      <File FileName="Assets\Scripts\WristControl.cs" Line="32" Column="6" />
+      <File FileName="Assets\Scripts\FingerControl.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\WristControl.cs" Line="71" Column="1" />
+      <File FileName="Assets\Scripts\GrabLogic.js" Line="1" Column="1" />
+      <File FileName="Assets\OVR\Scripts\OVRGUI.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Models.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GloveReader.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\RecordAndMoveCalibrate.cs" Line="55" Column="15" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

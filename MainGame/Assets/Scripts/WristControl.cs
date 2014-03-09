@@ -26,8 +26,10 @@ public class WristControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
 		readArray = reader.getValues();
+		/*for (int i = 0; i < 11; i++) {
+			Debug.Log (readArray [i]);
+		}*/
 		if (readArray != null) {
 			wrist_rotation_x = readArray[4];
 			wrist_rotation_y = readArray[5];
