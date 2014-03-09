@@ -18,12 +18,14 @@ public class GloveReader {
 	public const int SeventyFiveDegrees = 5;
 	public const int NinetyDegrees = 6;
 
-	private string path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\testfile.txt");
+	private string right_hand_path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\testfile.txt");
+	private string left_hand_path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\GloveData.txt");
 	public bool init;
 	public bool IsGrab;
 	public float[] sensorValues;
 	private string [] readLines;
-	static int numOfDataPoints = 7;
+	static int numOfDataPointsR = 7;
+	static int numOfDataPointsL = 4;
 	public int [] fingerZones;
 
 	// Database Player Preference Information (from Login Scene)
@@ -95,10 +97,16 @@ public class GloveReader {
 	}
 
 	public float[] getValues() {
-		string [] lines = readSelectLines (path, numOfDataPoints);
-		float [] dims;
-		if (lines != null){
-			dims = stringArrayToFloatArray (lines);
+		string [] lines_one = readSelectLines (right_hand_path, numOfDataPointsR);
+		string [] lines_two = readSelectLines (left_hand_path, numOfDataPointsL);
+		float [] f_array_R;
+		float [] f_array_L;
+		if (lines_one != null && lines_two != null){
+			f_array_R = stringArrayToFloatArray (lines_one);
+			f_array_L = stringArrayToFloatArray (lines_two);
+			float [] dims = new float[f_array_R.Length + f_array_L.Length];
+			f_array_R.CopyTo(dims, 0);
+			f_array_L.CopyTo(dims, f_array_R.Length);
 			return dims;
 		} else {
 			return null;
