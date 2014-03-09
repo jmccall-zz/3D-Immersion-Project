@@ -21,16 +21,50 @@ private var scroll_position : Vector2;
 private var results : ArrayList = new ArrayList();
 private var database_data : ArrayList = new ArrayList();
 
-public var calibration_scene_name = "CalibrateGlove";
-public var game_scene_name = "ReachBack";
+public var display_calibrations = true;
+public var display_users = true;
+public var calibration_scene = "CalibrateGlove";
+public var game_scene = "ReachBack";
 public var db_name = "RehabStats.sqdb";
-public var user_table_name = "UserProfiles";
-public var calib_table_name = "CalibData";
+public var user_table = "UserProfiles";
+public var right_calib_table = "RightCalibration";
+public var left_calib_table = "LeftCalibration";
 public var first_name = "First Name";
 public var last_name = "Last Name";
 public var default_first_name = 'Bob';
 public var default_last_name = 'Builder';
-public var default_calib_data = new Array (
+public var default_right_calib_data = new Array (
+	1,
+	32700,
+	26800,
+	23000,
+	21000,
+	13000,	
+	10000,
+	7000,	
+	31000,
+	22000,
+	10000,
+	4400,
+	3000,
+	1000,
+	200,
+	39000,
+	26000,
+	20000,
+	16000,
+	14000,
+	13000,
+	12000,
+	14000,
+	2000,
+	1000,
+	500,
+	400, 
+	200,
+	100
+);
+public var default_left_calib_data = new Array (
 	1,
 	32700,
 	26800,
@@ -138,21 +172,21 @@ public var calib_field_values = new Array (
 	"REAL",
 	"REAL"
 );
-public var calib_constraints = "FOREIGN KEY(user_id) REFERENCES " + user_table_name + "(" + user_field_names[0] + ")";
+public var calib_constraints = "FOREIGN KEY(user_id) REFERENCES " + user_table + "(" + user_field_names[0] + ")";
 
 // Use this for initialization
 function Start () {
 	// Boolean indicating whether table already exists
 	var user_table_exists;
-	var calib_table_exists;
+	var right_calib_table_exists;
 	db_control = new dbAccess();
-	Debug.Log("USERRRR: " + PlayerPrefs.GetInt("thissssss"));
 
 	// Open up database.  Will create database if it doesn't exist.
 	db_control.OpenDB (db_name);
 
-	user_table_exists = db_control.TableExists(user_table_name);
-	calib_table_exists = db_control.TableExists(calib_table_name);
+	user_table_exists = db_control.TableExists(user_table);
+	right_calib_table_exists = db_control.TableExists(right_calib_table);
+	left_calib_table_exists = db_control.TableExists(left_calib_table);
 
 	// Check if user profile table exists and create it if not
 	if (!user_table_exists) {
@@ -161,11 +195,17 @@ function Start () {
 		Debug.Log ("User Table Already Exists");
 	}
 	// Check if calibration table exists and create it if not
-	if (!calib_table_exists) {
-		SetupCalibrationTable();
+	if (!right_calib_table_exists) {
+		SetupCalibrationTable(right_calib_table, calib_field_names, calib_field_values, calib_constraints, default_right_calib_data);
 	} else {
-		Debug.Log ("Calibration Table Already Exists");
+		Debug.Log ("Right Hand Calibration Table Already Exists");
 	}
+	if (!left_calib_table_exists) {
+		SetupCalibrationTable(left_calib_table, calib_field_names, calib_field_values, calib_constraints, default_left_calib_data);
+	} else {
+		Debug.Log ("Left Hand Calibration Table Already Exists");
+	}
+	
 	
 	// Set database table information in player prefs
 	SetDatabasePrefs();
@@ -197,11 +237,14 @@ function OnGUI() {
 	if (failed_user_delete)
 		DisplayHorizLabel("Failed to Delete User");
 		
-	// Show all users currently in database
+	// Show all users and calibrations currently in database
 	if (!user_found) {
-		Debug.Log("Displaying users and calibrations");
-		ShowUsers();
-		ShowCalibrations();
+		if (display_users)
+			DisplayFullTable(user_table);
+		if (display_calibrations) {
+			DisplayFullTable(right_calib_table);
+			DisplayFullTable(left_calib_table);
+		}
 	}
 	GUILayout.EndArea ();
 	
@@ -223,7 +266,7 @@ function LoginOptions() {
 		// A user creation or deletion was not atempted
 		failed_user_create = false;
 		failed_user_delete = false;
-		query = "SELECT first_name, last_name FROM " + user_table_name + " WHERE first_name='" + 
+		query = "SELECT first_name, last_name FROM " + user_table + " WHERE first_name='" + 
 			first_name + 
 			"' AND last_name='" +
 			last_name +
@@ -251,7 +294,7 @@ function LoginOptions() {
 		// A user deletion or login was not attempted
 		failed_user_delete = false;
 		failed_user_login = false;
-		query = "SELECT first_name, last_name FROM " + user_table_name + " WHERE first_name='" + 
+		query = "SELECT first_name, last_name FROM " + user_table + " WHERE first_name='" + 
 			first_name + 
 			"' AND last_name='" +
 			last_name +
@@ -266,7 +309,7 @@ function LoginOptions() {
 			failed_user_create = false;
 			Debug.Log("Creating User: " + first_name + " " + last_name);
 			// Insert user's name into database
-			query = "INSERT INTO " + user_table_name + " VALUES (NULL,'" + first_name + "','" + last_name + "');";
+			query = "INSERT INTO " + user_table + " VALUES (NULL,'" + first_name + "','" + last_name + "');";
 			db_control.BasicQuery(query);
 			// Set active user for project
 			SetActiveUser(first_name, last_name);
@@ -284,24 +327,11 @@ function LoginOptions() {
 	GUILayout.EndHorizontal();
 }
 
-/* Display all rows in the UserProfiles table.  This is helpful for debugging purposes. */
-function ShowUsers(){
-	database_data = db_control.ReadFullTable("UserProfiles");
-	//GUILayout.Label("Database Contents");
-	scrollPosition = GUILayout.BeginScrollView(scroll_position, GUILayout.Height(100));
-	for (var line : ArrayList in database_data){
-		GUILayout.BeginHorizontal();
-		for (var s in line){
-			GUILayout.Label(s.ToString(), GUILayout.Width(0));
-		}
-		GUILayout.EndHorizontal();
-	}
-	GUILayout.EndScrollView();
-}
-
-/* Display all rows in the CalibData table.  This is helpful for debugging purposes. */
-function ShowCalibrations(){
-	database_data = db_control.ReadFullTable("CalibData");
+/* Display all rows in the specified table.  This is helpful for debugging purposes. */
+function DisplayFullTable(table_name : String){
+	// Display Table Name
+	DisplayHorizLabel("Contents of: " + table_name);
+	database_data = db_control.ReadFullTable(table_name);
 	//GUILayout.Label("Database Contents");
 	scrollPosition = GUILayout.BeginScrollView(scroll_position, GUILayout.Height(100));
 	for (var line : ArrayList in database_data){
@@ -323,27 +353,27 @@ function DisplayHorizLabel(msg : String){
 
 /* Create a user table with the public database information.  Also add a default user as first entry */
 function SetupUserTable() {
-	var query = "INSERT INTO " + user_table_name + " VALUES (NULL,'" + default_first_name + "','" + default_last_name + "');";
+	var query = "INSERT INTO " + user_table + " VALUES (NULL,'" + default_first_name + "','" + default_last_name + "');";
 	// Create user table
-	Debug.Log ("Creating Table: " + user_table_name);
-	db_control.CreateTable (user_table_name, user_field_names, user_field_values, user_constraints);
+	Debug.Log ("Creating Table: " + user_table);
+	db_control.CreateTable (user_table, user_field_names, user_field_values, user_constraints);
 	// Insert user with first name 'DEFAULT' and last name 'DEFAULT'
 	db_control.BasicQuery(query);
 }
 
 /* Create a calibration table and store publicly defined default values */
-function SetupCalibrationTable() {
+function SetupCalibrationTable(table_name : String, fields : Array, values : Array, constraints : String, defaults : Array) {
 	// Create table
-	Debug.Log ("Creating Table: " + calib_table_name);
-	db_control.CreateTable (calib_table_name, calib_field_names, calib_field_values, calib_constraints);
+	Debug.Log ("Creating Table: " + table_name);
+	db_control.CreateTable (table_name, fields, values, constraints);
 	// Insert default data
-	db_control.InsertInto (calib_table_name, default_calib_data);
+	db_control.InsertInto (table_name, defaults);
 }
 
 /* Delete any calibration data for specified user before removing the user from our user profiles table */
 function DeleteUser(first_name : String, last_name : String) {
 	// Grab the users p_id
-	var query = "SELECT p_id FROM " + user_table_name + " WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
+	var query = "SELECT p_id FROM " + user_table + " WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
 	var results = db_control.BasicQuery(query);
 	// If a user was found attempt to delete any calibration data that may exist
 	if (results.Count > 0) {
@@ -354,7 +384,7 @@ function DeleteUser(first_name : String, last_name : String) {
 		DeleteCalibrationData(user_id);
 		
 		// Delete user from UserProfiles
-		query = "DELETE FROM " + user_table_name + " WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
+		query = "DELETE FROM " + user_table + " WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
 		results = db_control.BasicQuery(query);
 		failed_user_delete = false;
 	} else {
@@ -364,13 +394,15 @@ function DeleteUser(first_name : String, last_name : String) {
 
 /* Delete calibration data for a user if it exists */
 function DeleteCalibrationData(user_id : int) {
-		var query = "DELETE FROM " + calib_table_name + " WHERE user_id=" + user_id + ";";
+		var query = "DELETE FROM " + right_calib_table + " WHERE user_id=" + user_id + ";";
+		var results = db_control.BasicQuery(query);
+		var query = "DELETE FROM " + left_calib_table + " WHERE user_id=" + user_id + ";";
 		var results = db_control.BasicQuery(query);
 }
 
 /* Set the active user for the project. Do this using PlayerPrefs as they can be accessed throughout the project */
 function SetActiveUser(first_name : String, last_name : String) {
-	var query = "SELECT p_id FROM " + user_table_name + " WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
+	var query = "SELECT p_id FROM " + user_table + " WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
 	var results = db_control.BasicQuery(query);
 	// Set the PlayerPref
 	PlayerPrefs.SetInt("ActiveUser", results[0][0]);
@@ -379,8 +411,9 @@ function SetActiveUser(first_name : String, last_name : String) {
 /* Set database preferences for future processes */
 function SetDatabasePrefs() {
 	PlayerPrefs.SetString("DBName", db_name);
-	PlayerPrefs.SetString("CalibrationTable", calib_table_name);
-	PlayerPrefs.SetString("UserTable", user_table_name);
+	PlayerPrefs.SetString("RightCalibrationTable", right_calib_table);
+	PlayerPrefs.SetString("LeftCalibrationTable", left_calib_table);
+	PlayerPrefs.SetString("UserTable", user_table);
 }
 
 /* 
@@ -389,7 +422,7 @@ directed to the calibration scene. Other wise to the game scene
 */
 function LoadNextScene(){
 	var user_id = PlayerPrefs.GetInt("ActiveUser");
-	var query = "SELECT COUNT(*) FROM " + calib_table_name + " WHERE user_id=" + user_id + ";";
+	var query = "SELECT COUNT(*) FROM " + right_calib_table + " WHERE user_id=" + user_id + ";";
 	var results = db_control.BasicQuery(query);
 
 	// If a zero count is returned by the query OR force_calibration is true, proceed to calibration scene
@@ -399,12 +432,12 @@ function LoadNextScene(){
 			Debug.Log("Forcing Calibration for user");
 			DeleteCalibrationData(PlayerPrefs.GetInt("ActiveUser"));
 		}
-		Application.LoadLevel(calibration_scene_name);
+		Application.LoadLevel(calibration_scene);
 		Debug.Log("Loading Calibration Scene");
 	// If a calibration entry is found, go straight to our game scene
 	} else {
 	Debug.Log("Loading Game Scene");
-		Application.LoadLevel(game_scene_name);
+		Application.LoadLevel(game_scene);
 	}
 	
 	db_control.CloseDB ();	
