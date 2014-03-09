@@ -18,23 +18,15 @@ public class FingerControl : MonoBehaviour {
 	}
 	
 	void Update () {
-		
-		// Adjust all joints for each finger
-		if (ZigSkeleton.mirror == true) {
-			adjustJointTilts ("LeftHandIndex1", degrees: Models.fingers[0]);
-			adjustJointTilts ("LeftHandMiddle1", degrees: Models.fingers[1]);
-			adjustJointTilts ("LeftHandRing1", degrees: Models.fingers[2]);
-			adjustJointTilts ("LeftHandPinky1", degrees: Models.fingers[3]);
-		} else {
-			/*adjustJointTilts ("RightHandIndex1", degrees: 90);
-			adjustJointTilts ("RightHandMiddle1", degrees: 66);
-			adjustJointTilts ("RightHandRing1", degrees: 44);
-			adjustJointTilts ("RightHandPinky1", degrees: 22);*/
-			adjustJointTilts ("RightHandIndex1", degrees: Models.fingers[0]);
-			adjustJointTilts ("RightHandMiddle1", degrees: Models.fingers[1]);
-			adjustJointTilts ("RightHandRing1", degrees: Models.fingers[2]);
-			adjustJointTilts ("RightHandPinky1", degrees: Models.fingers[3]);
-		}
+		adjustJointTilts ("RightHandIndex1", degrees: Models.fingers[0]);
+		adjustJointTilts ("RightHandMiddle1", degrees: Models.fingers[1]);
+		adjustJointTilts ("RightHandRing1", degrees: Models.fingers[2]);
+		adjustJointTilts ("RightHandPinky1", degrees: Models.fingers[3]);
+		adjustJointTilts ("LeftHandIndex1", degrees: Models.fingers[4]);
+		adjustJointTilts ("LeftHandMiddle1", degrees: Models.fingers[5]);
+		adjustJointTilts ("LeftHandRing1", degrees: Models.fingers[6]);
+		adjustJointTilts ("LeftHandPinky1", degrees: Models.fingers[7]);
+
 	}
 	
 	

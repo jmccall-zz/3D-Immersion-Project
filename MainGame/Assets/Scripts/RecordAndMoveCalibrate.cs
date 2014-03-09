@@ -88,11 +88,10 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 	}
 	
 	void Record() {
-		float [] values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
-		//float [] values = reader.getValues();
+		// If you aren't able to get any data into the source file, use some dummy values for testing
+		//float [] values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+		float [] values = reader.getValues();
 		int index = 0;
-		//float[] values = {10, 20, 30, 40};
-		Debug.Log ("Values: " + values [0] + values [1] + values [2] + values [3]);
 
 		// Set calibrations for the right hand during first 7 transitions
 		if (transitionCount < 7) {
