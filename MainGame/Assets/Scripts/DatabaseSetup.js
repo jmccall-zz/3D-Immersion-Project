@@ -20,6 +20,7 @@ private var query;
 private var scroll_position : Vector2;
 private var results : ArrayList = new ArrayList();
 private var database_data : ArrayList = new ArrayList();
+private var txt_field_style : GUIStyle;
 
 public var display_calibrations = true;
 public var display_users = true;
@@ -33,6 +34,11 @@ public var first_name = "First Name";
 public var last_name = "Last Name";
 public var default_first_name = 'Bob';
 public var default_last_name = 'Builder';
+public var txt_field_width : int = 300;
+public var txt_field_height : int = 40;
+public var button_width : int = 200;
+public var calibration_button_pos : Rect = new Rect(620, 35, 150, 50);
+
 public var default_right_calib_data = new Array (
 	1,
 	32700,
@@ -66,37 +72,35 @@ public var default_right_calib_data = new Array (
 );
 public var default_left_calib_data = new Array (
 	1,
-	32700,
-	26800,
-	23000,
-	21000,
-	13000,	
-	10000,
-	7000,	
-	31000,
-	22000,
-	10000,
-	4400,
-	3000,
-	1000,
-	200,
-	39000,
-	26000,
-	20000,
-	16000,
-	14000,
-	13000,
-	12000,
-	14000,
-	2000,
-	1000,
-	500,
-	400, 
-	200,
-	100
+	592,
+	564,
+	532,
+	408,
+	200,	
+	116,
+	3,	
+	897,
+	773,
+	653,
+	429,
+	234,
+	203,
+	61,
+	866,
+	743,
+	607,
+	376,
+	165,
+	156,
+	60,
+	884,
+	782,
+	678,
+	488,
+	275, 
+	204,
+	46
 );
-public var txt_field_width : int = 100;
-public var button_width : int = 100;
 
 public var user_field_names = new Array (
 	"p_id",
@@ -222,6 +226,13 @@ function OnGUI() {
 	GUI.Box(new Rect (25,25,Screen.width - 50, Screen.height - 50),"");
 	GUILayout.BeginArea(new Rect(50, 50, Screen.width - 100, Screen.height - 100));
 	
+	// Initialize GUIStyles
+	txt_field_style = GUI.skin.textField;
+	txt_field_style.fontSize = 20;
+	
+	// Display our welcome message
+	DisplayHorizLabel("Welcome to Some Cool Isshhh. Please Login Below:");
+	
 	// If a user has not been found already, display login menu
 	if (!user_found){
 		LoginOptions();
@@ -253,12 +264,16 @@ function OnGUI() {
 function LoginOptions() {
 	// This first block allows us to enter new entries into our table
 	GUILayout.BeginHorizontal();
-	first_name = GUILayout.TextField(first_name, GUILayout.Width (txt_field_width));
-	last_name = GUILayout.TextField(last_name, GUILayout.Width (txt_field_width));
-	force_calibration = GUI.Toggle(Rect(220, 0, 150, 30), force_calibration, "Force Calibration");
+	//GUILayout.FlexibleSpace();
+	first_name = GUILayout.TextField(first_name, txt_field_style, GUILayout.Width (txt_field_width), GUILayout.Height(txt_field_height));
+	last_name = GUILayout.TextField(last_name, GUILayout.Width (txt_field_width), GUILayout.Height(txt_field_height));
+	force_calibration = GUI.Toggle(calibration_button_pos, force_calibration, "Force Calibration");
+	//GUILayout.FlexibleSpace();
 	GUILayout.EndHorizontal();
 	
+	// Display all buttons for login/creation/deletion
 	GUILayout.BeginHorizontal();
+	//GUILayout.FlexibleSpace();
 	
 	/*****************************************************************/
 	// Attempt to login with user name
@@ -324,6 +339,7 @@ function LoginOptions() {
 		failed_user_login = false;		
 	}
 	
+	//GUILayout.FlexibleSpace();
 	GUILayout.EndHorizontal();
 }
 
