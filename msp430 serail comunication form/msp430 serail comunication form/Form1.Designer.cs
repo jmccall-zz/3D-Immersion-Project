@@ -56,13 +56,16 @@
             this.finger_1box = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.Pressure_Box1 = new System.Windows.Forms.TextBox();
+            this.Pressure_Box2 = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.textBox8 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // serialPort
             // 
-            this.serialPort.BaudRate = 1100000;
             this.serialPort.ReceivedBytesThreshold = 50;
             this.serialPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort_DataReceived);
             // 
@@ -175,6 +178,10 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.textBox8);
+            this.groupBox3.Controls.Add(this.textBox7);
+            this.groupBox3.Controls.Add(this.Pressure_Box2);
+            this.groupBox3.Controls.Add(this.Pressure_Box1);
             this.groupBox3.Controls.Add(this.Acc_Zbox);
             this.groupBox3.Controls.Add(this.textBox17);
             this.groupBox3.Controls.Add(this.Acc_Ybox);
@@ -193,14 +200,14 @@
             this.groupBox3.Controls.Add(this.textBox2);
             this.groupBox3.Location = new System.Drawing.Point(12, 221);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(432, 129);
+            this.groupBox3.Size = new System.Drawing.Size(432, 155);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Glove data";
             // 
             // Acc_Zbox
             // 
-            this.Acc_Zbox.Location = new System.Drawing.Point(293, 99);
+            this.Acc_Zbox.Location = new System.Drawing.Point(301, 73);
             this.Acc_Zbox.Name = "Acc_Zbox";
             this.Acc_Zbox.Size = new System.Drawing.Size(113, 20);
             this.Acc_Zbox.TabIndex = 15;
@@ -208,7 +215,7 @@
             // textBox17
             // 
             this.textBox17.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.textBox17.Location = new System.Drawing.Point(223, 99);
+            this.textBox17.Location = new System.Drawing.Point(231, 73);
             this.textBox17.Name = "textBox17";
             this.textBox17.Size = new System.Drawing.Size(64, 20);
             this.textBox17.TabIndex = 14;
@@ -216,7 +223,7 @@
             // 
             // Acc_Ybox
             // 
-            this.Acc_Ybox.Location = new System.Drawing.Point(293, 73);
+            this.Acc_Ybox.Location = new System.Drawing.Point(301, 47);
             this.Acc_Ybox.Name = "Acc_Ybox";
             this.Acc_Ybox.Size = new System.Drawing.Size(113, 20);
             this.Acc_Ybox.TabIndex = 13;
@@ -224,7 +231,7 @@
             // textBox19
             // 
             this.textBox19.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.textBox19.Location = new System.Drawing.Point(223, 73);
+            this.textBox19.Location = new System.Drawing.Point(231, 47);
             this.textBox19.Name = "textBox19";
             this.textBox19.Size = new System.Drawing.Size(64, 20);
             this.textBox19.TabIndex = 12;
@@ -232,7 +239,7 @@
             // 
             // Acc_Xbox
             // 
-            this.Acc_Xbox.Location = new System.Drawing.Point(293, 45);
+            this.Acc_Xbox.Location = new System.Drawing.Point(301, 19);
             this.Acc_Xbox.Name = "Acc_Xbox";
             this.Acc_Xbox.Size = new System.Drawing.Size(113, 20);
             this.Acc_Xbox.TabIndex = 11;
@@ -240,7 +247,7 @@
             // textBox9
             // 
             this.textBox9.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.textBox9.Location = new System.Drawing.Point(223, 45);
+            this.textBox9.Location = new System.Drawing.Point(231, 19);
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(64, 20);
             this.textBox9.TabIndex = 10;
@@ -249,7 +256,7 @@
             // 
             // finger_5box
             // 
-            this.finger_5box.Location = new System.Drawing.Point(293, 19);
+            this.finger_5box.Location = new System.Drawing.Point(85, 125);
             this.finger_5box.Name = "finger_5box";
             this.finger_5box.Size = new System.Drawing.Size(113, 20);
             this.finger_5box.TabIndex = 9;
@@ -257,7 +264,7 @@
             // textBox11
             // 
             this.textBox11.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.textBox11.Location = new System.Drawing.Point(223, 19);
+            this.textBox11.Location = new System.Drawing.Point(15, 125);
             this.textBox11.Name = "textBox11";
             this.textBox11.Size = new System.Drawing.Size(64, 20);
             this.textBox11.TabIndex = 8;
@@ -332,15 +339,47 @@
             this.timer1.Interval = 20;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // Pressure_Box1
+            // 
+            this.Pressure_Box1.Location = new System.Drawing.Point(301, 99);
+            this.Pressure_Box1.Name = "Pressure_Box1";
+            this.Pressure_Box1.Size = new System.Drawing.Size(113, 20);
+            this.Pressure_Box1.TabIndex = 16;
+            // 
+            // Pressure_Box2
+            // 
+            this.Pressure_Box2.Location = new System.Drawing.Point(301, 125);
+            this.Pressure_Box2.Name = "Pressure_Box2";
+            this.Pressure_Box2.Size = new System.Drawing.Size(113, 20);
+            this.Pressure_Box2.TabIndex = 17;
+            // 
+            // textBox7
+            // 
+            this.textBox7.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.textBox7.Location = new System.Drawing.Point(231, 99);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(64, 20);
+            this.textBox7.TabIndex = 18;
+            this.textBox7.Text = "Pressure#1";
+            // 
+            // textBox8
+            // 
+            this.textBox8.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.textBox8.Location = new System.Drawing.Point(231, 125);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(64, 20);
+            this.textBox8.TabIndex = 19;
+            this.textBox8.Text = "Pressure#2";
+            // 
             // GLOVE_DATA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(464, 362);
+            this.ClientSize = new System.Drawing.Size(464, 386);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
-            this.MaximumSize = new System.Drawing.Size(480, 400);
-            this.MinimumSize = new System.Drawing.Size(480, 400);
+            this.MaximumSize = new System.Drawing.Size(480, 424);
+            this.MinimumSize = new System.Drawing.Size(480, 424);
             this.Name = "GLOVE_DATA";
             this.Text = "GLOVE_DATA";
             this.groupBox1.ResumeLayout(false);
@@ -380,6 +419,10 @@
         private System.Windows.Forms.TextBox finger_1box;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox Pressure_Box2;
+        private System.Windows.Forms.TextBox Pressure_Box1;
     }
 }
 

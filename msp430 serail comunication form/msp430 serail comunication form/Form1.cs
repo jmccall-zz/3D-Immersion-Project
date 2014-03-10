@@ -130,7 +130,6 @@ namespace msp430_serail_comunication_form
             }
             catch (System.TimeoutException ex)
             {
-
                 MessageBox.Show(ex.Message);
             }
         }
@@ -183,6 +182,14 @@ namespace msp430_serail_comunication_form
                 if (data[i].StartsWith("I"))
                 {
                     Acc_Zbox.Text = data[i].TrimStart('I');
+                }
+                if (data[i].StartsWith("J"))
+                {
+                    Pressure_Box1.Text = data[i].TrimStart('J');
+                }
+                if (data[i].StartsWith("K"))
+                {
+                    Pressure_Box2.Text = data[i].TrimStart('K');
                 }
 
             }
