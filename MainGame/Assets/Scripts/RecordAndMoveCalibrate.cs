@@ -17,7 +17,7 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 	
 	public const int MAX_TRANSITIONS = 13;
 	private int transitionCount = 0;
-	private int[] finger_extensions = {100, 83, 66, 50, 33, 17, 0, 100, 83, 66, 50, 33, 17, 0, 54};
+	private int[] finger_extensions = {100, 83, 66, 50, 33, 17, 0, 100, 83, 66, 50, 33, 17, 0};
 	// Which fingers are represented by lines in the text file
 	private int rightIndexFingerIndex = 1;
 	private int rightMiddleFingerIndex = 2;
