@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\GloveReader.cs" />
      <Compile Include="Assets\Scripts\GrabLogic.cs" />
      <Compile Include="Assets\Scripts\Models.cs" />
+     <Compile Include="Assets\Scripts\PressureMax.cs" />
      <Compile Include="Assets\Scripts\RecordAndMoveCalibrate.cs" />
      <Compile Include="Assets\Scripts\SceneControl.cs" />
      <Compile Include="Assets\Scripts\WristControl.cs" />

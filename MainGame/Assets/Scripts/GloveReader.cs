@@ -18,6 +18,20 @@ public class GloveReader {
 	private const int SeventyFiveDegrees = 5;
 	private const int NinetyDegrees = 6;
 
+	public const int RH_IndexFinger = 0;
+	public const int RH_MiddleFinger = 1;
+	public const int RH_RingFinger = 2;
+	public const int RH_PinkyFinger = 3;
+	public const int RH_AccX = 4;
+	public const int RH_AccY = 5;
+	public const int RH_AccZ = 6;
+	public const int LH_IndexFinger = 7;
+	public const int LH_MiddleFinger = 8;
+	public const int LH_RingFinger = 9;
+	public const int LH_PinkyFinger = 10;
+	public const int LH_GripIndex = 11;
+	public const int LH_GripMiddle = 12;
+
 	private string right_hand_path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\testfile.txt");
 	private string left_hand_path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\GloveData.txt");
 	public bool init;
@@ -26,8 +40,8 @@ public class GloveReader {
 	public float[] sensorValues;
 	private string [] readLines;
 	private ArrayList allFingerZones;
-	static int numOfDataPointsR = 7;
-	static int numOfDataPointsL = 4;
+	const int numOfDataPointsR = 7;
+	const int numOfDataPointsL = 5;
 	public int[] rightFingerZones;
 	public int[] leftFingerZones;
 

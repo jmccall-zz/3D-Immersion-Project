@@ -1,16 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GloveReader.cs">
     <Files>
-      <File FileName="Assets\Scripts\GrabLogic.cs" Line="28" Column="28" />
-      <File FileName="Assets\Scripts\DatabaseSetup.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GloveReader.cs" Line="155" Column="23" />
-      <File FileName="Assets\Scripts\WristControl.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\FingerControl.cs" Line="30" Column="3" />
-      <File FileName="Assets\OVR\Scripts\OVRGUI.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Models.cs" Line="253" Column="31" />
-      <File FileName="Assets\Scripts\RecordAndMoveCalibrate.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\CylinderLogic.cs" Line="25" Column="9" />
+      <File FileName="Assets\Scripts\GloveReader.cs" Line="131" Column="32" />
+      <File FileName="Assets\Scripts\PressureMax.cs" Line="23" Column="2" />
+      <File FileName="Assets\Scripts\Menu.js" Line="36" Column="39" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

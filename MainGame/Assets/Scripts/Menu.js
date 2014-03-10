@@ -29,7 +29,13 @@ function OnGUI() {
 		if (GUI.Button (Rect (Screen.width/2 - 75, Screen.height/2 + 30 , 150, 20), "Load Ball Game")) {
 			Application.LoadLevel("FirstScene");
 		}
-		if (GUI.Button (Rect (Screen.width/2 - 75, Screen.height/2 + 60, 150, 20), "Exit")) {
+		if (GUI.Button (Rect (Screen.width/2 - 75, Screen.height/2 + 60 , 150, 20), "Load Reach Test")) {
+			Application.LoadLevel("ReachBack");
+		}
+		if (GUI.Button (Rect (Screen.width/2 - 75, Screen.height/2 + 90 , 150, 20), "Load Grip Test")) {
+			Application.LoadLevel("GripStrength");
+		}
+		if (GUI.Button (Rect (Screen.width/2 - 75, Screen.height/2 + 120, 150, 20), "Exit")) {
 			Application.Quit();
 		}
 	}
