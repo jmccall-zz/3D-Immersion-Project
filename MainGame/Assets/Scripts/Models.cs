@@ -166,6 +166,8 @@ public class Models : MonoBehaviour {
 				
 				int scale = (Right_Middle_Finger_Block_75-Right_Middle_Finger_Block_90)/15;
 				fingers[1] = 90-(dims[rightMiddleFingerIndex]-Right_Middle_Finger_Block_90)/scale;
+			} else if(dims[rightMiddleFingerIndex]<Right_Middle_Finger_Block_90){
+				fingers[1] = 90;
 			}
 			///////////////////////////Right_Index finger calibration mapping///////////////////////////////////
 			if((dims[rightIndexFingerIndex]<Right_Index_Finger_Block_0)&&(dims[rightIndexFingerIndex]>Right_Index_Finger_Block_15)){
@@ -205,6 +207,8 @@ public class Models : MonoBehaviour {
 				
 				int scale = (Right_Index_Finger_Block_75-Right_Index_Finger_Block_90)/15;
 				fingers[0] = 90-(dims[rightIndexFingerIndex]-Right_Index_Finger_Block_90)/scale;
+			} else if (dims[rightIndexFingerIndex]<Right_Index_Finger_Block_90){
+				fingers[0] = 90;
 			}
 			
 			
@@ -246,6 +250,8 @@ public class Models : MonoBehaviour {
 				
 				int scale = (Right_Ring_Finger_Block_75-Right_Ring_Finger_Block_90)/15;
 				fingers[2] = 90-(dims[rightRingFingerIndex]-Right_Ring_Finger_Block_90)/scale;
+			} else if(dims[rightIndexFingerIndex]<Right_Index_Finger_Block_90){
+				fingers[2] = 90;
 			}
 			
 			
@@ -282,11 +288,13 @@ public class Models : MonoBehaviour {
 				int scale = (Right_Pinky_Finger_Block_60-Right_Pinky_Finger_Block_75)/15;
 				fingers[3] = 75-(dims[rightPinkyFingerIndex]-Right_Pinky_Finger_Block_75)/scale;
 				
-			}
+			} 
 			if((dims[rightPinkyFingerIndex]<Right_Pinky_Finger_Block_75)&&(dims[rightPinkyFingerIndex]>Right_Pinky_Finger_Block_90)){
 				
 				int scale = (Right_Pinky_Finger_Block_75-Right_Pinky_Finger_Block_90)/15;
 				fingers[3] = 90-(dims[rightPinkyFingerIndex]-Right_Pinky_Finger_Block_90)/scale;
+			} else if(dims[rightPinkyFingerIndex]<Right_Pinky_Finger_Block_90){
+				fingers[3] = 90;
 			}
 
 			/********************************************************************************************/
