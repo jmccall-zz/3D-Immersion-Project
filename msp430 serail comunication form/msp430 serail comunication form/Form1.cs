@@ -25,6 +25,8 @@ namespace msp430_serail_comunication_form
         string Finger_3 = "";
         string Finger_4 = "";
         string Finger_5 = "";
+        string Press_1 = "";
+        string Press_2 = "";
         string AccZ = "";
         string AccY = "";
         string AccX = "";
@@ -185,11 +187,14 @@ namespace msp430_serail_comunication_form
                 }
                 if (data[i].StartsWith("J"))
                 {
-                    Pressure_Box1.Text = data[i].TrimStart('J');
+                    Press_1 = data[i].TrimStart('J');
+                    Pressure_Box1.Text = Press_1;
+                    
                 }
                 if (data[i].StartsWith("K"))
                 {
-                    Pressure_Box2.Text = data[i].TrimStart('K');
+                    Press_2 = data[i].TrimStart('K');
+                    Pressure_Box2.Text = Press_2;
                 }
 
             }
@@ -219,6 +224,8 @@ namespace msp430_serail_comunication_form
                 sb.AppendLine(Finger_2);
                 sb.AppendLine(Finger_3);
                 sb.AppendLine(Finger_4);
+                sb.AppendLine(Press_1);
+                sb.AppendLine(Press_2);
                 using (var fileStream = new FileStream(mydocpath + @"\GloveData.txt", FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
                 using (StreamWriter outfile = new StreamWriter(fileStream))
                 {

@@ -18,7 +18,7 @@ public class GrabLogic : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		reader.UpdateGestures ();
+
 		if (objectTransform != null) {
 			if (left && reader.LeftIsGrab) {
 				objectTransform.position = transform.position;
@@ -28,9 +28,13 @@ public class GrabLogic : MonoBehaviour {
 				objectTransform = null;
 			}
 		}
+		Debug.Log (reader.leftFingerZones[3]);
+		Debug.Log (reader.LeftIsGrab);
+		reader.UpdateGestures ();
 	}
 
 	void OnCollisionEnter(Collision collision) {
+		reader.UpdateGestures ();
 		if (collision.transform.name == "Cylinder" && right && reader.RightIsGrab) {
 			objectTransform = collision.transform;
 		} else if (collision.transform.name == "Cylinder" && left && reader.LeftIsGrab) {

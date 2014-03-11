@@ -18,19 +18,45 @@ public class GloveReader {
 	private const int SeventyFiveDegrees = 5;
 	private const int NinetyDegrees = 6;
 
-	public const int RH_IndexFinger = 0;
-	public const int RH_MiddleFinger = 1;
-	public const int RH_RingFinger = 2;
-	public const int RH_PinkyFinger = 3;
-	public const int RH_AccX = 4;
-	public const int RH_AccY = 5;
-	public const int RH_AccZ = 6;
-	public const int LH_IndexFinger = 7;
-	public const int LH_MiddleFinger = 8;
-	public const int LH_RingFinger = 9;
-	public const int LH_PinkyFinger = 10;
-	public const int LH_GripIndex = 11;
-	public const int LH_GripMiddle = 12;
+	public int RH_IndexFinger () {
+		return 0;
+	}
+	public int RH_MiddleFinger() {
+		return 1;
+	}
+	public int RH_RingFinger () {
+		return 2;
+	}
+	public int RH_PinkyFinger () {
+		return 3;
+	}
+	public int RH_AccX () {
+		return 4;
+	}
+	public int RH_AccY () {
+		return 5;
+	}
+	public int RH_AccZ () {
+		return 6;
+	}
+	public int LH_IndexFinger () {
+		return 7;
+	}
+	public int LH_MiddleFinger () {
+		return 8;
+	}
+	public int LH_RingFinger () {
+		return 9;
+	}
+	public int LH_PinkyFinger () {
+		return 10;
+	}
+	public int LH_GripIndex (){
+		return 12;
+	}
+	public int LH_GripMiddle() {
+		return 11;
+	}
 
 	private string right_hand_path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\testfile.txt");
 	private string left_hand_path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\GloveData.txt");
@@ -125,31 +151,31 @@ public class GloveReader {
 	}
 
 	public void UpdateGestures(){
-		float [] sensorVal = this.getValues ();
+		sensorValues = this.getValues ();
 
 		// Update Right Hand Grab gesture
-		if (sensorVal[0] < rightFingerZones[IndexFinger + FortyFiveDegrees] ||
-		    sensorVal[1] < rightFingerZones[MiddleFinger + FortyFiveDegrees] || 
-		    sensorVal[2] < rightFingerZones[RingFinger + FortyFiveDegrees] || 
-		    sensorVal[3] < rightFingerZones[PinkyFinger + FortyFiveDegrees]) {
+		if (sensorValues[0] < rightFingerZones[IndexFinger + FortyFiveDegrees] ||
+		    sensorValues[1] < rightFingerZones[MiddleFinger + FortyFiveDegrees] || 
+		    sensorValues[2] < rightFingerZones[RingFinger + FortyFiveDegrees] || 
+		    sensorValues[3] < rightFingerZones[PinkyFinger + FortyFiveDegrees]) {
 			RightIsGrab = true;
-		} else if (sensorVal[0] > rightFingerZones[IndexFinger + FortyFiveDegrees] ||
-		           sensorVal[1] > rightFingerZones[MiddleFinger + FortyFiveDegrees] || 
-		           sensorVal[2] > rightFingerZones[RingFinger + FortyFiveDegrees] || 
-		           sensorVal[3] > rightFingerZones[PinkyFinger + FortyFiveDegrees]) {
+		} else if (sensorValues[0] > rightFingerZones[IndexFinger + FortyFiveDegrees] &&
+		           sensorValues[1] > rightFingerZones[MiddleFinger + FortyFiveDegrees] && 
+		           sensorValues[2] > rightFingerZones[RingFinger + FortyFiveDegrees] && 
+		           sensorValues[3] > rightFingerZones[PinkyFinger + FortyFiveDegrees]) {
 			RightIsGrab = false;
 		}
 
 		// Update Left Hand Grab gesture
-		if (sensorVal[0] < leftFingerZones[IndexFinger + FortyFiveDegrees] ||
-		    sensorVal[1] < leftFingerZones[MiddleFinger + FortyFiveDegrees] || 
-		    sensorVal[2] < leftFingerZones[RingFinger + FortyFiveDegrees] || 
-		    sensorVal[3] < leftFingerZones[PinkyFinger + FortyFiveDegrees]) {
+		if (sensorValues[this.LH_IndexFinger()] < leftFingerZones[IndexFinger + FortyFiveDegrees] ||
+		    sensorValues[this.LH_MiddleFinger()] < leftFingerZones[MiddleFinger + FortyFiveDegrees] || 
+		    sensorValues[this.LH_RingFinger()] < leftFingerZones[RingFinger + FortyFiveDegrees] || 
+		    sensorValues[this.LH_PinkyFinger()] < leftFingerZones[PinkyFinger + FortyFiveDegrees]) {
 			LeftIsGrab = true;
-		} else if (sensorVal[0] > leftFingerZones[IndexFinger + FortyFiveDegrees] ||
-		           sensorVal[1] > leftFingerZones[MiddleFinger + FortyFiveDegrees] || 
-		           sensorVal[2] > leftFingerZones[RingFinger + FortyFiveDegrees] || 
-		           sensorVal[3] > leftFingerZones[PinkyFinger + FortyFiveDegrees]) {
+		} else if (sensorValues[this.LH_IndexFinger()] > leftFingerZones[IndexFinger + FortyFiveDegrees] &&
+		           sensorValues[this.LH_MiddleFinger()] > leftFingerZones[MiddleFinger + FortyFiveDegrees] && 
+		           sensorValues[this.LH_RingFinger()] > leftFingerZones[RingFinger + FortyFiveDegrees] && 
+		           sensorValues[this.LH_PinkyFinger()] > leftFingerZones[PinkyFinger + FortyFiveDegrees]) {
 			LeftIsGrab = false;
 		}
 	}
