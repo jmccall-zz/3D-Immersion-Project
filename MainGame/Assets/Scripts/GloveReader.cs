@@ -19,16 +19,16 @@ public class GloveReader {
 	private const int NinetyDegrees = 6;
 
 	public int RH_IndexFinger () {
-		return 0;
-	}
-	public int RH_MiddleFinger() {
 		return 1;
 	}
-	public int RH_RingFinger () {
+	public int RH_MiddleFinger() {
 		return 2;
 	}
-	public int RH_PinkyFinger () {
+	public int RH_RingFinger () {
 		return 3;
+	}
+	public int RH_PinkyFinger () {
+		return 0;
 	}
 	public int RH_AccX () {
 		return 4;
