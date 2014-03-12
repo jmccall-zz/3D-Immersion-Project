@@ -49,7 +49,7 @@ public class FingerControl : MonoBehaviour {
 			else
 				transform.localEulerAngles = new Vector3 (0, 0, degrees);
 
-		} else if (degrees < 0) {
+		} else if (degrees <= 0) {
 			transform.localEulerAngles = new Vector3 (0, 0, 0);
 		} else {
 			if (rightHand)
@@ -66,7 +66,7 @@ public class FingerControl : MonoBehaviour {
 				transform.localEulerAngles = new Vector3 (0, 0, -degrees);
 			else
 				transform.localEulerAngles = new Vector3 (0, 0, degrees);
-		} else if (degrees < 0) {
+		} else if (degrees <= 0) {
 			transform.localEulerAngles = new Vector3 (0, 0, 0);
 		} else {
 			if (rightHand)
@@ -84,7 +84,7 @@ public class FingerControl : MonoBehaviour {
 				transform.localEulerAngles = new Vector3 (0, 0, -degrees);
 			else
 				transform.localEulerAngles = new Vector3 (0, 0, degrees);
-		} else if (degrees < 0) {
+		} else if (degrees <= 0) {
 			transform.localEulerAngles = new Vector3 (0, 0, 0);
 			
 		} else {
