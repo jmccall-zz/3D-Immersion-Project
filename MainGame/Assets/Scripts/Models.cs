@@ -19,6 +19,16 @@ public class Models : MonoBehaviour {
 	private int leftRingFingerIndex = 10;
 	private int leftPinkyFingerIndex = 7;
 
+	private int[] degreeTranslations = {
+		0,	// 0 -> 0
+		15, // 1 -> 15
+		30, // 2 -> 30
+		45, // 3 -> 45
+		60, // 4 -> 60
+		75, // 5 -> 75
+		90  // 6 -> 90 
+	};
+	
 	int errorcounter = 0;
 	
 	
@@ -119,13 +129,15 @@ public class Models : MonoBehaviour {
 			
 			
 			/////////////////////Left_Pinky block definitions////////////////////
-			int Left_Pinky_Finger_Block_0  =  reader.leftFingerZones[21];
-			int Left_Pinky_Finger_Block_15 =  reader.leftFingerZones[22];
-			int Left_Pinky_Finger_Block_30 =  reader.leftFingerZones[23];
-			int Left_Pinky_Finger_Block_45 =  reader.leftFingerZones[24];
-			int Left_Pinky_Finger_Block_60 =  reader.leftFingerZones[25]; 
-			int Left_Pinky_Finger_Block_75 =  reader.leftFingerZones[26];
-			int Left_Pinky_Finger_Block_90 =  reader.leftFingerZones[27];
+			int [] Left_Pinky_Finger_Blocks  =  {
+				reader.leftFingerZones[21],
+			 	reader.leftFingerZones[22],
+				reader.leftFingerZones[23],
+				reader.leftFingerZones[24],
+				reader.leftFingerZones[25], 
+				reader.leftFingerZones[26],
+				reader.leftFingerZones[27]
+			};
 			
 			
 			/////////////////////////////midddle finger calibration mapping//////////////
@@ -420,7 +432,7 @@ public class Models : MonoBehaviour {
 			
 			
 			//////////////////////////Left_Pinky finger calibration mapping///////////////////////////////////
-			if((dims[leftPinkyFingerIndex]<Left_Pinky_Finger_Block_0)&&(dims[leftPinkyFingerIndex]>Left_Pinky_Finger_Block_15)){
+			/*if((dims[leftPinkyFingerIndex]<Left_Pinky_Finger_Block_0)&&(dims[leftPinkyFingerIndex]>Left_Pinky_Finger_Block_15)){
 				
 				int scale = (Left_Pinky_Finger_Block_0-Left_Pinky_Finger_Block_15)/15;
 				fingers[7] = 15-(dims[leftPinkyFingerIndex]-Left_Pinky_Finger_Block_15)/scale;
@@ -453,28 +465,68 @@ public class Models : MonoBehaviour {
 				fingers[7] = 75-(dims[leftPinkyFingerIndex]-Left_Pinky_Finger_Block_75)/scale;
 				
 			}
+			// If the raw data from the left pinky finger is inbetween the ranges 75 & 90
 			if((dims[leftPinkyFingerIndex]<Left_Pinky_Finger_Block_75)&&(dims[leftPinkyFingerIndex]>Left_Pinky_Finger_Block_90)){
 				
 				int scale = (Left_Pinky_Finger_Block_75-Left_Pinky_Finger_Block_90)/15;
 				fingers[7] = 90-(dims[leftPinkyFingerIndex]-Left_Pinky_Finger_Block_90)/scale;
-			}
-
-			/********************************************************************************************/
-			//DEBUG: Print out the current value of our fingers 
-			/*Debug.Log("Fingers: " +
-			          "\n0: " + fingers[0] +
-			          "\n1: " + fingers[1] + 
-			          "\n2: " + fingers[2] + 
-			          "\n3: " + fingers[3] +
-			          "\n4: " + fingers[4] +
-			          "\n5: " + fingers[5] +
-			          "\n6: " + fingers[6] +
-			          "\n7: " + fingers[7]);*/
+			}*/
+			fingers[7] = scale_finger(dims[leftPinkyFingerIndex], Left_Pinky_Finger_Blocks);
+			Debug.Log("Raw: " + dims[leftPinkyFingerIndex] + " Degree: " + fingers[7]);
 			
 		} catch (Exception e) {
 			errorcounter++;
 			//Debug.Log("Couldn't update fingers: "+errorcounter + e.ToStRight_Ring() + e.StackTrace);
 		}
+	}
+	
+	/* This function returns a degree value based on the the range that the raw glove data falls into
+	 * 
+	 * @param value: Raw glove value returned by the bend sensor
+	 * @param max: The maximum glove value obtained from a calibration table. ex) Say our value falls between the
+	 * calibration blocks 75 & 90. The highest of the calibration values for 75 & 90 (in the database) should be "max".
+	 * @param max_degrees: The upper boundary of the degree range we are in. In our previous example this would be 90
+	 */ 
+	float get_degrees (float value, int max, int min, int max_degrees, int scale_factor = 15) {
+		int scale = (max - min) / scale_factor;
+		return max_degrees - ((value - min) / scale);
+	}
+
+
+	/* Scale an entire finger.  Do this by checking which range the raw glove data value falls into.  Then use appropriate
+	 * values for said range to caluculate an appropriate degree value
+	 * 
+	 * @param blocks: Calibration blocks for the finger.  These are values determined in the calibration scene for certain 
+	 * degrees of bend. At 0, 15, 30, 45, 60, 75, and 90 degrees this raw glove data is collected.
+	 */
+	float scale_finger(float value, int [] blocks, int scale_factor = 15){
+		float degrees = -1;
+		int max;
+		int min;
+
+		// If we get a raw value higher than our full extension calibrated value, set degrees to 0
+		if (value >= blocks[0])
+			return 0;
+
+		// If we get a raw value lower than our calibrated closed fist, set degrees to 90
+		else if (value <= blocks[6])
+			return 90;
+
+		// Cycle through ranges to determine correct scaling
+		for (int i = 0; i < 6; i++) {
+			if ((value < blocks[i]) && (value > blocks[i + 1])) {
+				max = Math.Max(blocks[i], blocks[i + 1]);
+				min = Math.Min(blocks[i], blocks[i + 1]);
+				degrees = get_degrees (value, max, min, degreeTranslations[i + 1], scale_factor);
+				break;
+			}
+		}
+		if (degrees == -1) {
+			Debug.Log("Could not scale this finger. Value didn't fall in any range\n" +
+			          "Value: " + value);
+		}
+
+		return degrees;
 	}
 }
 
