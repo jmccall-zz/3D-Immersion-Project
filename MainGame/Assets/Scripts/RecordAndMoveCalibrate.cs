@@ -18,16 +18,7 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 	public const int MAX_TRANSITIONS = 13;
 	private int transitionCount = 0;
 	private int[] finger_extensions = {100, 83, 66, 50, 33, 17, 0, 100, 83, 66, 50, 33, 17, 0};
-	// Which fingers are represented by lines in the text file
-	private int rightIndexFingerIndex = 1;
-	private int rightMiddleFingerIndex = 2;
-	private int rightRingFingerIndex = 3;
-	private int rightPinkyFingerIndex = 0;
-	private int leftIndexFingerIndex = 8;
-	private int leftMiddleFingerIndex = 9;
-	private int leftRingFingerIndex = 10;
-	private int leftPinkyFingerIndex = 7;
-	
+
 	// Database Player Preference Information (from Login Scene)
 	private int active_user;
 	private string db_name;
@@ -97,17 +88,17 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 		if (transitionCount < 7) {
 			// Set base index for reference
 			index = transitionCount + 1;
-			rightCalibrationPoints [index] = values[rightIndexFingerIndex];
-			rightCalibrationPoints [index + 7] = values[rightMiddleFingerIndex];	
-			rightCalibrationPoints [index + 14] = values[rightRingFingerIndex];	
-			rightCalibrationPoints [index + 21] = values[rightPinkyFingerIndex];	
+			rightCalibrationPoints [index] = values[reader.RH_IndexFinger()];
+			rightCalibrationPoints [index + 7] = values[reader.RH_MiddleFinger()];	
+			rightCalibrationPoints [index + 14] = values[reader.RH_RingFinger()];	
+			rightCalibrationPoints [index + 21] = values[reader.RH_PinkyFinger()];	
 		} else if (transitionCount < 14) {
 			// Set base index for reference
 			index = transitionCount - 6;
-			leftCalibrationPoints [index] = values[leftIndexFingerIndex];
-			leftCalibrationPoints [index + 7] = values[leftMiddleFingerIndex];	
-			leftCalibrationPoints [index + 14] = values[leftRingFingerIndex];	
-			leftCalibrationPoints [index + 21] = values[leftPinkyFingerIndex];	
+			leftCalibrationPoints [index] = values[reader.LH_IndexFinger()];
+			leftCalibrationPoints [index + 7] = values[reader.LH_MiddleFinger()];	
+			leftCalibrationPoints [index + 14] = values[reader.LH_RingFinger()];	
+			leftCalibrationPoints [index + 21] = values[reader.LH_PinkyFinger()];	
 		} else {
 			Debug.Log("End of scene. No more data to capture.");
 		}
