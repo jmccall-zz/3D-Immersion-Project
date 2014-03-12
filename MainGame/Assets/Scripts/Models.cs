@@ -9,15 +9,6 @@ public class Models : MonoBehaviour {
 	static public float[] accelerometer = new float[3];
 
 	private GloveReader reader;
-	// Which fingers are represented by lines in the text file
-	private int rightIndexFingerIndex = 1;
-	private int rightMiddleFingerIndex = 2;
-	private int rightRingFingerIndex = 3;
-	private int rightPinkyFingerIndex = 0;
-	private int leftIndexFingerIndex = 8;
-	private int leftMiddleFingerIndex = 9;
-	private int leftRingFingerIndex = 10;
-	private int leftPinkyFingerIndex = 7;
 
 	private int[] degreeTranslations = {
 		0,	// 0 -> 0
@@ -62,71 +53,81 @@ public class Models : MonoBehaviour {
 			/* Scale text file values */
 
 			////////////////////////Right_Index block definitions/////////////////////
-			int Right_Index_Finger_Block_0  = reader.rightFingerZones[0];
-			int Right_Index_Finger_Block_15 = reader.rightFingerZones[1];
-			int Right_Index_Finger_Block_30 = reader.rightFingerZones[2];
-			int Right_Index_Finger_Block_45 = reader.rightFingerZones[3];
-			int Right_Index_Finger_Block_60 = reader.rightFingerZones[4];	
-			int Right_Index_Finger_Block_75 = reader.rightFingerZones[5];
-			int Right_Index_Finger_Block_90 = reader.rightFingerZones[6];	
-			
-			
+			int [] Right_Index_Finger_Blocks  =  {
+				reader.rightFingerZones[0],
+				reader.rightFingerZones[1],
+				reader.rightFingerZones[2],
+				reader.rightFingerZones[3],
+				reader.rightFingerZones[4], 
+				reader.rightFingerZones[5],
+				reader.rightFingerZones[6]
+			};	
+
 			////////////////////////Right_Middle finger block definitions//////////////
-			int Right_Middle_Finger_Block_0  = reader.rightFingerZones[7];
-			int Right_Middle_Finger_Block_15 = reader.rightFingerZones[8];
-			int Right_Middle_Finger_Block_30 = reader.rightFingerZones[9];
-			int Right_Middle_Finger_Block_45 = reader.rightFingerZones[10];
-			int Right_Middle_Finger_Block_60 = reader.rightFingerZones[11];
-			int Right_Middle_Finger_Block_75 = reader.rightFingerZones[12];
-			int Right_Middle_Finger_Block_90 = reader.rightFingerZones[13];
+			int [] Right_Middle_Finger_Blocks  =  {
+				reader.rightFingerZones[7],
+				reader.rightFingerZones[8],
+				reader.rightFingerZones[9],
+				reader.rightFingerZones[10],
+				reader.rightFingerZones[11], 
+				reader.rightFingerZones[12],
+				reader.rightFingerZones[13]
+			};
 
 			//////////////////////Right_Ring finger block definitions//////////////////
-			int Right_Ring_Finger_Block_0  =  reader.rightFingerZones[14];
-			int Right_Ring_Finger_Block_15 =  reader.rightFingerZones[15];
-			int Right_Ring_Finger_Block_30 =  reader.rightFingerZones[16];
-			int Right_Ring_Finger_Block_45 =  reader.rightFingerZones[17];
-			int Right_Ring_Finger_Block_60 =  reader.rightFingerZones[18];
-			int Right_Ring_Finger_Block_75 =  reader.rightFingerZones[19];
-			int Right_Ring_Finger_Block_90 =  reader.rightFingerZones[20];
-			
+			int [] Right_Ring_Finger_Blocks  =  {
+				reader.rightFingerZones[14],
+				reader.rightFingerZones[15],
+				reader.rightFingerZones[16],
+				reader.rightFingerZones[17],
+				reader.rightFingerZones[18], 
+				reader.rightFingerZones[19],
+				reader.rightFingerZones[20]
+			};
 			
 			/////////////////////Right_Pinky block definitions////////////////////
-			int Right_Pinky_Finger_Block_0  =  reader.rightFingerZones[21];
-			int Right_Pinky_Finger_Block_15 =  reader.rightFingerZones[22];
-			int Right_Pinky_Finger_Block_30 =  reader.rightFingerZones[23];
-			int Right_Pinky_Finger_Block_45 =  reader.rightFingerZones[24];
-			int Right_Pinky_Finger_Block_60 =  reader.rightFingerZones[25]; 
-			int Right_Pinky_Finger_Block_75 =  reader.rightFingerZones[26];
-			int Right_Pinky_Finger_Block_90 =  reader.rightFingerZones[27];
+			int [] Right_Pinky_Finger_Blocks  =  {
+				reader.rightFingerZones[21],
+				reader.rightFingerZones[22],
+				reader.rightFingerZones[23],
+				reader.rightFingerZones[24],
+				reader.rightFingerZones[25], 
+				reader.rightFingerZones[26],
+				reader.rightFingerZones[27]
+			};
 
 			///////////////////////Left_Index block definitions/////////////////////
-			int Left_Index_Finger_Block_0  = reader.leftFingerZones[0];
-			int Left_Index_Finger_Block_15 = reader.leftFingerZones[1];
-			int Left_Index_Finger_Block_30 = reader.leftFingerZones[2];
-			int Left_Index_Finger_Block_45 = reader.leftFingerZones[3];
-			int Left_Index_Finger_Block_60 = reader.leftFingerZones[4];	
-			int Left_Index_Finger_Block_75 = reader.leftFingerZones[5];
-			int Left_Index_Finger_Block_90 = reader.leftFingerZones[6];	
-			
+			int [] Left_Index_Finger_Blocks  =  {
+				reader.leftFingerZones[0],
+				reader.leftFingerZones[1],
+				reader.leftFingerZones[2],
+				reader.leftFingerZones[3],
+				reader.leftFingerZones[4], 
+				reader.leftFingerZones[5],
+				reader.leftFingerZones[6]
+			};
 			
 			////////////////////////Left_Middle finger block definitions//////////////
-			int Left_Middle_Finger_Block_0  = reader.leftFingerZones[7];
-			int Left_Middle_Finger_Block_15 = reader.leftFingerZones[8];
-			int Left_Middle_Finger_Block_30 = reader.leftFingerZones[9];
-			int Left_Middle_Finger_Block_45 = reader.leftFingerZones[10];
-			int Left_Middle_Finger_Block_60 = reader.leftFingerZones[11];
-			int Left_Middle_Finger_Block_75 = reader.leftFingerZones[12];
-			int Left_Middle_Finger_Block_90 = reader.leftFingerZones[13];
+			int [] Left_Middle_Finger_Blocks  =  {
+				reader.leftFingerZones[7],
+				reader.leftFingerZones[8],
+				reader.leftFingerZones[9],
+				reader.leftFingerZones[10],
+				reader.leftFingerZones[11], 
+				reader.leftFingerZones[12],
+				reader.leftFingerZones[13]
+			};
 			
 			//////////////////////Left_Ring finger block definitions//////////////////
-			int Left_Ring_Finger_Block_0  =  reader.leftFingerZones[14];
-			int Left_Ring_Finger_Block_15 =  reader.leftFingerZones[15];
-			int Left_Ring_Finger_Block_30 =  reader.leftFingerZones[16];
-			int Left_Ring_Finger_Block_45 =  reader.leftFingerZones[17];
-			int Left_Ring_Finger_Block_60 =  reader.leftFingerZones[18];
-			int Left_Ring_Finger_Block_75 =  reader.leftFingerZones[19];
-			int Left_Ring_Finger_Block_90 =  reader.leftFingerZones[20];
-			
+			int [] Left_Ring_Finger_Blocks  =  {
+				reader.leftFingerZones[14],
+				reader.leftFingerZones[15],
+				reader.leftFingerZones[16],
+				reader.leftFingerZones[17],
+				reader.leftFingerZones[18], 
+				reader.leftFingerZones[19],
+				reader.leftFingerZones[20]
+			};
 			
 			/////////////////////Left_Pinky block definitions////////////////////
 			int [] Left_Pinky_Finger_Blocks  =  {
@@ -138,341 +139,18 @@ public class Models : MonoBehaviour {
 				reader.leftFingerZones[26],
 				reader.leftFingerZones[27]
 			};
-			
-			
-			/////////////////////////////midddle finger calibration mapping//////////////
-			if((dims[rightMiddleFingerIndex]<Right_Middle_Finger_Block_0)&&(dims[rightMiddleFingerIndex]>Right_Middle_Finger_Block_15)){
-				
-				int scale = (Right_Middle_Finger_Block_0-Right_Middle_Finger_Block_15)/15;
-				fingers[1] = 15-(dims[rightMiddleFingerIndex]-Right_Middle_Finger_Block_15)/scale;
-				
-			}
-			if ((dims[rightMiddleFingerIndex]<Right_Middle_Finger_Block_15)&&(dims[rightMiddleFingerIndex]>Right_Middle_Finger_Block_30)){
-				
-				int scale = (Right_Middle_Finger_Block_15-Right_Middle_Finger_Block_30)/15;
-				fingers[1] = 30-(dims[rightMiddleFingerIndex]-Right_Middle_Finger_Block_30)/scale;
-				
-			}
-			if((dims[rightMiddleFingerIndex]<Right_Middle_Finger_Block_30)&&(dims[rightMiddleFingerIndex]>Right_Middle_Finger_Block_45)){
-				
-				
-				int scale = (Right_Middle_Finger_Block_30-Right_Middle_Finger_Block_45)/15;
-				fingers[1] = 45-(dims[rightMiddleFingerIndex]-Right_Middle_Finger_Block_45)/scale;
-				
-			}
-			if((dims[rightMiddleFingerIndex]<Right_Middle_Finger_Block_45)&&(dims[rightMiddleFingerIndex]>Right_Middle_Finger_Block_60)){
-				
-				
-				int scale = (Right_Middle_Finger_Block_45-Right_Middle_Finger_Block_60)/15;
-				fingers[1] = 60-(dims[rightMiddleFingerIndex]-Right_Middle_Finger_Block_60)/scale;
-				
-			}
-			if((dims[rightMiddleFingerIndex]<Right_Middle_Finger_Block_60)&&(dims[rightMiddleFingerIndex]>Right_Middle_Finger_Block_75)){
-				
-				
-				int scale = (Right_Middle_Finger_Block_60-Right_Middle_Finger_Block_75)/15;
-				fingers[1] = 75-(dims[rightMiddleFingerIndex]-Right_Middle_Finger_Block_75)/scale;
-				
-			}
-			if((dims[rightMiddleFingerIndex]<Right_Middle_Finger_Block_75)&&(dims[rightMiddleFingerIndex]>Right_Middle_Finger_Block_90)){
-				
-				int scale = (Right_Middle_Finger_Block_75-Right_Middle_Finger_Block_90)/15;
-				fingers[1] = 90-(dims[rightMiddleFingerIndex]-Right_Middle_Finger_Block_90)/scale;
-			} else if(dims[rightMiddleFingerIndex]<Right_Middle_Finger_Block_90){
-				fingers[1] = 90;
-			}
-			///////////////////////////Right_Index finger calibration mapping///////////////////////////////////
-			if((dims[rightIndexFingerIndex]<Right_Index_Finger_Block_0)&&(dims[rightIndexFingerIndex]>Right_Index_Finger_Block_15)){
-				
-				int scale = (Right_Index_Finger_Block_0-Right_Index_Finger_Block_15)/15;
-				fingers[0] = 15-(dims[rightIndexFingerIndex]-Right_Index_Finger_Block_15)/scale;
-				
-			}
-			if ((dims[rightIndexFingerIndex]<Right_Index_Finger_Block_15)&&(dims[rightIndexFingerIndex]>Right_Index_Finger_Block_30)){
-				
-				int scale = (Right_Index_Finger_Block_15-Right_Index_Finger_Block_30)/15;
-				fingers[0] = 30-(dims[rightIndexFingerIndex]-Right_Index_Finger_Block_30)/scale;
-				
-			}
-			if((dims[rightIndexFingerIndex]<Right_Index_Finger_Block_30)&&(dims[rightIndexFingerIndex]>Right_Index_Finger_Block_45)){
-				
-				
-				int scale = (Right_Index_Finger_Block_30-Right_Index_Finger_Block_45)/15;
-				fingers[0] = 45-(dims[rightIndexFingerIndex]-Right_Index_Finger_Block_45)/scale;
-				
-			}
-			if((dims[rightIndexFingerIndex]<Right_Index_Finger_Block_45)&&(dims[rightIndexFingerIndex]>Right_Index_Finger_Block_60)){
-				
-				
-				int scale = (Right_Index_Finger_Block_45-Right_Index_Finger_Block_60)/15;
-				fingers[0] = 60-(dims[rightIndexFingerIndex]-Right_Index_Finger_Block_60)/scale;
-				
-			}
-			if((dims[rightIndexFingerIndex]<Right_Index_Finger_Block_60)&&(dims[rightIndexFingerIndex]>Right_Index_Finger_Block_75)){
-				
-				
-				int scale = (Right_Index_Finger_Block_60-Right_Index_Finger_Block_75)/15;
-				fingers[0] = 75-(dims[rightIndexFingerIndex]-Right_Index_Finger_Block_75)/scale;
-				
-			}
-			if((dims[rightIndexFingerIndex]<Right_Index_Finger_Block_75)&&(dims[rightIndexFingerIndex]>Right_Index_Finger_Block_90)){
-				
-				int scale = (Right_Index_Finger_Block_75-Right_Index_Finger_Block_90)/15;
-				fingers[0] = 90-(dims[rightIndexFingerIndex]-Right_Index_Finger_Block_90)/scale;
-			} else if (dims[rightIndexFingerIndex]<Right_Index_Finger_Block_90){
-				fingers[0] = 90;
-			}
-			
-			
-			//////////////////////////Right_Ring finger calibration mapping///////////////////////////////////
-			if((dims[rightRingFingerIndex]<Right_Ring_Finger_Block_0)&&(dims[rightRingFingerIndex]>Right_Ring_Finger_Block_15)){
-				
-				int scale = (Right_Ring_Finger_Block_0-Right_Ring_Finger_Block_15)/15;
-				fingers[2] = 15-(dims[rightRingFingerIndex]-Right_Ring_Finger_Block_15)/scale;
-				
-			}
-			if ((dims[rightRingFingerIndex]<Right_Ring_Finger_Block_15)&&(dims[rightRingFingerIndex]>Right_Ring_Finger_Block_30)){
-				
-				int scale = (Right_Ring_Finger_Block_15-Right_Ring_Finger_Block_30)/15;
-				fingers[2] = 30-(dims[rightRingFingerIndex]-Right_Ring_Finger_Block_30)/scale;
-				
-			}
-			if((dims[rightRingFingerIndex]<Right_Ring_Finger_Block_30)&&(dims[rightRingFingerIndex]>Right_Ring_Finger_Block_45)){
-				
-				
-				int scale = (Right_Ring_Finger_Block_30-Right_Ring_Finger_Block_45)/15;
-				fingers[2] = 45-(dims[rightRingFingerIndex]-Right_Ring_Finger_Block_45)/scale;
-				
-			}
-			if((dims[rightRingFingerIndex]<Right_Ring_Finger_Block_45)&&(dims[rightRingFingerIndex]>Right_Ring_Finger_Block_60)){
-				
-				
-				int scale = (Right_Ring_Finger_Block_45-Right_Ring_Finger_Block_60)/15;
-				fingers[2] = 60-(dims[rightRingFingerIndex]-Right_Ring_Finger_Block_60)/scale;
-				
-			}
-			if((dims[rightRingFingerIndex]<Right_Ring_Finger_Block_60)&&(dims[rightRingFingerIndex]>Right_Ring_Finger_Block_75)){
-				
-				
-				int scale = (Right_Ring_Finger_Block_60-Right_Ring_Finger_Block_75)/15;
-				fingers[2] = 75-(dims[rightRingFingerIndex]-Right_Ring_Finger_Block_75)/scale;
-				
-			}
-			if((dims[rightRingFingerIndex]<Right_Ring_Finger_Block_75)&&(dims[rightRingFingerIndex]>Right_Ring_Finger_Block_90)){
-				
-				int scale = (Right_Ring_Finger_Block_75-Right_Ring_Finger_Block_90)/15;
-				fingers[2] = 90-(dims[rightRingFingerIndex]-Right_Ring_Finger_Block_90)/scale;
-			} else if(dims[rightIndexFingerIndex]<Right_Index_Finger_Block_90){
-				fingers[2] = 90;
-			}
-			
-			
-			//////////////////////////Right_Pinky finger calibration mapping///////////////////////////////////
-			if((dims[rightPinkyFingerIndex]<Right_Pinky_Finger_Block_0)&&(dims[rightPinkyFingerIndex]>Right_Pinky_Finger_Block_15)){
-				
-				int scale = (Right_Pinky_Finger_Block_0-Right_Pinky_Finger_Block_15)/15;
-				fingers[3] = 15-(dims[rightPinkyFingerIndex]-Right_Pinky_Finger_Block_15)/scale;
-				
-			}
-			if ((dims[rightPinkyFingerIndex]<Right_Pinky_Finger_Block_15)&&(dims[rightPinkyFingerIndex]>Right_Pinky_Finger_Block_30)){
-				
-				int scale = (Right_Pinky_Finger_Block_15-Right_Pinky_Finger_Block_30)/15;
-				fingers[3] = 30-(dims[rightPinkyFingerIndex]-Right_Pinky_Finger_Block_30)/scale;
-				
-			}
-			if((dims[rightPinkyFingerIndex]<Right_Pinky_Finger_Block_30)&&(dims[rightPinkyFingerIndex]>Right_Pinky_Finger_Block_45)){
-				
-				
-				int scale = (Right_Pinky_Finger_Block_30-Right_Pinky_Finger_Block_45)/15;
-				fingers[3] = 45-(dims[rightPinkyFingerIndex]-Right_Pinky_Finger_Block_45)/scale;
-				
-			}
-			if((dims[rightPinkyFingerIndex]<Right_Pinky_Finger_Block_45)&&(dims[rightPinkyFingerIndex]>Right_Pinky_Finger_Block_60)){
-				
-				
-				int scale = (Right_Pinky_Finger_Block_45-Right_Pinky_Finger_Block_60)/15;
-				fingers[3] = 60-(dims[rightPinkyFingerIndex]-Right_Pinky_Finger_Block_60)/scale;
-				
-			}
-			if((dims[rightPinkyFingerIndex]<Right_Pinky_Finger_Block_60)&&(dims[rightPinkyFingerIndex]>Right_Pinky_Finger_Block_75)){
-				
-				
-				int scale = (Right_Pinky_Finger_Block_60-Right_Pinky_Finger_Block_75)/15;
-				fingers[3] = 75-(dims[rightPinkyFingerIndex]-Right_Pinky_Finger_Block_75)/scale;
-				
-			} 
-			if((dims[rightPinkyFingerIndex]<Right_Pinky_Finger_Block_75)&&(dims[rightPinkyFingerIndex]>Right_Pinky_Finger_Block_90)){
-				
-				int scale = (Right_Pinky_Finger_Block_75-Right_Pinky_Finger_Block_90)/15;
-				fingers[3] = 90-(dims[rightPinkyFingerIndex]-Right_Pinky_Finger_Block_90)/scale;
-			} else if(dims[rightPinkyFingerIndex]<Right_Pinky_Finger_Block_90){
-				fingers[3] = 90;
-			}
 
-			/********************************************************************************************/
-			/////////////////////////////midddle finger calibration mapping//////////////
-			if((dims[leftMiddleFingerIndex]<Left_Middle_Finger_Block_0)&&(dims[leftMiddleFingerIndex]>Left_Middle_Finger_Block_15)){
-				
-				int scale = (Left_Middle_Finger_Block_0-Left_Middle_Finger_Block_15)/15;
-				fingers[5] = 15-(dims[leftMiddleFingerIndex]-Left_Middle_Finger_Block_15)/scale;
-				
-			}
-			if ((dims[leftMiddleFingerIndex]<Left_Middle_Finger_Block_15)&&(dims[leftMiddleFingerIndex]>Left_Middle_Finger_Block_30)){
-				
-				int scale = (Left_Middle_Finger_Block_15-Left_Middle_Finger_Block_30)/15;
-				fingers[5] = 30-(dims[leftMiddleFingerIndex]-Left_Middle_Finger_Block_30)/scale;
-				
-			}
-			if((dims[leftMiddleFingerIndex]<Left_Middle_Finger_Block_30)&&(dims[leftMiddleFingerIndex]>Left_Middle_Finger_Block_45)){
-				
-				
-				int scale = (Left_Middle_Finger_Block_30-Left_Middle_Finger_Block_45)/15;
-				fingers[5] = 45-(dims[leftMiddleFingerIndex]-Left_Middle_Finger_Block_45)/scale;
-				
-			}
-			if((dims[leftMiddleFingerIndex]<Left_Middle_Finger_Block_45)&&(dims[leftMiddleFingerIndex]>Left_Middle_Finger_Block_60)){
-				
-				
-				int scale = (Left_Middle_Finger_Block_45-Left_Middle_Finger_Block_60)/15;
-				fingers[5] = 60-(dims[leftMiddleFingerIndex]-Left_Middle_Finger_Block_60)/scale;
-				
-			}
-			if((dims[leftMiddleFingerIndex]<Left_Middle_Finger_Block_60)&&(dims[leftMiddleFingerIndex]>Left_Middle_Finger_Block_75)){
-				
-				
-				int scale = (Left_Middle_Finger_Block_60-Left_Middle_Finger_Block_75)/15;
-				fingers[5] = 75-(dims[leftMiddleFingerIndex]-Left_Middle_Finger_Block_75)/scale;
-				
-			}
-			if((dims[leftMiddleFingerIndex]<Left_Middle_Finger_Block_75)&&(dims[leftMiddleFingerIndex]>Left_Middle_Finger_Block_90)){
-				
-				int scale = (Left_Middle_Finger_Block_75-Left_Middle_Finger_Block_90)/15;
-				fingers[5] = 90-(dims[leftMiddleFingerIndex]-Left_Middle_Finger_Block_90)/scale;
-			}
-			///////////////////////////Left_Index finger calibration mapping///////////////////////////////////
-			if((dims[leftIndexFingerIndex]<Left_Index_Finger_Block_0)&&(dims[leftIndexFingerIndex]>Left_Index_Finger_Block_15)){
-				
-				int scale = (Left_Index_Finger_Block_0-Left_Index_Finger_Block_15)/15;
-				fingers[4] = 15-(dims[leftIndexFingerIndex]-Left_Index_Finger_Block_15)/scale;
-				
-			}
-			if ((dims[leftIndexFingerIndex]<Left_Index_Finger_Block_15)&&(dims[leftIndexFingerIndex]>Left_Index_Finger_Block_30)){
-				
-				int scale = (Left_Index_Finger_Block_15-Left_Index_Finger_Block_30)/15;
-				fingers[4] = 30-(dims[leftIndexFingerIndex]-Left_Index_Finger_Block_30)/scale;
-				
-			}
-			if((dims[leftIndexFingerIndex]<Left_Index_Finger_Block_30)&&(dims[leftIndexFingerIndex]>Left_Index_Finger_Block_45)){
-				
-				
-				int scale = (Left_Index_Finger_Block_30-Left_Index_Finger_Block_45)/15;
-				fingers[4] = 45-(dims[leftIndexFingerIndex]-Left_Index_Finger_Block_45)/scale;
-				
-			}
-			if((dims[leftIndexFingerIndex]<Left_Index_Finger_Block_45)&&(dims[leftIndexFingerIndex]>Left_Index_Finger_Block_60)){
-				
-				
-				int scale = (Left_Index_Finger_Block_45-Left_Index_Finger_Block_60)/15;
-				fingers[4] = 60-(dims[leftIndexFingerIndex]-Left_Index_Finger_Block_60)/scale;
-				
-			}
-			if((dims[leftIndexFingerIndex]<Left_Index_Finger_Block_60)&&(dims[leftIndexFingerIndex]>Left_Index_Finger_Block_75)){
-				
-				
-				int scale = (Left_Index_Finger_Block_60-Left_Index_Finger_Block_75)/15;
-				fingers[4] = 75-(dims[leftIndexFingerIndex]-Left_Index_Finger_Block_75)/scale;
-				
-			}
-			if((dims[leftIndexFingerIndex]<Left_Index_Finger_Block_75)&&(dims[leftIndexFingerIndex]>Left_Index_Finger_Block_90)){
-				
-				int scale = (Left_Index_Finger_Block_75-Left_Index_Finger_Block_90)/15;
-				fingers[4] = 90-(dims[leftIndexFingerIndex]-Left_Index_Finger_Block_90)/scale;
-			}
-			
-			
-			//////////////////////////Left_Ring finger calibration mapping///////////////////////////////////
-			if((dims[leftRingFingerIndex]<Left_Ring_Finger_Block_0)&&(dims[leftRingFingerIndex]>Left_Ring_Finger_Block_15)){
-				
-				int scale = (Left_Ring_Finger_Block_0-Left_Ring_Finger_Block_15)/15;
-				fingers[6] = 15-(dims[leftRingFingerIndex]-Left_Ring_Finger_Block_15)/scale;
-				
-			}
-			if ((dims[leftRingFingerIndex]<Left_Ring_Finger_Block_15)&&(dims[leftRingFingerIndex]>Left_Ring_Finger_Block_30)){
-				
-				int scale = (Left_Ring_Finger_Block_15-Left_Ring_Finger_Block_30)/15;
-				fingers[6] = 30-(dims[leftRingFingerIndex]-Left_Ring_Finger_Block_30)/scale;
-				
-			}
-			if((dims[leftRingFingerIndex]<Left_Ring_Finger_Block_30)&&(dims[leftRingFingerIndex]>Left_Ring_Finger_Block_45)){
-				
-				
-				int scale = (Left_Ring_Finger_Block_30-Left_Ring_Finger_Block_45)/15;
-				fingers[6] = 45-(dims[leftRingFingerIndex]-Left_Ring_Finger_Block_45)/scale;
-				
-			}
-			if((dims[leftRingFingerIndex]<Left_Ring_Finger_Block_45)&&(dims[leftRingFingerIndex]>Left_Ring_Finger_Block_60)){
-				
-				
-				int scale = (Left_Ring_Finger_Block_45-Left_Ring_Finger_Block_60)/15;
-				fingers[6] = 60-(dims[leftRingFingerIndex]-Left_Ring_Finger_Block_60)/scale;
-				
-			}
-			if((dims[leftRingFingerIndex]<Left_Ring_Finger_Block_60)&&(dims[leftRingFingerIndex]>Left_Ring_Finger_Block_75)){
-				
-				
-				int scale = (Left_Ring_Finger_Block_60-Left_Ring_Finger_Block_75)/15;
-				fingers[6] = 75-(dims[leftRingFingerIndex]-Left_Ring_Finger_Block_75)/scale;
-				
-			}
-			if((dims[leftRingFingerIndex]<Left_Ring_Finger_Block_75)&&(dims[leftRingFingerIndex]>Left_Ring_Finger_Block_90)){
-				
-				int scale = (Left_Ring_Finger_Block_75-Left_Ring_Finger_Block_90)/15;
-				fingers[6] = 90-(dims[leftRingFingerIndex]-Left_Ring_Finger_Block_90)/scale;
-			}
-			
-			
-			//////////////////////////Left_Pinky finger calibration mapping///////////////////////////////////
-			/*if((dims[leftPinkyFingerIndex]<Left_Pinky_Finger_Block_0)&&(dims[leftPinkyFingerIndex]>Left_Pinky_Finger_Block_15)){
-				
-				int scale = (Left_Pinky_Finger_Block_0-Left_Pinky_Finger_Block_15)/15;
-				fingers[7] = 15-(dims[leftPinkyFingerIndex]-Left_Pinky_Finger_Block_15)/scale;
-				
-			}
-			if ((dims[leftPinkyFingerIndex]<Left_Pinky_Finger_Block_15)&&(dims[leftPinkyFingerIndex]>Left_Pinky_Finger_Block_30)){
-				
-				int scale = (Left_Pinky_Finger_Block_15-Left_Pinky_Finger_Block_30)/15;
-				fingers[7] = 30-(dims[leftPinkyFingerIndex]-Left_Pinky_Finger_Block_30)/scale;
-				
-			}
-			if((dims[leftPinkyFingerIndex]<Left_Pinky_Finger_Block_30)&&(dims[leftPinkyFingerIndex]>Left_Pinky_Finger_Block_45)){
-				
-				
-				int scale = (Left_Pinky_Finger_Block_30-Left_Pinky_Finger_Block_45)/15;
-				fingers[7] = 45-(dims[leftPinkyFingerIndex]-Left_Pinky_Finger_Block_45)/scale;
-				
-			}
-			if((dims[leftPinkyFingerIndex]<Left_Pinky_Finger_Block_45)&&(dims[leftPinkyFingerIndex]>Left_Pinky_Finger_Block_60)){
-				
-				
-				int scale = (Left_Pinky_Finger_Block_45-Left_Pinky_Finger_Block_60)/15;
-				fingers[7] = 60-(dims[leftPinkyFingerIndex]-Left_Pinky_Finger_Block_60)/scale;
-				
-			}
-			if((dims[leftPinkyFingerIndex]<Left_Pinky_Finger_Block_60)&&(dims[leftPinkyFingerIndex]>Left_Pinky_Finger_Block_75)){
-				
-				
-				int scale = (Left_Pinky_Finger_Block_60-Left_Pinky_Finger_Block_75)/15;
-				fingers[7] = 75-(dims[leftPinkyFingerIndex]-Left_Pinky_Finger_Block_75)/scale;
-				
-			}
-			// If the raw data from the left pinky finger is inbetween the ranges 75 & 90
-			if((dims[leftPinkyFingerIndex]<Left_Pinky_Finger_Block_75)&&(dims[leftPinkyFingerIndex]>Left_Pinky_Finger_Block_90)){
-				
-				int scale = (Left_Pinky_Finger_Block_75-Left_Pinky_Finger_Block_90)/15;
-				fingers[7] = 90-(dims[leftPinkyFingerIndex]-Left_Pinky_Finger_Block_90)/scale;
-			}*/
-			fingers[7] = scale_finger(dims[leftPinkyFingerIndex], Left_Pinky_Finger_Blocks);
-			Debug.Log("Raw: " + dims[leftPinkyFingerIndex] + " Degree: " + fingers[7]);
+			// Scale right hand fingers to degrees 0 - 90
+			fingers[0] = scale_finger(dims[reader.RH_IndexFinger()], Left_Index_Finger_Blocks);
+			fingers[1] = scale_finger(dims[reader.RH_MiddleFinger()], Left_Middle_Finger_Blocks);
+			fingers[2] = scale_finger(dims[reader.RH_RingFinger()], Left_Ring_Finger_Blocks);
+			fingers[3] = scale_finger(dims[reader.RH_PinkyFinger()], Left_Pinky_Finger_Blocks);
+
+			// Scale left hand fingers to degrees 0 - 90
+			fingers[4] = scale_finger(dims[reader.LH_IndexFinger()], Left_Index_Finger_Blocks);
+			fingers[5] = scale_finger(dims[reader.LH_MiddleFinger()], Left_Middle_Finger_Blocks);
+			fingers[6] = scale_finger(dims[reader.LH_RingFinger()], Left_Ring_Finger_Blocks);
+			fingers[7] = scale_finger(dims[reader.LH_PinkyFinger()], Left_Pinky_Finger_Blocks);
 			
 		} catch (Exception e) {
 			errorcounter++;
@@ -488,13 +166,16 @@ public class Models : MonoBehaviour {
 	 * @param max_degrees: The upper boundary of the degree range we are in. In our previous example this would be 90
 	 */ 
 	float get_degrees (float value, int max, int min, int max_degrees, int scale_factor = 15) {
-		int scale = (max - min) / scale_factor;
+		float scale = (max - min) / scale_factor;
 		return max_degrees - ((value - min) / scale);
 	}
 
 
 	/* Scale an entire finger.  Do this by checking which range the raw glove data value falls into.  Then use appropriate
 	 * values for said range to caluculate an appropriate degree value
+	 * TODO: This function sometimes evaluates to a negative number. This is not ideal. These negative values are dealt
+	 * with properly by outside functions but ultimately should be resolved here. This may be a result of our calculations
+	 * involving integers and floats combined
 	 * 
 	 * @param blocks: Calibration blocks for the finger.  These are values determined in the calibration scene for certain 
 	 * degrees of bend. At 0, 15, 30, 45, 60, 75, and 90 degrees this raw glove data is collected.
@@ -522,6 +203,8 @@ public class Models : MonoBehaviour {
 			}
 		}
 		if (degrees == -1) {
+			// TODO: Prevent this from happenning. We should always be able to scale a value. If it exceeds our
+			// boundaries then we should be setting the value to 0 or 90. 
 			Debug.Log("Could not scale this finger. Value didn't fall in any range\n" +
 			          "Value: " + value);
 		}
