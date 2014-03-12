@@ -167,17 +167,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12ed382f354634540bea16587190a8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  calibration_scene_name: CalibrateGlove
-  game_scene_name: ReachBack
+  display_calibrations: 1
+  display_users: 1
+  calibration_scene: CalibrateGlove
+  game_scene: ReachBack
   db_name: RehabStats.sqdb
-  user_table_name: UserProfiles
-  calib_table_name: CalibData
+  user_table: UserProfiles
+  right_calib_table: RightCalibration
+  left_calib_table: LeftCalibration
   first_name: First Name
   last_name: Last Name
   default_first_name: Bob
   default_last_name: Builder
-  txt_field_width: 100
-  button_width: 100
+  txt_field_width: 300
+  txt_field_height: 40
+  button_width: 200
+  calibration_button_pos:
+    serializedVersion: 2
+    x: 620
+    y: 35
+    width: 150
+    height: 50
   user_constraints: 
 --- !u!114 &1411969443
 MonoBehaviour:
