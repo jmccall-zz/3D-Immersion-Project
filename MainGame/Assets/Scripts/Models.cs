@@ -195,6 +195,12 @@ public class Models : MonoBehaviour {
 
 		// Cycle through ranges to determine correct scaling
 		for (int i = 0; i < 6; i++) {
+			// Check if input value is exactly equal to one of our calibration points
+			if (value == blocks[i]) {
+				degrees = (float) degreeTranslations[i];
+				break;
+			}
+			// Check which range our input value falls into and calculate degrees accordingly
 			if ((value < blocks[i]) && (value > blocks[i + 1])) {
 				max = Math.Max(blocks[i], blocks[i + 1]);
 				min = Math.Min(blocks[i], blocks[i + 1]);
