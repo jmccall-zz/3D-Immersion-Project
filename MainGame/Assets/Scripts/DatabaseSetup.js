@@ -24,12 +24,14 @@ private var txt_field_style : GUIStyle;
 
 public var display_calibrations = true;
 public var display_users = true;
+public var display_scores = true;
 public var calibration_scene = "CalibrateGlove";
 public var game_scene = "ReachBack";
 public var db_name = "RehabStats.sqdb";
 public var user_table = "UserProfiles";
 public var right_calib_table = "RightCalibration";
 public var left_calib_table = "LeftCalibration";
+public var scores_table = "HighScores";
 public var first_name = "First Name";
 public var last_name = "Last Name";
 public var default_first_name = 'Bob';
@@ -104,11 +106,13 @@ public var default_left_calib_data = new Array (
 
 public var user_field_names = new Array (
 	"p_id",
+	"created_dtm",
 	"first_name",
 	"last_name"
 );
 public var user_field_values = new Array (
 	"INTEGER PRIMARY KEY",
+	"DATETIME",
 	"VARCHAR(100)",
 	"VARCHAR(100)"
 );
@@ -178,11 +182,25 @@ public var calib_field_values = new Array (
 );
 public var calib_constraints = "FOREIGN KEY(user_id) REFERENCES " + user_table + "(" + user_field_names[0] + ")";
 
+public var scores_field_names = new Array (
+	"user_id",
+	"reachback_count",
+	"reachback_time"
+);	
+public var scores_field_values = new Array (
+	"INTEGER",
+	"INTEGER",
+	"REAL"
+);
+public var scores_constraints = "FOREIGN KEY(user_id) REFERENCES " + user_table + "(" + user_field_names[0] + ")";
+
 // Use this for initialization
 function Start () {
 	// Boolean indicating whether table already exists
 	var user_table_exists;
 	var right_calib_table_exists;
+	var left_calib_table_exists;
+	var scores_table_exists;
 	db_control = new dbAccess();
 
 	// Open up database.  Will create database if it doesn't exist.
@@ -191,6 +209,7 @@ function Start () {
 	user_table_exists = db_control.TableExists(user_table);
 	right_calib_table_exists = db_control.TableExists(right_calib_table);
 	left_calib_table_exists = db_control.TableExists(left_calib_table);
+	scores_table_exists = db_control.TableExists(scores_table);
 
 	// Check if user profile table exists and create it if not
 	if (!user_table_exists) {
@@ -208,6 +227,11 @@ function Start () {
 		SetupCalibrationTable(left_calib_table, calib_field_names, calib_field_values, calib_constraints, default_left_calib_data);
 	} else {
 		Debug.Log ("Left Hand Calibration Table Already Exists");
+	}
+	if (!scores_table_exists) {
+		SetupScoresTable();
+	} else {
+		Debug.Log ("High Scores Table Already Exists");
 	}
 	
 	
@@ -250,12 +274,17 @@ function OnGUI() {
 		
 	// Show all users and calibrations currently in database
 	if (!user_found) {
+		// Display user profiles
 		if (display_users)
 			DisplayFullTable(user_table);
+		// Display user calibrations
 		if (display_calibrations) {
 			DisplayFullTable(right_calib_table);
 			DisplayFullTable(left_calib_table);
 		}
+		// Display user high scores
+		if (display_scores)
+			DisplayFullTable(scores_table);
 	}
 	GUILayout.EndArea ();
 	
@@ -322,10 +351,7 @@ function LoginOptions() {
 		} else {
 			user_found = true;
 			failed_user_create = false;
-			Debug.Log("Creating User: " + first_name + " " + last_name);
-			// Insert user's name into database
-			query = "INSERT INTO " + user_table + " VALUES (NULL,'" + first_name + "','" + last_name + "');";
-			db_control.BasicQuery(query);
+			CreateUser(first_name, last_name);
 			// Set active user for project
 			SetActiveUser(first_name, last_name);
 			LoadNextScene();
@@ -369,12 +395,21 @@ function DisplayHorizLabel(msg : String){
 
 /* Create a user table with the public database information.  Also add a default user as first entry */
 function SetupUserTable() {
-	var query = "INSERT INTO " + user_table + " VALUES (NULL,'" + default_first_name + "','" + default_last_name + "');";
+	var query = "INSERT INTO " + user_table + " VALUES (NULL,datetime('now'),'" + default_first_name + "','" + default_last_name + "');";
 	// Create user table
 	Debug.Log ("Creating Table: " + user_table);
 	db_control.CreateTable (user_table, user_field_names, user_field_values, user_constraints);
 	// Insert user with first name 'DEFAULT' and last name 'DEFAULT'
 	db_control.BasicQuery(query);
+}
+
+function SetupScoresTable() {
+	var query = "INSERT INTO " + scores_table + " VALUES (1, NULL, NULL);";
+	// Create user table
+	Debug.Log ("Creating Table: " + scores_table);
+	db_control.CreateTable (scores_table, scores_field_names, scores_field_values, scores_constraints);
+	// Insert user with first name 'DEFAULT' and last name 'DEFAULT'
+	db_control.BasicQuery(query); 
 }
 
 /* Create a calibration table and store publicly defined default values */
@@ -384,6 +419,20 @@ function SetupCalibrationTable(table_name : String, fields : Array, values : Arr
 	db_control.CreateTable (table_name, fields, values, constraints);
 	// Insert default data
 	db_control.InsertInto (table_name, defaults);
+}
+
+/* Creates an entry for a new user in the user profiles table */
+function CreateUser(first_name : String, last_name : String) {
+	// Insert user's name into database
+	var query = "INSERT INTO " + user_table + " VALUES (NULL,datetime('now'),'" + first_name + "','" + last_name + "');";
+	var results = db_control.BasicQuery(query);
+	
+	Debug.Log("Creating User: " + first_name + " " + last_name);
+	// Get the new users p_id from user profiles table
+	var id = GetUserId(first_name, last_name);
+	// Create a row in the high scores table for the user
+	query = "INSERT INTO " + scores_table + " (user_id) " + "VALUES (" + id + ");";
+	results = db_control.BasicQuery(query);
 }
 
 /* Delete any calibration data for specified user before removing the user from our user profiles table */
@@ -396,8 +445,9 @@ function DeleteUser(first_name : String, last_name : String) {
 		DisplayHorizLabel("Deleting user: " + first_name + " " + last_name);
 		var user_id = results[0][0];
 		
-		// Delete any calibration data the user may have
+		// Delete data from all tables that use the primary key to reference information
 		DeleteCalibrationData(user_id);
+		DeleteHighScores(user_id);
 		
 		// Delete user from UserProfiles
 		query = "DELETE FROM " + user_table + " WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
@@ -408,20 +458,34 @@ function DeleteUser(first_name : String, last_name : String) {
 	}	
 }
 
-/* Delete calibration data for a user if it exists */
+
+/* Delete all calibration data for this user. */
 function DeleteCalibrationData(user_id : int) {
-		var query = "DELETE FROM " + right_calib_table + " WHERE user_id=" + user_id + ";";
-		var results = db_control.BasicQuery(query);
-		query = "DELETE FROM " + left_calib_table + " WHERE user_id=" + user_id + ";";
-		results = db_control.BasicQuery(query);
+	var query = "DELETE FROM " + right_calib_table + " WHERE user_id=" + user_id + ";";
+	var results = db_control.BasicQuery(query);
+	query = "DELETE FROM " + left_calib_table + " WHERE user_id=" + user_id + ";";
+	results = db_control.BasicQuery(query);
+
+}
+
+/* Delete an high score data for given user */
+function DeleteHighScores(user_id : int) {
+	var query = "DELETE FROM " + scores_table + " WHERE user_id=" + user_id +";";
+	var results = db_control.BasicQuery(query);
+}
+
+function GetUserId(first_name : String, last_name : String) {
+	var query = "SELECT p_id FROM " + user_table + " WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
+	var results = db_control.BasicQuery(query);
+	// Set the PlayerPref
+	return results[0][0];
 }
 
 /* Set the active user for the project. Do this using PlayerPrefs as they can be accessed throughout the project */
 function SetActiveUser(first_name : String, last_name : String) {
-	var query = "SELECT p_id FROM " + user_table + " WHERE first_name='" + first_name + "' AND last_name='" + last_name + "';";
-	var results = db_control.BasicQuery(query);
+	var user = GetUserId(first_name, last_name);
 	// Set the PlayerPref
-	PlayerPrefs.SetInt("ActiveUser", results[0][0]);
+	PlayerPrefs.SetInt("ActiveUser", user);
 }
 
 /* Set database preferences for future processes */
