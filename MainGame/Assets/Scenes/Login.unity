@@ -169,12 +169,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   display_calibrations: 1
   display_users: 1
+  display_scores: 1
   calibration_scene: CalibrateGlove
   game_scene: ReachBack
   db_name: RehabStats.sqdb
   user_table: UserProfiles
   right_calib_table: RightCalibration
   left_calib_table: LeftCalibration
+  scores_table: HighScores
   first_name: First Name
   last_name: Last Name
   default_first_name: Bob
