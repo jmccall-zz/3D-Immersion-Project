@@ -107,9 +107,14 @@ public class GloveReader {
 		int [] rightFingerBlocks = new int [28];
 		int [] leftFingerBlocks = new int [28];
 
-
 		rightFingerBlocks = GetCalibrationRow (right_calibration_table, user_id);
+		// If calibration data could not be found for the active user, load the default data
+		rightFingerBlocks = GetCalibrationRow (right_calibration_table, 1);
 		leftFingerBlocks = GetCalibrationRow (left_calibration_table, user_id);
+		// If calibration data could not be found for the active user, load the default data
+		leftFingerBlocks = GetCalibrationRow (left_calibration_table, 1);
+
+		// Store integer arrays into ArrayList object and return
 		fingerBlocks.Add (rightFingerBlocks);
 		fingerBlocks.Add (leftFingerBlocks);
 
