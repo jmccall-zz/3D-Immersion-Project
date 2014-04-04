@@ -62,12 +62,14 @@
      <Compile Include="Assets\OVR\Scripts\OVRPresetManager.cs" />
      <Compile Include="Assets\OVR\Scripts\OVRUtils.cs" />
      <Compile Include="Assets\Scripts\CameraSwitch.cs" />
+     <Compile Include="Assets\Scripts\CylinderCatch.cs" />
      <Compile Include="Assets\Scripts\CylinderLogic.cs" />
      <Compile Include="Assets\Scripts\FingerControl.cs" />
      <Compile Include="Assets\Scripts\GloveReader.cs" />
      <Compile Include="Assets\Scripts\GrabLogic.cs" />
      <Compile Include="Assets\Scripts\Models.cs" />
      <Compile Include="Assets\Scripts\PressureMax.cs" />
+     <Compile Include="Assets\Scripts\ReachBackGUI.cs" />
      <Compile Include="Assets\Scripts\RecordAndMoveCalibrate.cs" />
      <Compile Include="Assets\Scripts\SceneControl.cs" />
      <Compile Include="Assets\Scripts\WristControl.cs" />
