@@ -58,6 +58,7 @@
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\Standard Assets\Terrain Assets\Trees Ambient-Occlusion\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
      <None Include="Assets\MovementAnimsetProLite\readme.txt" />
+     <None Include="Assets\Prefabs\MovementAnimsetProLite\readme.txt" />
      <None Include="Assets\OVR\OVRImageEffects\OVRLensCorrection_CA.shader" />
      <None Include="Assets\Standard Assets\Terrain Assets\Trees Ambient-Occlusion\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
      <None Include="Assets\Standard Assets\Terrain Assets\Trees Ambient-Occlusion\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />

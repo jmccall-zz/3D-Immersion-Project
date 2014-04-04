@@ -3,6 +3,8 @@ using System.Collections;
 
 public class ShoulderReader : MonoBehaviour {
 
+	private float abduction_angle;
+
 	// Use this for initialization
 	void Start () {
 	
