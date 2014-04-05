@@ -28,8 +28,8 @@ public class GrabLogic : MonoBehaviour {
 				objectTransform = null;
 			}
 		}
-		Debug.Log (reader.leftFingerZones[3]);
-		Debug.Log (reader.LeftIsGrab);
+		//Debug.Log (reader.leftFingerZones[3]);
+		//Debug.Log (reader.LeftIsGrab);
 		reader.UpdateGestures ();
 	}
 

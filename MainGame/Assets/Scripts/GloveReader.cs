@@ -136,7 +136,7 @@ public class GloveReader {
 		// Pull entire right hand calibration data row for this user
 		query = "SELECT * FROM " + table_name + " WHERE user_id=" + user_id + ";";
 		results = db_control.BasicQuery(query);
-		Debug.Log("Pulling calibrations from: " + table_name + " for user: " + user_id);
+		//Debug.Log("Pulling calibrations from: " + table_name + " for user: " + user_id);
 		
 		// If a row is returned by the query, fill the integer array with data
 		if (results.Count > 0) {
