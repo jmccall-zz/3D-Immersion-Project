@@ -15,14 +15,15 @@ public class ShoulderReader : MonoBehaviour {
 	// x, y, and z rotation angles.
 	private Vector3 shoulder_angles;
 	private float abduction_angle;
+	private float max_angle = 90.0f;
+	private float min_angle = 90.0f;
 
 	public bool measure_left = false;
 
 	// Use this for initialization
 	void Start () {
-		// Initialize ZigSkeleton
+		// Instantiate objects
 		skeleton = new ZigSkeleton ();
-
 		shoulder_angles = new Vector3();
 
 		// Get zig joint identification numbers for each shoulder
@@ -43,8 +44,6 @@ public class ShoulderReader : MonoBehaviour {
 		abduction_angle = GetAbductionAngle (shoulder_angles);
 
 		Debug.Log ("Measured Abduction Angle: " + abduction_angle);
-
-
 	}
 
 	/* Retrieve measured abduction angle given all shoulder rotation angles.  The normal range for
