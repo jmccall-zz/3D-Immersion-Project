@@ -108,6 +108,7 @@ public class ZigSkeleton : MonoBehaviour
         transforms = new Transform[jointCount];
         initialRotations = new Quaternion[jointCount];
 
+		Debug.Log ("ZigJointId.RightElbow: " + (int)ZigJointId.RightElbow);
         transforms[(int)ZigJointId.Head] = Head;
         transforms[(int)ZigJointId.Neck] = Neck;
         transforms[(int)ZigJointId.Torso] = Torso;
@@ -251,5 +252,9 @@ public class ZigSkeleton : MonoBehaviour
             }
         }
     }
+
+	public Transform GetJointTransform(ZigJointId joint) {
+		return transforms[(int) joint];
+	}
 
 }
