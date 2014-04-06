@@ -141,10 +141,10 @@ public class Models : MonoBehaviour {
 			};
 
 			// Scale right hand fingers to degrees 0 - 90
-			fingers[0] = scale_finger(dims[reader.RH_IndexFinger()], Left_Index_Finger_Blocks);
-			fingers[1] = scale_finger(dims[reader.RH_MiddleFinger()], Left_Middle_Finger_Blocks);
-			fingers[2] = scale_finger(dims[reader.RH_RingFinger()], Left_Ring_Finger_Blocks);
-			fingers[3] = scale_finger(dims[reader.RH_PinkyFinger()], Left_Pinky_Finger_Blocks);
+			fingers[0] = scale_finger(dims[reader.RH_IndexFinger()], Right_Index_Finger_Blocks);
+			fingers[1] = scale_finger(dims[reader.RH_MiddleFinger()], Right_Middle_Finger_Blocks);
+			fingers[2] = scale_finger(dims[reader.RH_RingFinger()], Right_Ring_Finger_Blocks);
+			fingers[3] = scale_finger(dims[reader.RH_PinkyFinger()], Right_Pinky_Finger_Blocks);
 
 			// Scale left hand fingers to degrees 0 - 90
 			fingers[4] = scale_finger(dims[reader.LH_IndexFinger()], Left_Index_Finger_Blocks);
