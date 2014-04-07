@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 9624609cbb240b3429e65cd837453fa9
+guid: 3c4990b3b7b35ad44b55b1623cdc8251
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: //RootNode
     100002: DummyMESH
@@ -209,4 +209,5 @@ ModelImporter:
     rootMotionBoneName: Root
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
+  additionalBone: 0
   userData: 
