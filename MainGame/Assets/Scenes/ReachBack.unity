@@ -85,8 +85,8 @@ GameObject:
   - 33: {fileID: 2918159}
   - 65: {fileID: 2918158}
   - 23: {fileID: 2918157}
-  - 114: {fileID: 2918156}
   - 114: {fileID: 2918161}
+  - 114: {fileID: 2918156}
   m_Layer: 0
   m_Name: Bottom
   m_TagString: Untagged
@@ -102,9 +102,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2918155}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e1b426e88d97c5468c5fe280d596cba, type: 3}
+  m_Script: {fileID: 11500000, guid: c7cad3f6bc566e8408c4984c586d50b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TIMEOUT: 50
 --- !u!23 &2918157
 Renderer:
   m_ObjectHideFlags: 0
@@ -1408,7 +1409,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817e39cb48938f34cabc6a0d300ca893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  theString: 
 --- !u!1 &585686570
 GameObject:
   m_ObjectHideFlags: 0

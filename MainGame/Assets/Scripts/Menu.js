@@ -12,6 +12,9 @@ function Update() {
 		else
 			Time.timeScale = 1;
 	}
+	if(Input.GetKeyDown(KeyCode.R)) {
+		Application.LoadLevel(Application.loadedLevel);
+	}
 }
 
 function OnGUI() {
