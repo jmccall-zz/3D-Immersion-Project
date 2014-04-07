@@ -494,6 +494,7 @@ function SetDatabasePrefs() {
 	PlayerPrefs.SetString("RightCalibrationTable", right_calib_table);
 	PlayerPrefs.SetString("LeftCalibrationTable", left_calib_table);
 	PlayerPrefs.SetString("UserTable", user_table);
+	PlayerPrefs.SetString("ScoresTable", scores_table);
 }
 
 /* 
