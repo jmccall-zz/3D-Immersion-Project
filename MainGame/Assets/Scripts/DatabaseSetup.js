@@ -31,7 +31,7 @@ public var db_name = "RehabStats.sqdb";
 public var user_table = "UserProfiles";
 public var right_calib_table = "RightCalibration";
 public var left_calib_table = "LeftCalibration";
-public var scores_table = "HighScores";
+public var scores_table = "Results";
 public var first_name = "First Name";
 public var last_name = "Last Name";
 public var default_first_name = 'Bob';
@@ -185,11 +185,15 @@ public var calib_constraints = "FOREIGN KEY(user_id) REFERENCES " + user_table +
 public var scores_field_names = new Array (
 	"user_id",
 	"reachback_count",
-	"reachback_time"
+	"reachback_time",
+	"shoulder_rom_max",
+	"shoulder_rom_min"
 );	
 public var scores_field_values = new Array (
 	"INTEGER",
 	"INTEGER",
+	"REAL",
+	"REAL",
 	"REAL"
 );
 public var scores_constraints = "FOREIGN KEY(user_id) REFERENCES " + user_table + "(" + user_field_names[0] + ")";
@@ -229,7 +233,7 @@ function Start () {
 		Debug.Log ("Left Hand Calibration Table Already Exists");
 	}
 	if (!scores_table_exists) {
-		SetupScoresTable();
+		SetupResultsTable();
 	} else {
 		Debug.Log ("High Scores Table Already Exists");
 	}
@@ -403,8 +407,8 @@ function SetupUserTable() {
 	db_control.BasicQuery(query);
 }
 
-function SetupScoresTable() {
-	var query = "INSERT INTO " + scores_table + " VALUES (1, NULL, NULL);";
+function SetupResultsTable() {
+	var query = "INSERT INTO " + scores_table + " VALUES (1, NULL, NULL, NULL, NULL);";
 	// Create user table
 	Debug.Log ("Creating Table: " + scores_table);
 	db_control.CreateTable (scores_table, scores_field_names, scores_field_values, scores_constraints);
