@@ -3361,7 +3361,7 @@ MonoBehaviour:
   RightKnee: {fileID: 1743899310}
   RightAnkle: {fileID: 991957553}
   RightFoot: {fileID: 0}
-  UpdateJointPositions: 1
+  UpdateJointPositions: 0
   UpdateRootPosition: 0
   UpdateOrientation: 1
   RotateToPsiPose: 0
