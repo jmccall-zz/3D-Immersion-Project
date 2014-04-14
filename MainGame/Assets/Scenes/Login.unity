@@ -176,7 +176,7 @@ MonoBehaviour:
   user_table: UserProfiles
   right_calib_table: RightCalibration
   left_calib_table: LeftCalibration
-  scores_table: HighScores
+  scores_table: Results
   first_name: First Name
   last_name: Last Name
   default_first_name: Bob

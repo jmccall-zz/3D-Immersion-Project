@@ -3342,7 +3342,7 @@ MonoBehaviour:
   Torso: {fileID: 2020923503}
   Waist: {fileID: 1594650376}
   LeftCollar: {fileID: 318313159}
-  LeftShoulder: {fileID: 849957794}
+  LeftShoulder: {fileID: 0}
   LeftElbow: {fileID: 655613120}
   LeftWrist: {fileID: 2029608328}
   LeftHand: {fileID: 38165959}
@@ -3361,7 +3361,7 @@ MonoBehaviour:
   RightKnee: {fileID: 1743899310}
   RightAnkle: {fileID: 991957553}
   RightFoot: {fileID: 0}
-  UpdateJointPositions: 1
+  UpdateJointPositions: 0
   UpdateRootPosition: 0
   UpdateOrientation: 1
   RotateToPsiPose: 0
@@ -3393,9 +3393,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1706856738}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34a04dda266f53844b1030d8aa9f9ec6, type: 3}
+  m_Script: {fileID: 11500000, guid: 83250d3e96fdb504cbcf404fd7c3a5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  degrees_freedom: 10
   measure_left: 0
 --- !u!1 &1715080679
 GameObject:
