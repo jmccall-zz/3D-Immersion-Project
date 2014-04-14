@@ -88,6 +88,7 @@ public class GloveReader {
 		// Read from global user id: user_id = ...
 		// Get active user from player prefs. Use default user 1 if no active user is set
 		active_user = PlayerPrefs.GetInt("ActiveUser", 1);
+		Debug.Log ("Glove reader sees active user: " + active_user);
 		db_name = PlayerPrefs.GetString("DBName", "RehabStats.sqdb");
 		right_calibration_table = PlayerPrefs.GetString("RightCalibrationTable", "RightCalibration");
 		left_calibration_table = PlayerPrefs.GetString ("LeftCalibrationTable", "LeftCalibration"); 
@@ -108,11 +109,7 @@ public class GloveReader {
 		int [] leftFingerBlocks = new int [28];
 
 		rightFingerBlocks = GetCalibrationRow (right_calibration_table, user_id);
-		// If calibration data could not be found for the active user, load the default data
-		rightFingerBlocks = GetCalibrationRow (right_calibration_table, 1);
 		leftFingerBlocks = GetCalibrationRow (left_calibration_table, user_id);
-		// If calibration data could not be found for the active user, load the default data
-		leftFingerBlocks = GetCalibrationRow (left_calibration_table, 1);
 
 		// Store integer arrays into ArrayList object and return
 		fingerBlocks.Add (rightFingerBlocks);
@@ -147,7 +144,10 @@ public class GloveReader {
 				blocks[i - 1] = Convert.ToInt32(row[i]);
 			}
 		} else {
-			Debug.Log("No calibration data was found for user: " + user_id);
+			// Retrieve calibration information from the default user if current active user does not have calibration data
+			Debug.Log("No calibration data was found for user: " + user_id + "\nRetrieving default data now");
+
+			GetCalibrationRow (table_name, 1);
 		}
 		
 		// Close the database to avoid locking

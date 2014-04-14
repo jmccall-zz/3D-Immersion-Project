@@ -42,7 +42,8 @@ public class ShoulderReader : MonoBehaviour {
 		db_control = new dbAccess ();
 		db_name = PlayerPrefs.GetString ("DBName");
 		scores_table = PlayerPrefs.GetString ("ScoresTable");
-		user_id = PlayerPrefs.GetInt ("ActiveUser");
+		user_id = PlayerPrefs.GetInt ("ActiveUser", 1);
+		Debug.Log ("Active User in start: " + user_id); 
 
 
 
@@ -80,14 +81,13 @@ public class ShoulderReader : MonoBehaviour {
 		abduction_angle = GetAbductionAngle (shoulder_angles);
 
 		// Check if abduction angle could be measured
-		if (abduction_angle == -1) {
+		if (abduction_angle != -1) {
 			// Check if max or min abduction angles have been reached
 			if (abduction_angle > max_abduction)
 				max_abduction = abduction_angle;
 			if (abduction_angle < min_abduction)
 				min_abduction = abduction_angle;
 		}
-		Debug.Log ("Measured Abduction Angle: " + abduction_angle);
 	}
 	
 	/* Retrieve measured abduction angle given all shoulder rotation angles.  The normal range for
@@ -97,9 +97,13 @@ public class ShoulderReader : MonoBehaviour {
 		float angle = -1;
 		if ((angles.y >  max_y_rotation) || (angles.y < min_y_rotation)) {
 			angle = Math.Abs (angles.z - 90.0f);
+			Debug.Log ("Measured Abduction Angle: " + angle);
 		} 
+		// Only return the measured abduction angle if it is between 0 and 180 degrees
+		if ((angle < 180.0f) && (angle > 0.0f))
+			return angle;
 
-		return angle;
+		return -1;
 	}
 
 	private void UpdateDatabaseROM() {
