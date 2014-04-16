@@ -38,7 +38,10 @@ function OnGUI() {
 		if (GUI.Button (Rect (Screen.width/2 - 75, Screen.height/2 + 90 , 150, 20), "Load Grip Test")) {
 			Application.LoadLevel("GripStrength");
 		}
-		if (GUI.Button (Rect (Screen.width/2 - 75, Screen.height/2 + 120, 150, 20), "Exit")) {
+		if (GUI.Button (Rect (Screen.width/2 - 150, Screen.height/2 + 120 , 300, 20), "Upright Shoulder Abduction Measurement")) {
+			Application.LoadLevel("ShoulderROM");
+		}
+		if (GUI.Button (Rect (Screen.width/2 - 75, Screen.height/2 + 150, 150, 20), "Exit")) {
 			Application.Quit();
 		}
 	}
