@@ -74,7 +74,6 @@ public class GloveReader {
 
 	// Database Player Preference Information (from Login Scene)
 	public int active_user;
-	public string db_name;
 	public string right_calibration_table;
 	public string left_calibration_table;
 	private dbAccess db_control;
@@ -89,7 +88,6 @@ public class GloveReader {
 		// Get active user from player prefs. Use default user 1 if no active user is set
 		active_user = PlayerPrefs.GetInt("ActiveUser", 1);
 		Debug.Log ("Glove reader sees active user: " + active_user);
-		db_name = PlayerPrefs.GetString("DBName", "RehabStats.sqdb");
 		right_calibration_table = PlayerPrefs.GetString("RightCalibrationTable", "RightCalibration");
 		left_calibration_table = PlayerPrefs.GetString ("LeftCalibrationTable", "LeftCalibration"); 
 		allFingerZones = readDB (active_user);
@@ -128,7 +126,7 @@ public class GloveReader {
 		ArrayList results = new ArrayList();
 		ArrayList row = new ArrayList();
 		// Open up our database
-		db_control.OpenDB(db_name);
+		db_control.OpenDB();
 		
 		// Pull entire right hand calibration data row for this user
 		query = "SELECT * FROM " + table_name + " WHERE user_id=" + user_id + ";";

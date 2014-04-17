@@ -13,13 +13,385 @@ class dbAccess {
     private var dbcon : IDbConnection;
     private var dbcmd : IDbCommand;
     private var reader : IDataReader;
- 
-    function OpenDB(p : String){
-    connection = "URI=file:" + p; // we set the connection to our database
+	public var db_name = "RehabStats.sqdb";
+	public var user_table = "UserProfiles";
+	public var right_calib_table = "RightCalibration";
+	public var left_calib_table = "LeftCalibration";
+	public var scores_table = "Results";
+	private var default_first_name = 'Bob';
+	private var default_last_name = 'Builder';
+	
+    /* User Profiles Table Structure */
+    private var user_field_names = new Array (
+		"p_id",
+		"created_dtm",	// Date of creation
+		"first_name",
+		"last_name",
+		// Format of time series tables names is: "<Measurement>_<p_id>"
+		// Default example: "Rotations_1"
+		"rotations_ts",	// Name of time series rotation table
+		"positions_ts"	// Name of time series position table
+	);
+	private var user_field_values = new Array (
+		"INTEGER PRIMARY KEY",
+		"DATETIME",
+		"VARCHAR(100)",
+		"VARCHAR(100)",
+		"VARCHAR(50)",
+		"VARCHAR(50)"
+	);
+	private var user_constraints = "";
+	
+	/* Calibration Table Structure */
+	private var calib_field_names = new Array (
+		"user_id",
+		"index_0",
+		"index_15",
+		"index_30",
+		"index_45",
+		"index_60",
+		"index_75",
+		"index_90",
+		"middle_0",
+		"middle_15",
+		"middle_30",
+		"middle_45",
+		"middle_60",
+		"middle_75",
+		"middle_90",
+		"ring_0",
+		"ring_15",
+		"ring_30",
+		"ring_45",
+		"ring_60",
+		"ring_75",
+		"ring_90",
+		"pinky_0",
+		"pinky_15",
+		"pinky_30",
+		"pinky_45",
+		"pinky_60",
+		"pinky_75",
+		"pinky_90"
+	);	
+	private var calib_field_values = new Array (
+		"INTEGER",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL"
+	);
+	private var calib_constraints = "FOREIGN KEY(user_id) REFERENCES " + user_table + "(" + user_field_names[0] + ")";
+	
+	/* Right Calibration Table Defaults */
+	private var default_right_calib_data = new Array (
+		1,
+		32700,
+		26800,
+		23000,
+		21000,
+		13000,	
+		10000,
+		7000,	
+		31000,
+		22000,
+		10000,
+		4400,
+		3000,
+		1000,
+		200,
+		39000,
+		26000,
+		20000,
+		16000,
+		14000,
+		13000,
+		12000,
+		14000,
+		2000,
+		1000,
+		500,
+		400, 
+		200,
+		100
+	);
+	
+	/* Left Calibration Table Defaults */
+	private var default_left_calib_data = new Array (
+		1,
+		927,
+		781,
+		451,
+		285,
+		230,	
+		149,
+		35,	
+		849,
+		705,
+		372,
+		201,
+		200,
+		93,
+		2,
+		909,
+		788,
+		426,
+		276,
+		244,
+		126,
+		3,
+		632,
+		571,
+		429,
+		253,
+		207, 
+		39,
+		0
+	);
+
+	/* Results Table Structure */
+	private var scores_field_names = new Array (
+		"user_id",
+		"reachback_count",
+		"reachback_time",
+		"shoulder_rom_max",
+		"shoulder_rom_min"
+	);	
+	private var scores_field_values = new Array (
+		"INTEGER",
+		"INTEGER",
+		"REAL",
+		"REAL",
+		"REAL"
+	);
+	private var scores_constraints = "FOREIGN KEY(user_id) REFERENCES " + user_table + "(" + user_field_names[0] + ")";
+	
+	/* Structure for our time series tables */
+	private var ts_field_names = new Array (
+		"time_id",
+		"l_shoulder_x",
+		"l_shoulder_y",
+		"l_shoulder_z",
+		"r_shoulder_x",
+		"r_shoulder_y",
+		"r_shoulder_z",
+		"l_elbow_x",
+		"l_elbow_y",
+		"l_elbow_z",
+		"r_elbow_x",
+		"r_elbow_y",
+		"r_elbow_z",
+		"l_wrist_x",
+		"l_wrist_y",
+		"l_wrist_z",
+		"r_wrist_x",
+		"r_wrist_y",
+		"r_wrist_z"
+	);	
+	private var ts_field_values = new Array (
+		"DATETIME",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL"
+	);
+	private var ts_constraints = "";
+	 
+    function OpenDB(){
+    connection = "URI=file:" + db_name; // we set the connection to our database
     dbcon = new SqliteConnection(connection);
     dbcon.Open();
     //Debug.Log("Openned Database");
     }
+    
+    /* Return a rotations time series table name given a user id */
+    function RotationsTableName(id : int) {
+    	return "Rotations_" + id;	
+    }
+    /* Return a positions time series table name given a user id */
+    function PositionsTableName(id : int) {
+    	return "Positions_" + id;
+    }
+    
+    /* Regenerate ALL Database Tables */
+    function GenerateTables(){
+    	var default_id = 1;
+    	
+		var query = "INSERT INTO " + user_table + " VALUES (NULL,datetime('now'),'" + default_first_name + "','" + 
+			default_last_name + "','" + RotationsTableName(default_id) + "','" + PositionsTableName(default_id) + "');";
+		// Create user table and insert defaults
+		CreateTable (user_table, user_field_names, user_field_values, user_constraints);
+		BasicQuery(query);
+
+		// Create results table and initialize a column for new user
+		query = "INSERT INTO " + scores_table + " VALUES (1, NULL, NULL, NULL, NULL);";
+		CreateTable (scores_table, scores_field_names, scores_field_values, scores_constraints);
+		BasicQuery(query); 
+
+		// Create and initialize right and left calibration tables. Default data is loaded for default user
+		CreateTable (right_calib_table, calib_field_names, calib_field_values, calib_constraints);
+		InsertInto (right_calib_table, default_right_calib_data);
+		CreateTable (left_calib_table, calib_field_names, calib_field_values, calib_constraints);
+		InsertInto (left_calib_table, default_left_calib_data);
+		
+		//Create time series tables that default users can user
+		CreateTable(RotationsTableName(default_id), ts_field_names, ts_field_values, ts_constraints);
+		CreateTable(PositionsTableName(default_id), ts_field_names, ts_field_values, ts_constraints);
+		
+    }
+    
+    /* Attempt to login to User Profiles table using a first and last name.  Returns TRUE if login
+    is successful and FALSE if it fails */
+    function AttemptLogin(first : String, last : String) {
+    	var query = "SELECT first_name, last_name FROM " + user_table + " WHERE first_name='" + 
+			first + 
+			"' AND last_name='" +
+			last +
+			"';";
+		var results = BasicQuery(query);
+		// If nothing was returned from the query
+		if (results.Count == 0) 
+			return false;
+		else
+			return true;
+    }
+    
+    /* Create a user if the specified first and last name doesn't already exist in the database.  Returns
+    the user's p_id if successful creation and -1 if no user was created */
+    function CreateUser(first : String, last : String) {
+    	var query;
+    	var results;
+    	var user_id = GetUserId(first, last);
+    	
+    	if (user_id < 0) {
+			// Insert user's name into database
+			query = "INSERT INTO " + user_table + " VALUES (NULL,datetime('now'),'" + first + "','" + last + "',NULL,NULL);";
+			results = BasicQuery(query);
+			
+			Debug.Log("Creating User: " + first + " " + last);
+			// Get the new users p_id from user profiles table
+			user_id = GetUserId(first, last);
+			// Create a row in the high scores table for the user
+			query = "INSERT INTO " + scores_table + " (user_id) " + "VALUES (" + user_id + ");";
+			results = BasicQuery(query);
+			
+			// Create time series tables for user and add their names to profiles table
+			query = "UPDATE " + user_table + " SET rotations_ts='" + RotationsTableName(user_id) + "',positions_ts='" + 
+				PositionsTableName(user_id) + "' WHERE p_id=" + user_id + ";";
+			results = BasicQuery(query);
+
+			CreateTable(RotationsTableName(user_id), ts_field_names, ts_field_values, ts_constraints);
+			CreateTable(PositionsTableName(user_id), ts_field_names, ts_field_values, ts_constraints);
+			
+			return user_id;
+    	}
+    	return -1;
+    	
+    }
+    
+    /* Delete any and all data for specified user before removing the user from our user profiles table.
+    Returns the p_id of the deleted user or -1 on failure. */
+	function DeleteUser(first : String, last : String) {
+		var query;
+		var results;
+		var user_id = GetUserId(first, last);
+
+		// If a user was found attempt to delete any calibration data that may exist
+		if (user_id > 0) {			
+			// Delete data from all tables that use the primary key to reference information
+			DeleteCalibrations(user_id);
+			DeleteResults(user_id);
+			DropTimeSeriesTables(user_id);
+			
+			// Delete user from UserProfiles
+			query = "DELETE FROM " + user_table + " WHERE first_name='" + first + "' AND last_name='" + last + "';";
+			results = BasicQuery(query);
+			return user_id;
+		} else {
+			return -1;
+		}
+	}
+	
+	/* Delete associative time series tables for a user */
+	function DropTimeSeriesTables(id : int) {
+		DropTable(RotationsTableName(id));
+		DropTable(PositionsTableName(id));
+	}
+	
+	/* Delete all calibration data for this user. */
+	function DeleteCalibrations(user_id : int) {
+		var query = "DELETE FROM " + right_calib_table + " WHERE user_id=" + user_id + ";";
+		var results = BasicQuery(query);
+		query = "DELETE FROM " + left_calib_table + " WHERE user_id=" + user_id + ";";
+		results = BasicQuery(query);
+	}
+	
+	/* Delete any high score data for given user */
+	function DeleteResults(user_id : int) {
+		var query = "DELETE FROM " + scores_table + " WHERE user_id=" + user_id +";";
+		var results = BasicQuery(query);
+	}
+    
+    /* Return a user's p_id based on first and last name input */
+    function GetUserId(first : String, last : String) {
+		var query = "SELECT p_id FROM " + user_table + " WHERE first_name='" + first + "' AND last_name='" + last + "';";
+		var results = BasicQuery(query);
+		if (results.Count > 0)
+			return results[0][0];
+		else
+			return -1;
+	}
+	
+	/* Check if a user has calibration data in the database.  The function will check for data
+	in the right calibration table only.  There should not exist a case where only one side is calibrated */
+	function HasCalibrations(user_id : int) {
+		var query = "SELECT COUNT(*) FROM " + right_calib_table + " WHERE user_id=" + user_id + ";";
+		var results = BasicQuery(query);
+
+		// Return false is 0 is empty
+		if (results[0][0] < 1)
+			return false;
+		else
+			return true;
+	}
  
     function BasicQuery(q : String){ // run a baic Sqlite query
         dbcmd = dbcon.CreateCommand(); // create empty command
@@ -51,7 +423,7 @@ class dbAccess {
  	
  	function DropTable(tableName : String){
  		var query : String;
- 		query = "DROP TABLE IF EXISTS " + tableName;
+ 		query = "DROP TABLE " + tableName;
  		dbcmd = dbcon.CreateCommand();
         dbcmd.CommandText = query; 
         reader = dbcmd.ExecuteReader();

@@ -114,16 +114,16 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 		right_calibration_table = PlayerPrefs.GetString ("RightCalibrationTable", "RightCalibration");
 		left_calibration_table = PlayerPrefs.GetString ("LeftCalibrationTable", "LeftCalibration");
 		user_table = PlayerPrefs.GetString ("UserTable", "UserProfiles");
-		
-		// Instantiate instance of db access controller and open up our database
-		db_control = new dbAccess ();
-		db_control.OpenDB (db_name);
 	}
 	
 	// This function will insert our calibration data points as a row in the calibration database table
 	void SaveData(){
+		// Instantiate instance of db access controller and open up our database
+		db_control = new dbAccess ();
+		db_control.OpenDB ();
 		db_control.InsertInto(right_calibration_table, rightCalibrationPoints);
 		db_control.InsertInto(left_calibration_table, leftCalibrationPoints);
+		db_control.CloseDB ();
 	}
 	
 	void OnApplicationQuit() {

@@ -49,7 +49,7 @@ public class CylinderCatch : MonoBehaviour {
 	private void LogBestTime(int user_id, float time) {
 		string query = "UPDATE " + scores_table + " SET " + time_field + "=" + time + " WHERE " + userid_field + "=" + user_id + ";";
 		// Open up database
-		db_control.OpenDB (db_name);
+		db_control.OpenDB ();
 		// Execute query
 		db_control.BasicQuery (query);
 		// Close up database

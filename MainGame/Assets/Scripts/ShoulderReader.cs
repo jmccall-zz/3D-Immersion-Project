@@ -112,7 +112,7 @@ public class ShoulderReader : MonoBehaviour {
 
 		string query = "UPDATE " + scores_table + " SET " + max_rom_field + "=" + max_abduction + "," + 
 			min_rom_field + "=" + min_abduction + " WHERE user_id=" + user_id + ";";
-		db_control.OpenDB (db_name);
+		db_control.OpenDB ();
 		db_control.BasicQuery (query);
 		db_control.CloseDB ();
 	}
