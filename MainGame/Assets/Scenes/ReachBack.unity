@@ -1782,7 +1782,7 @@ MonoBehaviour:
   RightAnkle: {fileID: 1581842155}
   RightFoot: {fileID: 0}
   UpdateJointPositions: 0
-  UpdateRootPosition: 1
+  UpdateRootPosition: 0
   UpdateOrientation: 1
   RotateToPsiPose: 0
   RotationDamping: 30
@@ -4658,6 +4658,10 @@ Prefab:
     - target: {fileID: 400000, guid: a73d597c02dc8434c97742fc3afea091, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400012, guid: a73d597c02dc8434c97742fc3afea091, type: 2}
+      propertyPath: UpdateRootPosition
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a73d597c02dc8434c97742fc3afea091, type: 2}
