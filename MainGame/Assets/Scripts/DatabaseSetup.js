@@ -18,6 +18,7 @@ private var force_calibration = false;
 private var row;
 private var query;
 private var scroll_position : Vector2;
+
 private var results : ArrayList = new ArrayList();
 private var database_data : ArrayList = new ArrayList();
 private var txt_field_style : GUIStyle;
@@ -93,12 +94,12 @@ function OnGUI() {
 		if (display_users)
 			DisplayFullTable(db_control.user_table);
 		// Display user calibrations
-		if (display_calibrations) {
+		else if (display_calibrations) {
 			DisplayFullTable(db_control.right_calib_table);
 			DisplayFullTable(db_control.left_calib_table);
 		}
 		// Display user high scores
-		if (display_scores)
+		else if (display_scores)
 			DisplayFullTable(db_control.scores_table);
 	}
 	GUILayout.EndArea ();
@@ -185,7 +186,7 @@ function DisplayFullTable(table_name : String){
 	database_data = db_control.ReadFullTable(table_name);
 	db_control.CloseDB();
 	//GUILayout.Label("Database Contents");
-	scrollPosition = GUILayout.BeginScrollView(scroll_position, GUILayout.Height(100));
+	scroll_position = GUILayout.BeginScrollView(scroll_position, GUILayout.Height(100));
 	for (var line : ArrayList in database_data){
 		GUILayout.BeginHorizontal();
 		for (var s in line){
