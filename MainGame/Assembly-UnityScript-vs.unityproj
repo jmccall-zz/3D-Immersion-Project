@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\CatchDelegate.js" />
      <Compile Include="Assets\Scripts\CatchThrow.js" />
      <Compile Include="Assets\Scripts\DatabaseSetup.js" />
+     <Compile Include="Assets\Scripts\DatabaseView.js" />
      <Compile Include="Assets\Scripts\DontGoThroughThings.js" />
      <Compile Include="Assets\Scripts\HitBall.js" />
      <Compile Include="Assets\Scripts\Menu.js" />
