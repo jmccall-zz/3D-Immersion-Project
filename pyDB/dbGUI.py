@@ -2,10 +2,16 @@
 
 import wx
 import readDB
+import matplotlib
+matplotlib.use('WXAgg')
+import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_wxagg import \
+    FigureCanvasWxAgg as FigCanvas, \
+    NavigationToolbar2WxAgg as NavigationToolbar
+
 
 class dbWindow(wx.Frame):
-
-    reader = []
     
     def __init__(self, parent, title):
         super(dbWindow, self).__init__(parent, title=title, size = (600,400))
@@ -39,7 +45,9 @@ class dbWindow(wx.Frame):
     def SelectDataScreen(self, event):
         self.userName = (self.st.GetLabel())
         self.destroyAll()
-        
+
+        self.cb = wx.ComboBox(self.pnl, pos=(50, 300), choices=["0"], 
+            style=wx.CB_READONLY)
 
     def destroyAll (self):
         self.btn.Destroy()
