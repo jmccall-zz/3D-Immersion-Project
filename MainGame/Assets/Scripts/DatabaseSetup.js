@@ -26,8 +26,6 @@ private var txt_field_style : GUIStyle;
 public var display_calibrations = true;
 public var display_users = true;
 public var display_scores = true;
-public var game_scene = "ReachBack";
-public var calibration_scene = "CalibrateGlove";
 public var first_name = "First Name";
 public var last_name = "Last Name";
 public var txt_field_width : int = 300;
@@ -237,13 +235,13 @@ function LoadNextScene(){
 			db_control.DeleteCalibrations(PlayerPrefs.GetInt("ActiveUser"));
 		}
 		db_control.CloseDB();
-		Application.LoadLevel(calibration_scene);
+		Application.LoadLevel(db_control.calibration_scene);
 		Debug.Log("Loading Calibration Scene");
 	// If a calibration entry is found, go straight to our game scene
 	} else {
 	Debug.Log("Loading Game Scene");
 		db_control.CloseDB();
-		Application.LoadLevel(game_scene);
+		Application.LoadLevel(db_control.cylinder_collection_scene);
 	}	
 }
 
