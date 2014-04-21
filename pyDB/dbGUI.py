@@ -2,10 +2,16 @@
 
 import wx
 import readDB
+import matplotlib
+matplotlib.use('WXAgg')
+import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_wxagg import \
+    FigureCanvasWxAgg as FigCanvas, \
+    NavigationToolbar2WxAgg as NavigationToolbar
+
 
 class dbWindow(wx.Frame):
-
-    reader = []
     
     def __init__(self, parent, title):
         super(dbWindow, self).__init__(parent, title=title, size = (600,400))
@@ -16,25 +22,44 @@ class dbWindow(wx.Frame):
 
     def InitUI(self):
         # Create a Panel that we can put widgets in
-        pnl = wx.Panel(self)
+        self.pnl = wx.Panel(self)
 
         # Get list of Users from database
         Users = self.reader.readNames()
 
         # Creates a Dropbox to select User by name
-        cb = wx.ComboBox(pnl, pos=(50, 30), choices=Users, 
+        self.cb = wx.ComboBox(self.pnl, pos=(50, 30), choices=Users, 
             style=wx.CB_READONLY)
 
         # Bind event to take 
-        self.st = wx.StaticText(pnl, label='', pos=(50, 140))
-        cb.Bind(wx.EVT_COMBOBOX, self.OnSelect)
+        self.st = wx.StaticText(self.pnl, label='', pos=(50, 140))
+        self.cb.Bind(wx.EVT_COMBOBOX, self.OnSelect)
 
+        self.btn = wx.Button(self.pnl, label='Go', pos=(475, 325))
+
+        self.btn.Bind(wx.EVT_BUTTON, self.SelectDataScreen)
+        
         self.Centre()
         self.Show()
 
-    def OnSelect(self, e):
+    def SelectDataScreen(self, event):
+        self.userName = (self.st.GetLabel())
+        self.destroyAll()
+
+        self.cb = wx.ComboBox(self.pnl, pos=(50, 300), choices=["0"], 
+            style=wx.CB_READONLY)
+
+    def destroyAll (self):
+        self.btn.Destroy()
+        self.st.Destroy()
+        self.cb.Destroy()
+
         
-        i = e.GetString()
+    
+        
+    def OnSelect(self, event):
+        
+        i = event.GetString()
         self.st.SetLabel(i)
 
 def main():

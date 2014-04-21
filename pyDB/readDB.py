@@ -2,8 +2,6 @@
 
 import sqlite3
 import random
-import matplotlib.pyplot as plt
-
 
 
 class dbReader():
@@ -20,11 +18,28 @@ class dbReader():
 
         def readNames(self):
                 names=[]
-                cur = self.con.execute("SELECT first_name, last_name from UserProfiles")
+                cur = self.con.execute("SELECT first_name, last_name, p_id  from UserProfiles")
                 for row in cur:
-                        names.append(row[1] + ',' + row[0])
+                        names.append(str(row[2]) + ' ' +  row[1] + ', ' + row[0])
 
                 return names
+
+        def readExerciseTables(self, p_id):
+                tables = []
+                cur = self.con.execute("SELECT tablenames from UserProfiles where p_id=" + p_id)
+                for row in cur:
+                        tables.append(row[0])
+                return tables
+
+        def readTimeTables(self, table_name):
+                data = [[]]
+                cur = self.con.execute("SELECT * from " + table_name)
+                i = 0
+                for row in cur:
+                        data[i].append(row)
+                        i = i + 1
+                return data
+        
 
 #con.execute('''CREATE TABLE STROKEDATA
 #(ID INT PRIMARY KEY NOT NULL,
