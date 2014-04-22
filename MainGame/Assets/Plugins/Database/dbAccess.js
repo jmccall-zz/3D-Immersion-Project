@@ -18,6 +18,9 @@ class dbAccess {
 	public var right_calib_table = "RightCalibration";
 	public var left_calib_table = "LeftCalibration";
 	public var scores_table = "Results";
+	public var cylinder_reach_scene = "ReachBack";
+	public var shoulder_rom_scene = "ShoulderROM";
+	public var calibration_scene = "CalibrateGlove";
 	private var default_first_name = 'Bob';
 	private var default_last_name = 'Builder';
 	
@@ -29,14 +32,18 @@ class dbAccess {
 		"last_name",
 		// Format of time series tables names is: "<Measurement>_<p_id>"
 		// Default example: "Rotations_1"
-		"rotations_ts",	// Name of time series rotation table
-		"positions_ts"	// Name of time series position table
+		"shoulder_rom_rot",	// Name of time series rotation table
+		"shoulder_rom_pos",	// Name of time series position table
+		"cyl_reach_rot",
+		"cyl_reach_pos"
 	);
 	private var user_field_values = new Array (
 		"INTEGER PRIMARY KEY",
 		"DATETIME",
 		"VARCHAR(100)",
 		"VARCHAR(100)",
+		"VARCHAR(50)",
+		"VARCHAR(50)",
 		"VARCHAR(50)",
 		"VARCHAR(50)"
 	);
@@ -242,13 +249,22 @@ class dbAccess {
     //Debug.Log("Openned Database");
     }
     
-    /* Return a rotations time series table name given a user id */
-    function RotationsTableName(id : int) {
-    	return "Rotations_" + id;	
+    /* Return a rotations time series table name given a base scene and user id */
+    function RotationsTableName(table_name : String, id : int) {
+    	return table_name + "Rot_" + id;	
     }
-    /* Return a positions time series table name given a user id */
-    function PositionsTableName(id : int) {
-    	return "Positions_" + id;
+    /* Return a positions time series table name given a base scene and user id */
+    function PositionsTableName(table_name : String, id : int) {
+    	return table_name + "Pos_" + id;
+    }
+    
+    /* Create necessary time series tables for a new user given their primary id */
+    function CreateTimeSeriesTables(id : int) {
+    	CreateTable(RotationsTableName(cylinder_reach_scene, id), ts_field_names, ts_field_values, ts_constraints);
+		CreateTable(PositionsTableName(cylinder_reach_scene, id), ts_field_names, ts_field_values, ts_constraints);
+		CreateTable(RotationsTableName(shoulder_rom_scene, id), ts_field_names, ts_field_values, ts_constraints);
+		CreateTable(PositionsTableName(shoulder_rom_scene, id), ts_field_names, ts_field_values, ts_constraints);
+		
     }
     
     /* Regenerate ALL Database Tables */
@@ -256,7 +272,9 @@ class dbAccess {
     	var default_id = 1;
     	
 		var query = "INSERT INTO " + user_table + " VALUES (NULL,datetime('now'),'" + default_first_name + "','" + 
-			default_last_name + "','" + RotationsTableName(default_id) + "','" + PositionsTableName(default_id) + "');";
+			default_last_name + "','" + RotationsTableName(shoulder_rom_scene, default_id) + "','" + 
+			PositionsTableName(shoulder_rom_scene, default_id) + "','" + RotationsTableName(cylinder_reach_scene, default_id) +
+			"','" + PositionsTableName(cylinder_reach_scene, default_id) + "');";
 		// Create user table and insert defaults
 		CreateTable (user_table, user_field_names, user_field_values, user_constraints);
 		BasicQuery(query);
@@ -272,9 +290,7 @@ class dbAccess {
 		CreateTable (left_calib_table, calib_field_names, calib_field_values, calib_constraints);
 		InsertInto (left_calib_table, default_left_calib_data);
 		
-		//Create time series tables that default users can user
-		CreateTable(RotationsTableName(default_id), ts_field_names, ts_field_values, ts_constraints);
-		CreateTable(PositionsTableName(default_id), ts_field_names, ts_field_values, ts_constraints);
+		CreateTimeSeriesTables(default_id);
 		
     }
     
@@ -303,7 +319,7 @@ class dbAccess {
     	
     	if (user_id < 0) {
 			// Insert user's name into database
-			query = "INSERT INTO " + user_table + " VALUES (NULL,datetime('now'),'" + first + "','" + last + "',NULL,NULL);";
+			query = "INSERT INTO " + user_table + " VALUES (NULL,datetime('now'),'" + first + "','" + last + "',NULL,NULL,NULL,NULL);";
 			results = BasicQuery(query);
 			
 			Debug.Log("Creating User: " + first + " " + last);
@@ -314,12 +330,13 @@ class dbAccess {
 			results = BasicQuery(query);
 			
 			// Create time series tables for user and add their names to profiles table
-			query = "UPDATE " + user_table + " SET rotations_ts='" + RotationsTableName(user_id) + "',positions_ts='" + 
-				PositionsTableName(user_id) + "' WHERE p_id=" + user_id + ";";
+			query = "UPDATE " + user_table + " SET shoulder_rom_rot='" + RotationsTableName(shoulder_rom_scene, user_id) + 
+				"',shoulder_rom_pos='" + PositionsTableName(shoulder_rom_scene, user_id) + "',cyl_reach_rot='" + 
+				RotationsTableName(cylinder_reach_scene, user_id) + "',cyl_reach_pos='" + PositionsTableName(cylinder_reach_scene, user_id) + 
+				"' WHERE p_id=" + user_id + ";";
 			results = BasicQuery(query);
 
-			CreateTable(RotationsTableName(user_id), ts_field_names, ts_field_values, ts_constraints);
-			CreateTable(PositionsTableName(user_id), ts_field_names, ts_field_values, ts_constraints);
+			CreateTimeSeriesTables(user_id);
 			
 			return user_id;
     	}
@@ -352,8 +369,10 @@ class dbAccess {
 	
 	/* Delete associative time series tables for a user */
 	function DropTimeSeriesTables(id : int) {
-		DropTable(RotationsTableName(id));
-		DropTable(PositionsTableName(id));
+		DropTable(RotationsTableName(shoulder_rom_scene, id));
+		DropTable(PositionsTableName(shoulder_rom_scene, id));
+		DropTable(RotationsTableName(cylinder_reach_scene, id));
+		DropTable(PositionsTableName(cylinder_reach_scene, id));
 	}
 	
 	/* Delete all calibration data for this user. */
