@@ -5,7 +5,7 @@ import random
 
 
 class dbReader():
-        db = "C:\\Users\\jmccall\\Documents\\3D-Immersion-Project\\MainGame\\RehabStats.sqdb"
+        db = "C:\\Users\\ckaminer\\Documents\\GitHub\\3D-Immersion-Project\\MainGame\\RehabStats.sqdb"
 #       db = "TestDB"
 
         # connection Object
@@ -26,9 +26,10 @@ class dbReader():
 
         def readExerciseTables(self, p_id):
                 tables = []
-                cur = self.con.execute("SELECT tablenames from UserProfiles where p_id=" + p_id)
+                cur = self.con.execute("SELECT rotations_ts, positions_ts from UserProfiles where p_id=" + str(p_id))
                 for row in cur:
                         tables.append(row[0])
+                        tables.append(row[1])
                 return tables
 
         def readTimeTables(self, table_name):
