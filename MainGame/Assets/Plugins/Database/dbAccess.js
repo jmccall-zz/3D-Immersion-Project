@@ -250,12 +250,12 @@ class dbAccess {
     }
     
     /* Return a rotations time series table name given a base scene and user id */
-    function RotationsTableName(table_name : String, id : int) {
-    	return table_name + "Rot_" + id;	
+    function RotationsTableName(scene_name : String, id : int) {
+    	return scene_name + "Rot_" + id;	
     }
     /* Return a positions time series table name given a base scene and user id */
-    function PositionsTableName(table_name : String, id : int) {
-    	return table_name + "Pos_" + id;
+    function PositionsTableName(scene_name : String, id : int) {
+    	return scene_name + "Pos_" + id;
     }
     
     /* Create necessary time series tables for a new user given their primary id */
@@ -265,6 +265,32 @@ class dbAccess {
 		CreateTable(RotationsTableName(shoulder_rom_scene, id), ts_field_names, ts_field_values, ts_constraints);
 		CreateTable(PositionsTableName(shoulder_rom_scene, id), ts_field_names, ts_field_values, ts_constraints);
 		
+    }
+    
+    function InsertTimeSeriesRotations(id : int, scene_name : String, values : Array) {
+    	var table_name = RotationsTableName (scene_name, id);
+    	var query = "INSERT INTO " + table_name + " VALUES (datetime('now')";
+    	for (var i = 0; i < values.length; i++) {
+    		query += "," + values[i];
+    	}
+    	query += ")";
+    	Debug.Log("Writing rotations to table: " + table_name + "\nQuery: " + values.ToString());
+    	dbcmd = dbcon.CreateCommand();
+        dbcmd.CommandText = query; 
+        reader = dbcmd.ExecuteReader();
+    }
+    
+    function InsertTimeSeriesPositions(id : int, scene_name : String, values : Array) {
+    	var table_name = PositionsTableName (scene_name, id);
+    	var query = "INSERT INTO " + table_name + " VALUES (datetime('now')";
+    	for (var i = 0; i < values.length; i++) {
+    		query += "," + values[i];
+    	}
+    	query += ")";
+    	Debug.Log("Writing rotations to table: " + table_name + "\nQuery: " + values.ToString());
+    	dbcmd = dbcon.CreateCommand();
+        dbcmd.CommandText = query; 
+        reader = dbcmd.ExecuteReader();
     }
     
     /* Regenerate ALL Database Tables */
