@@ -260,11 +260,17 @@ public class ZigSkeleton : MonoBehaviour
 	}
 
 	/* Returns the localEulerAngles for a joint of specified ZigJointId */
-	public Vector3 GetJointEulerAngles(ZigJointId joint) {
+	public Vector3 GetJointLocalEulerAngles(ZigJointId joint) {
 
 		Transform transform = GetJointTransform (joint);
 		Vector3 angles = transform.localEulerAngles;
 		return angles;
+	}
+
+	public Vector3 GetJointLocalPositions(ZigJointId joint) {
+		Transform transform = GetJointTransform (joint);
+		Vector3 positions = transform.localPosition;
+		return positions;
 	}
 
 }
