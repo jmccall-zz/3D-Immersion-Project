@@ -74,8 +74,6 @@ public class GloveReader {
 
 	// Database Player Preference Information (from Login Scene)
 	public int active_user;
-	public string right_calibration_table;
-	public string left_calibration_table;
 	private dbAccess db_control;
 	
 	public GloveReader() {
@@ -88,8 +86,6 @@ public class GloveReader {
 		// Get active user from player prefs. Use default user 1 if no active user is set
 		active_user = PlayerPrefs.GetInt("ActiveUser", 1);
 		Debug.Log ("Glove reader sees active user: " + active_user);
-		right_calibration_table = PlayerPrefs.GetString("RightCalibrationTable", "RightCalibration");
-		left_calibration_table = PlayerPrefs.GetString ("LeftCalibrationTable", "LeftCalibration"); 
 		allFingerZones = readDB (active_user);
 		rightFingerZones = (int[]) allFingerZones [0];
 		leftFingerZones = (int[]) allFingerZones [1];
@@ -106,8 +102,8 @@ public class GloveReader {
 		int [] rightFingerBlocks = new int [28];
 		int [] leftFingerBlocks = new int [28];
 
-		rightFingerBlocks = GetCalibrationRow (right_calibration_table, user_id);
-		leftFingerBlocks = GetCalibrationRow (left_calibration_table, user_id);
+		rightFingerBlocks = GetCalibrationRow (db_control.right_calib_table, user_id);
+		leftFingerBlocks = GetCalibrationRow (db_control.left_calib_table, user_id);
 
 		// Store integer arrays into ArrayList object and return
 		fingerBlocks.Add (rightFingerBlocks);
@@ -131,6 +127,8 @@ public class GloveReader {
 		// Pull entire right hand calibration data row for this user
 		query = "SELECT * FROM " + table_name + " WHERE user_id=" + user_id + ";";
 		results = db_control.BasicQuery(query);
+		// Close the database to avoid locking
+		db_control.CloseDB();
 		//Debug.Log("Pulling calibrations from: " + table_name + " for user: " + user_id);
 		
 		// If a row is returned by the query, fill the integer array with data
@@ -147,9 +145,6 @@ public class GloveReader {
 
 			GetCalibrationRow (table_name, 1);
 		}
-		
-		// Close the database to avoid locking
-		db_control.CloseDB();
 		return blocks;
 	}
 
