@@ -26,10 +26,11 @@ class dbReader():
 
         def readExerciseTables(self, p_id):
                 tables = []
-                cur = self.con.execute("SELECT rotations_ts, positions_ts from UserProfiles where p_id=" + str(p_id))
-                for row in cur:
-                        tables.append(row[0])
-                        tables.append(row[1])
+                cur = self.con.execute("SELECT shoulder_rom_rot, shoulder_rom_pos, cyl_reach_rot, cyl_reach_pos from UserProfiles where p_id=" + str(p_id))
+                for element in row in cur:
+                        for element in row:
+                                tables.append(element)
+                        
                 return tables
 
         def readTimeTables(self, table_name):
