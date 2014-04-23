@@ -15,3 +15,5 @@ EditorBuildSettings:
     path: Assets/Scenes/FirstScene.unity
   - enabled: 1
     path: Assets/Scenes/GripStrength.unity
+  - enabled: 1
+    path: Assets/Scenes/ShoulderROM.unity

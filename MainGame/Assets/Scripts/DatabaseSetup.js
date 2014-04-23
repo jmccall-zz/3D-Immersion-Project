@@ -241,7 +241,7 @@ function LoadNextScene(){
 	} else {
 	Debug.Log("Loading Game Scene");
 		db_control.CloseDB();
-		Application.LoadLevel(db_control.cylinder_collection_scene);
+		Application.LoadLevel(db_control.cylinder_reach_scene);
 	}	
 }
 
