@@ -2,6 +2,14 @@
 using System.Collections;
 using System;
 
+/* Measure the max and min left and right shoulder abduction angles using Kinect.
+ * This seen can also be used to sample upper body joint rotations and positions by selecting
+ * "record_joint_rotations" and "record_joint_positions", respectively, in the editor.  Also use the 
+ * editor to specify the rate at which you want to sample joint rotation and position data.
+ * NOTE: If you would like to test functionality while disconnected from the kinect, uncheck the "Zigfu"
+ * game object in the editor
+ */
+
 public class ShoulderReader : MonoBehaviour {
 
 	private Transform R_shoulder;
@@ -16,6 +24,12 @@ public class ShoulderReader : MonoBehaviour {
 	private string scores_table;
 	private int user_id;
 
+	public bool record_joint_rotations = true;
+	public bool record_joint_positions = true;
+	// Seconds between measurement of time series joint data
+	public float capture_rate = 0.5f;
+
+
 	// The localEulerAngles of the shoulder. This array of length three represents
 	// x, y, and z rotation angles.
 	private Vector3 shoulder_angles;
@@ -28,6 +42,9 @@ public class ShoulderReader : MonoBehaviour {
 	// the shoulder's y-axis rotation is in this range!
 	private float max_y_rotation;
 	private float min_y_rotation;
+	private float time_old = 0.0f;
+	private float time_new = 0.0f;
+	private float time_diff = 0.0f;
 
 	// Degrees of rotation in both direction allowed for abduction measurement
 	public float degrees_freedom = 10.0f;
@@ -40,10 +57,7 @@ public class ShoulderReader : MonoBehaviour {
 		shoulder_angles = new Vector3();
 		skeleton = GetComponent <ZigSkeleton>();
 		db_control = new dbAccess ();
-		db_name = PlayerPrefs.GetString ("DBName");
-		scores_table = PlayerPrefs.GetString ("ScoresTable");
 		user_id = PlayerPrefs.GetInt ("ActiveUser", 1);
-		Debug.Log ("Active User in start: " + user_id); 
 
 
 
@@ -59,13 +73,23 @@ public class ShoulderReader : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		Debug.Log ("In update() for shoulder reader");
+		time_new += Time.deltaTime;
+		time_diff = time_new - time_old;
+		Debug.Log ("TimeNew: " + time_new);
+		Debug.Log ("TimeOld: " + time_old);
+		Debug.Log ("TimeDiff: " + time_diff);
+
+		if (time_diff >= capture_rate) {
+			Debug.Log("Writing Joint Data");
+			SampleJointData(skeleton);
+			time_old = time_new;
+		}
+
 		// Check if we are done with the current measurement
 		if (Input.GetKeyDown("space")) {
 			measurement_complete = true;
-			//TODO: Write to database here.  Maybe we want to check if better results already exist and 
-			// say something to therapist.  Or we could leave this type of data analysis to whoever is reading 
-			// from the database.  This makes sense as therapists can conduct whatever scenes they want and move
-			// to data analysis at a later time
+
 			UpdateDatabaseROM();
 		}
 		// Determine which shoulder we will be sampling
@@ -76,8 +100,8 @@ public class ShoulderReader : MonoBehaviour {
 			Debug.Log ("Measuring Right Shoulder Abduction Angle");
 			joint_id = R_shoulder_id;
 		}
-		shoulder_angles = skeleton.GetJointEulerAngles (joint_id);
-
+		shoulder_angles = skeleton.GetJointLocalEulerAngles (joint_id);
+		Debug.Log ("Angles: " + shoulder_angles.x + " " + shoulder_angles.y + " " + shoulder_angles.z);
 		abduction_angle = GetAbductionAngle (shoulder_angles);
 
 		// Check if abduction angle could be measured
@@ -89,10 +113,95 @@ public class ShoulderReader : MonoBehaviour {
 				min_abduction = abduction_angle;
 		}
 	}
+
+	private void SampleJointData(ZigSkeleton skel) {
+		Vector3 r_shoulder_rot;
+		Vector3 r_shoulder_pos;
+		Vector3 r_elbow_rot;
+		Vector3 r_elbow_pos;
+		Vector3 r_wrist_rot;
+		Vector3 r_wrist_pos;
+		Vector3 l_shoulder_rot;
+		Vector3 l_shoulder_pos;
+		Vector3 l_elbow_rot;
+		Vector3 l_elbow_pos;
+		Vector3 l_wrist_rot;
+		Vector3 l_wrist_pos;
+		float [] rotation_values;
+		float [] position_values;
+		string query;
+
+		if (record_joint_rotations) {
+			r_shoulder_rot = skel.GetJointLocalEulerAngles(ZigJointId.RightShoulder);
+			l_shoulder_rot = skel.GetJointLocalEulerAngles(ZigJointId.RightShoulder);
+			r_elbow_rot = skel.GetJointLocalEulerAngles(ZigJointId.RightElbow);
+			l_elbow_rot = skel.GetJointLocalEulerAngles(ZigJointId.RightElbow);
+			r_wrist_rot = skel.GetJointLocalEulerAngles(ZigJointId.RightWrist);
+			l_wrist_rot = skel.GetJointLocalEulerAngles(ZigJointId.RightWrist);
+			rotation_values = new float[] {
+				l_shoulder_rot.x,
+				l_shoulder_rot.y,
+				l_shoulder_rot.z,
+				r_shoulder_rot.x,
+				r_shoulder_rot.y,
+				r_shoulder_rot.z,
+				l_elbow_rot.x,
+				l_elbow_rot.y,
+				l_elbow_rot.z,
+				r_elbow_rot.x,
+				r_elbow_rot.y,
+				r_elbow_rot.z,
+				l_wrist_rot.x,
+				l_wrist_rot.y,
+				l_wrist_rot.z,
+				r_wrist_rot.x,
+				r_wrist_rot.y,
+				r_wrist_rot.z
+			};
+			db_control.OpenDB();
+			db_control.InsertTimeSeriesRotations(user_id, db_control.shoulder_rom_scene, rotation_values);
+			db_control.CloseDB();
+		}
+
+		if (record_joint_positions) {
+			r_shoulder_pos = skel.GetJointLocalEulerAngles(ZigJointId.LeftShoulder);
+			l_shoulder_pos = skel.GetJointLocalEulerAngles(ZigJointId.LeftShoulder);
+			r_elbow_pos = skel.GetJointLocalEulerAngles(ZigJointId.LeftElbow);
+			l_elbow_pos = skel.GetJointLocalEulerAngles(ZigJointId.LeftElbow);
+			r_wrist_pos = skel.GetJointLocalEulerAngles(ZigJointId.LeftWrist);
+			l_wrist_pos = skel.GetJointLocalEulerAngles(ZigJointId.LeftWrist);
+			position_values = new float[] {
+				l_shoulder_pos.x,
+				l_shoulder_pos.y,
+				l_shoulder_pos.z,
+				r_shoulder_pos.x,
+				r_shoulder_pos.y,
+				r_shoulder_pos.z,
+				l_elbow_pos.x,
+				l_elbow_pos.y,
+				l_elbow_pos.z,
+				r_elbow_pos.x,
+				r_elbow_pos.y,
+				r_elbow_pos.z,
+				l_wrist_pos.x,
+				l_wrist_pos.y,
+				l_wrist_pos.z,
+				r_wrist_pos.x,
+				r_wrist_pos.y,
+				r_wrist_pos.z
+			};
+			db_control.OpenDB();
+			db_control.InsertTimeSeriesPositions(user_id, db_control.shoulder_rom_scene, position_values);
+			db_control.CloseDB();
+		}
+	}
+
 	
-	/* Retrieve measured abduction angle given all shoulder rotation angles.  The normal range for
-	 a vertical shoulder abduction measurement is 0 degrees to 180 degrees.  0 meaning arm lowered
-	 parallel to spine.  180 meaning arm raised parallel to spine. */
+	/*
+	 * Retrieve measured abduction angle given all shoulder rotation angles.  The normal range for
+	 * a vertical shoulder abduction measurement is 0 degrees to 180 degrees.  0 meaning arm lowered
+	 * parallel to spine.  180 meaning arm raised parallel to spine.
+	 */
 	private float GetAbductionAngle(Vector3 angles) {
 		float angle = -1;
 		if ((angles.y >  max_y_rotation) || (angles.y < min_y_rotation)) {
@@ -110,7 +219,7 @@ public class ShoulderReader : MonoBehaviour {
 		string max_rom_field = "shoulder_rom_max";
 		string min_rom_field = "shoulder_rom_min";
 
-		string query = "UPDATE " + scores_table + " SET " + max_rom_field + "=" + max_abduction + "," + 
+		string query = "UPDATE " + db_control.scores_table + " SET " + max_rom_field + "=" + max_abduction + "," + 
 			min_rom_field + "=" + min_abduction + " WHERE user_id=" + user_id + ";";
 		db_control.OpenDB ();
 		db_control.BasicQuery (query);
