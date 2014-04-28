@@ -18,7 +18,7 @@ class dbReader():
 
         def readNames(self):
                 names=[]
-                cur = self.con.execute("SELECT first_name, last_name, p_id  from UserProfiles")
+                cur = self.con.execute("SELECT first_name, last_name, p_id from UserProfiles")
                 for row in cur:
                         names.append(str(row[2]) + ' ' +  row[1] + ', ' + row[0])
 
@@ -27,19 +27,20 @@ class dbReader():
         def readExerciseTables(self, p_id):
                 tables = []
                 cur = self.con.execute("SELECT shoulder_rom_rot, shoulder_rom_pos, cyl_reach_rot, cyl_reach_pos from UserProfiles where p_id=" + str(p_id))
-                for element in row in cur:
+                for row in cur:
                         for element in row:
                                 tables.append(element)
                         
                 return tables
 
         def readTimeTables(self, table_name):
-                data = [[]]
+                data = []
                 cur = self.con.execute("SELECT * from " + table_name)
-                i = 0
                 for row in cur:
-                        data[i].append(row)
-                        i = i + 1
+                        #print(row)
+                        #type(row)
+                        #print("row")
+                        data.append(list(row))
                 return data
         
 
