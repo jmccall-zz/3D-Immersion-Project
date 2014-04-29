@@ -15,6 +15,7 @@ private var failed_user_login = false;
 private var failed_user_create = false;
 private var failed_user_delete = false;
 private var force_calibration = false;
+private var drop_timeseries_data = false;
 private var row;
 private var query;
 private var scroll_position : Vector2;
@@ -31,7 +32,8 @@ public var last_name = "Last Name";
 public var txt_field_width : int = 300;
 public var txt_field_height : int = 40;
 public var button_width : int = 200;
-public var calibration_button_pos : Rect = new Rect(620, 35, 150, 50);
+public var calibration_button_pos : Rect = new Rect(620, 26, 150, 20);
+public var timeseries_button_pos : Rect = new Rect(620, 44, 170, 20);
 
 
 // Use this for initialization
@@ -111,6 +113,8 @@ function LoginOptions() {
 	first_name = GUILayout.TextField(first_name, txt_field_style, GUILayout.Width (txt_field_width), GUILayout.Height(txt_field_height));
 	last_name = GUILayout.TextField(last_name, GUILayout.Width (txt_field_width), GUILayout.Height(txt_field_height));
 	force_calibration = GUI.Toggle(calibration_button_pos, force_calibration, "Force Calibration");
+	drop_timeseries_data = GUI.Toggle(timeseries_button_pos, drop_timeseries_data, "Reset Time Series Data");
+
 	//GUILayout.FlexibleSpace();
 	GUILayout.EndHorizontal();
 	
@@ -227,6 +231,9 @@ directed to the calibration scene. Other wise to the game scene
 function LoadNextScene(){
 	var user_id = PlayerPrefs.GetInt("ActiveUser");
 	db_control.OpenDB();
+	// Check if time series tables should be reset
+	if (drop_timeseries_data)
+		db_control.ResetTimeSeriesTables(user_id);
 	// If a zero count is returned by the query OR force_calibration is true, proceed to calibration scene
 	if ((!db_control.HasCalibrations(user_id)) || (force_calibration)){
 		// If calibration is forced by the user, attempt to delete any existing calibration data
