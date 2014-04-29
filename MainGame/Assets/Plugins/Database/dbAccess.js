@@ -274,7 +274,7 @@ class dbAccess {
     		query += "," + values[i];
     	}
     	query += ")";
-    	Debug.Log("Writing rotations to table: " + table_name + "\nQuery: " + values.ToString());
+    	//Debug.Log("Writing rotations to table: " + table_name + "\nQuery: " + values.ToString());
     	dbcmd = dbcon.CreateCommand();
         dbcmd.CommandText = query; 
         reader = dbcmd.ExecuteReader();
@@ -287,7 +287,7 @@ class dbAccess {
     		query += "," + values[i];
     	}
     	query += ")";
-    	Debug.Log("Writing rotations to table: " + table_name + "\nQuery: " + values.ToString());
+    	//Debug.Log("Writing rotations to table: " + table_name + "\nQuery: " + values.ToString());
     	dbcmd = dbcon.CreateCommand();
         dbcmd.CommandText = query; 
         reader = dbcmd.ExecuteReader();
@@ -391,6 +391,12 @@ class dbAccess {
 		} else {
 			return -1;
 		}
+	}
+	
+	/* Given a user's id, this function will drop and recreate the user's associative time series tables */
+	function ResetTimeSeriesTables(id : int){
+		DropTimeSeriesTables(id);
+		CreateTimeSeriesTables(id);
 	}
 	
 	/* Delete associative time series tables for a user */
