@@ -12,12 +12,14 @@ using System;
 
 public class ShoulderReader : MonoBehaviour {
 
+	private GameObject zigfu;
 	private Transform R_shoulder;
 	private Transform L_shoulder;
 	private ZigJointId joint_id;
 	private ZigJointId R_shoulder_id;
 	private ZigJointId L_shoulder_id;
 	private ZigSkeleton skeleton;
+	private Zig zig_control;
 	private bool measurement_complete = false;
 	private dbAccess db_control;
 	private string db_name;
@@ -28,8 +30,7 @@ public class ShoulderReader : MonoBehaviour {
 	public bool record_joint_positions = true;
 	// Seconds between measurement of time series joint data
 	public float capture_rate = 0.5f;
-
-
+	
 	// The localEulerAngles of the shoulder. This array of length three represents
 	// x, y, and z rotation angles.
 	private Vector3 shoulder_angles;
@@ -50,16 +51,25 @@ public class ShoulderReader : MonoBehaviour {
 	public float degrees_freedom = 10.0f;
 	public bool measure_left = false;
 
-
 	// Use this for initialization
 	void Start () {
 		// Instantiate objects
-		shoulder_angles = new Vector3();
+		// Load ZigFu game object.  This game object has 4 Zig related script Components.  Use this object
+		// to instances of these script's classes in order to access event information :)
+		zigfu = GameObject.Find ("ZigFu");
+		zig_control = zigfu.GetComponent <Zig>();
+		// This script is attached to Carl so GetComponent can be called directly
 		skeleton = GetComponent <ZigSkeleton>();
+
+		shoulder_angles = new Vector3();
+
+
 		db_control = new dbAccess ();
 		user_id = PlayerPrefs.GetInt ("ActiveUser", 1);
-
-
+		// DEBUG: Access some application run-time data.  Compare this output to where the scene was loaded from
+		Debug.Log ("isEditor: " + Application.isEditor + "\nisLoadinglevel: " + Application.isLoadingLevel + "\nLoadedLevelName: " + Application.loadedLevelName + 
+		           "\nplatform: " + Application.platform + "\nGenuine: " + Application.genuine + "\ngenuineCheckAvailable: " + Application.genuineCheckAvailable +
+		           "\nbackgroundLoadingPriority: " + Application.backgroundLoadingPriority);
 
 		// Calculate max and min y-axis rotations to allow abduction measurements
 		max_y_rotation = degrees_freedom;
@@ -68,40 +78,39 @@ public class ShoulderReader : MonoBehaviour {
 		// Get zig joint identification numbers for each shoulder
 		R_shoulder_id = ZigJointId.RightShoulder;
 		L_shoulder_id = ZigJointId.LeftShoulder;
-
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log ("In update() for shoulder reader");
+		//Debug.Log ("In update() for shoulder reader");
 		time_new += Time.deltaTime;
 		time_diff = time_new - time_old;
-		Debug.Log ("TimeNew: " + time_new);
-		Debug.Log ("TimeOld: " + time_old);
-		Debug.Log ("TimeDiff: " + time_diff);
 
 		if (time_diff >= capture_rate) {
-			Debug.Log("Writing Joint Data");
-			SampleJointData(skeleton);
+			// Update old time 
 			time_old = time_new;
+			// Check to make sure one user is actually in the Kinect's view
+			if (zig_control.usersInView == 1) {
+				SampleJointData(skeleton);
+			}
 		}
 
 		// Check if we are done with the current measurement
 		if (Input.GetKeyDown("space")) {
 			measurement_complete = true;
 
-			UpdateDatabaseROM();
+			UpdateMaxMinROM();
 		}
 		// Determine which shoulder we will be sampling
 		if (measure_left) {
-			Debug.Log ("Measuring Left Shoulder Abduction Angle");
+			//Debug.Log ("Measuring Left Shoulder Abduction Angle");
 			joint_id = L_shoulder_id;
 		} else {
-			Debug.Log ("Measuring Right Shoulder Abduction Angle");
+			//Debug.Log ("Measuring Right Shoulder Abduction Angle");
 			joint_id = R_shoulder_id;
 		}
 		shoulder_angles = skeleton.GetJointLocalEulerAngles (joint_id);
-		Debug.Log ("Angles: " + shoulder_angles.x + " " + shoulder_angles.y + " " + shoulder_angles.z);
+		//Debug.Log ("Angles: " + shoulder_angles.x + " " + shoulder_angles.y + " " + shoulder_angles.z);
 		abduction_angle = GetAbductionAngle (shoulder_angles);
 
 		// Check if abduction angle could be measured
@@ -133,11 +142,11 @@ public class ShoulderReader : MonoBehaviour {
 
 		if (record_joint_rotations) {
 			r_shoulder_rot = skel.GetJointLocalEulerAngles(ZigJointId.RightShoulder);
-			l_shoulder_rot = skel.GetJointLocalEulerAngles(ZigJointId.RightShoulder);
+			l_shoulder_rot = skel.GetJointLocalEulerAngles(ZigJointId.LeftShoulder);
 			r_elbow_rot = skel.GetJointLocalEulerAngles(ZigJointId.RightElbow);
-			l_elbow_rot = skel.GetJointLocalEulerAngles(ZigJointId.RightElbow);
+			l_elbow_rot = skel.GetJointLocalEulerAngles(ZigJointId.LeftElbow);
 			r_wrist_rot = skel.GetJointLocalEulerAngles(ZigJointId.RightWrist);
-			l_wrist_rot = skel.GetJointLocalEulerAngles(ZigJointId.RightWrist);
+			l_wrist_rot = skel.GetJointLocalEulerAngles(ZigJointId.LeftWrist);
 			rotation_values = new float[] {
 				l_shoulder_rot.x,
 				l_shoulder_rot.y,
@@ -164,12 +173,12 @@ public class ShoulderReader : MonoBehaviour {
 		}
 
 		if (record_joint_positions) {
-			r_shoulder_pos = skel.GetJointLocalEulerAngles(ZigJointId.LeftShoulder);
-			l_shoulder_pos = skel.GetJointLocalEulerAngles(ZigJointId.LeftShoulder);
-			r_elbow_pos = skel.GetJointLocalEulerAngles(ZigJointId.LeftElbow);
-			l_elbow_pos = skel.GetJointLocalEulerAngles(ZigJointId.LeftElbow);
-			r_wrist_pos = skel.GetJointLocalEulerAngles(ZigJointId.LeftWrist);
-			l_wrist_pos = skel.GetJointLocalEulerAngles(ZigJointId.LeftWrist);
+			r_shoulder_pos = skel.GetJointLocalPositions(ZigJointId.RightShoulder);
+			l_shoulder_pos = skel.GetJointLocalPositions(ZigJointId.LeftShoulder);
+			r_elbow_pos = skel.GetJointLocalPositions(ZigJointId.RightElbow);
+			l_elbow_pos = skel.GetJointLocalPositions(ZigJointId.LeftElbow);
+			r_wrist_pos = skel.GetJointLocalPositions(ZigJointId.RightWrist);
+			l_wrist_pos = skel.GetJointLocalPositions(ZigJointId.LeftWrist);
 			position_values = new float[] {
 				l_shoulder_pos.x,
 				l_shoulder_pos.y,
@@ -206,7 +215,7 @@ public class ShoulderReader : MonoBehaviour {
 		float angle = -1;
 		if ((angles.y >  max_y_rotation) || (angles.y < min_y_rotation)) {
 			angle = Math.Abs (angles.z - 90.0f);
-			Debug.Log ("Measured Abduction Angle: " + angle);
+			//Debug.Log ("Measured Abduction Angle: " + angle);
 		} 
 		// Only return the measured abduction angle if it is between 0 and 180 degrees
 		if ((angle < 180.0f) && (angle > 0.0f))
@@ -215,7 +224,8 @@ public class ShoulderReader : MonoBehaviour {
 		return -1;
 	}
 
-	private void UpdateDatabaseROM() {
+	/* Update the maximum and minimum shoulder abduction angles for this user in the database. */
+	private void UpdateMaxMinROM() {
 		string max_rom_field = "shoulder_rom_max";
 		string min_rom_field = "shoulder_rom_min";
 
@@ -225,4 +235,13 @@ public class ShoulderReader : MonoBehaviour {
 		db_control.BasicQuery (query);
 		db_control.CloseDB ();
 	}
+
+	/* 
+	When play mode is stopped make sure to close the database.  This helps avoid some database
+	issues upon early exit.
+	*/
+	//private void OnApplicationQuit() {
+	//	db_control.CloseDB ();
+	//	PlayerPrefs.Save();
+	//}
 }

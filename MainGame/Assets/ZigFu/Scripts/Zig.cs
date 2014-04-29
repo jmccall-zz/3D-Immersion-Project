@@ -11,6 +11,7 @@ public class Zig : MonoBehaviour {
     public ZigInputSettings settings = new ZigInputSettings();
     public List<GameObject> listeners = new List<GameObject>();
     public bool Verbose = true;
+	public int usersInView;
     
     
 	void Awake () {
@@ -23,6 +24,8 @@ public class Zig : MonoBehaviour {
 
         ZigInput.InputType = inputType;
         ZigInput.Settings = settings;
+		usersInView = 0;
+
         //ZigInput.UpdateDepth = UpdateDepthmap;
         //ZigInput.UpdateImage = UpdateImagemap;
         //ZigInput.UpdateLabelMap = UpdateLabelmap;
@@ -48,11 +51,13 @@ public class Zig : MonoBehaviour {
     void Zig_UserFound(ZigTrackedUser user) {
         if (Verbose) Debug.Log("Zig: Found user  " + user.Id);
         notifyListeners("Zig_UserFound", user);
+		usersInView++;
     }
 
     void Zig_UserLost(ZigTrackedUser user) {
         if (Verbose) Debug.Log("Zig: Lost user " + user.Id);
         notifyListeners("Zig_UserLost", user);
+		usersInView--;
     }
 
     void Zig_Update(ZigInput zig) {
