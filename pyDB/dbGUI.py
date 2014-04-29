@@ -71,12 +71,45 @@ class dbWindow(wx.Frame):
         self.cb1.Bind(wx.EVT_COMBOBOX, self.OnSelectTable)
 
     def OnSelectTable(self, event):
-        data_points = self.reader.readTimeTables(event.GetString())
-        self.cb2 = wx.ComboBox(self.pnl, pos = (150, 300), choices=data_points[0],
-                               style=wx.CB_READONLY)
-        self.widgets.append(self.cb2)
+        self.data_points = self.reader.readTimeTables(event.GetString())
+        #self.cb2 = wx.ComboBox(self.pnl, pos = (200, 300), choices=data_points[0],
+        #                      style=wx.CB_READONLY)
+        #self.widgets.append(self.cb2)
 
+        self.sld = wx.Slider(self.pnl, value=len(self.data_points), minValue=0,
+                             maxValue=(len(self.data_points)/2), pos=(200, 300), 
+                             size=(250, -1), style=wx.SL_HORIZONTAL)
         
+        self.sld.Bind(wx.EVT_SCROLL, self.OnSliderScroll)
+
+        i = 0
+        for index, item in enumerate(self.data_points):
+            self.data_points[index][0] = i
+            i = i + 0.5
+        
+
+    def OnSliderScroll(self, event):
+        obj = event.GetEventObject()
+        val = obj.GetValue()
+
+        x = []
+        y = []
+        z = []
+
+        for i in [1,4,7,10,13,16]:
+            x.append(self.data_points[val][i])
+            y.append(self.data_points[val][i+1])
+            z.append(self.data_points[val][i+2])
+        
+        plt.clf()
+        #plt.plot(self.data_points[val][1:len(self.data_points[val])-1], "ro")
+        plt.plot(x, y, "ro")
+        plt.axis([-50, 400, -50, 400])
+        
+        plt.draw()
+        plt.show()
+        
+     
     # Destroys all widgets
     def destroyAll (self):
         for all in self.widgets:
