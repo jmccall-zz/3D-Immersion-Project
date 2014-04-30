@@ -2987,7 +2987,7 @@ MonoBehaviour:
   record_joint_positions: 1
   capture_rate: .5
   degrees_freedom: 10
-  measure_left: 0
+  side_to_measure: 1
 --- !u!1 &1715080679
 GameObject:
   m_ObjectHideFlags: 0

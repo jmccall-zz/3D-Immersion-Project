@@ -49,7 +49,9 @@ public class ShoulderReader : MonoBehaviour {
 
 	// Degrees of rotation in both direction allowed for abduction measurement
 	public float degrees_freedom = 10.0f;
-	public bool measure_left = false;
+	private const bool LEFT = false;
+	private const bool RIGHT = true;
+	public bool side_to_measure = RIGHT;
 
 	// Use this for initialization
 	void Start () {
@@ -95,14 +97,8 @@ public class ShoulderReader : MonoBehaviour {
 			}
 		}
 
-		// Check if we are done with the current measurement
-		if (Input.GetKeyDown("space")) {
-			measurement_complete = true;
-
-			UpdateMaxMinROM();
-		}
 		// Determine which shoulder we will be sampling
-		if (measure_left) {
+		if (side_to_measure == LEFT) {
 			//Debug.Log ("Measuring Left Shoulder Abduction Angle");
 			joint_id = L_shoulder_id;
 		} else {
@@ -121,6 +117,22 @@ public class ShoulderReader : MonoBehaviour {
 			if (abduction_angle < min_abduction)
 				min_abduction = abduction_angle;
 		}
+	}
+
+	/* Display instructions and check for scene switch */
+	void OnGUI() {
+		// Toggle buttons to determine which side to measure
+		GUI.Label (new Rect (10, 15, 200, 30), "Side to Measure:");
+		if (GUI.Toggle (new Rect (120, 5, 50, 20), side_to_measure, "Right"))
+			side_to_measure = RIGHT;
+		if (GUI.Toggle (new Rect (120, 25, 50, 20), !side_to_measure, "Left"))
+			side_to_measure = LEFT;
+
+		// Store results and prompt user further
+		if (GUI.Button(new Rect(10, 120, 200, 30), "Store Max/Min Angle")){
+			UpdateMaxMinROM();
+		}
+
 	}
 
 	private void SampleJointData(ZigSkeleton skel) {
@@ -204,7 +216,6 @@ public class ShoulderReader : MonoBehaviour {
 			db_control.CloseDB();
 		}
 	}
-
 	
 	/*
 	 * Retrieve measured abduction angle given all shoulder rotation angles.  The normal range for
@@ -226,8 +237,16 @@ public class ShoulderReader : MonoBehaviour {
 
 	/* Update the maximum and minimum shoulder abduction angles for this user in the database. */
 	private void UpdateMaxMinROM() {
-		string max_rom_field = "shoulder_rom_max";
-		string min_rom_field = "shoulder_rom_min";
+		string max_rom_field;
+		string min_rom_field;
+
+		if (side_to_measure == RIGHT) {
+			max_rom_field = "r_shoulder_rom_max";
+			min_rom_field = "r_shoulder_rom_min";
+		} else {
+			max_rom_field = "l_shoulder_rom_max";
+			min_rom_field = "l_shoulder_rom_min";
+		}
 
 		string query = "UPDATE " + db_control.scores_table + " SET " + max_rom_field + "=" + max_abduction + "," + 
 			min_rom_field + "=" + min_abduction + " WHERE user_id=" + user_id + ";";
@@ -240,8 +259,8 @@ public class ShoulderReader : MonoBehaviour {
 	When play mode is stopped make sure to close the database.  This helps avoid some database
 	issues upon early exit.
 	*/
-	//private void OnApplicationQuit() {
-	//	db_control.CloseDB ();
-	//	PlayerPrefs.Save();
-	//}
+	private void OnApplicationQuit() {
+		db_control.CloseDB ();
+		PlayerPrefs.Save();
+	}
 }
