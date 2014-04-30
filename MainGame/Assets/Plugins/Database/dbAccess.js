@@ -3,7 +3,11 @@
      to your project's Assets folder
      Originally created by dklompmaker in 2009
      http://forum.unity3d.com/threads/28500-SQLite-Class-Easier-Database-Stuff    
-     Modified 2011 by Alan Chatham           */
+     Modified 2011 by Alan Chatham
+     *******************************************************
+     Modifed 2014 by Jordan McCall
+     - Added project specific functionality          
+ */
 import          System.Data;  // we import our  data class
 import          Mono.Data.Sqlite; // we import sqlite
  
@@ -23,6 +27,9 @@ class dbAccess {
 	public var calibration_scene = "CalibrateGlove";
 	private var default_first_name = 'Bob';
 	private var default_last_name = 'Builder';
+	
+	/* Database table structures are defined here.  If you make any changes to these structures be sure to walk through
+	all processes that touch these tables.  This can be done by searching for the defined table names above in the code base
 	
     /* User Profiles Table Structure */
     private var user_field_names = new Array (
@@ -185,12 +192,16 @@ class dbAccess {
 		"user_id",
 		"reachback_count",
 		"reachback_time",
-		"shoulder_rom_max",
-		"shoulder_rom_min"
+		"l_shoulder_rom_max",
+		"l_shoulder_rom_min",
+		"r_shoulder_rom_max",
+		"r_shoulder_rom_min"
 	);	
 	private var scores_field_values = new Array (
 		"INTEGER",
 		"INTEGER",
+		"REAL",
+		"REAL",
 		"REAL",
 		"REAL",
 		"REAL"
@@ -306,7 +317,7 @@ class dbAccess {
 		BasicQuery(query);
 
 		// Create results table and initialize a column for new user
-		query = "INSERT INTO " + scores_table + " VALUES (1, NULL, NULL, NULL, NULL);";
+		query = "INSERT INTO " + scores_table + " VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL);";
 		CreateTable (scores_table, scores_field_names, scores_field_values, scores_constraints);
 		BasicQuery(query); 
 
