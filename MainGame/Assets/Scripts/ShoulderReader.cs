@@ -173,12 +173,12 @@ public class ShoulderReader : MonoBehaviour {
 		}
 
 		if (record_joint_positions) {
-			r_shoulder_pos = skel.GetJointLocalPositions(ZigJointId.RightShoulder);
-			l_shoulder_pos = skel.GetJointLocalPositions(ZigJointId.LeftShoulder);
-			r_elbow_pos = skel.GetJointLocalPositions(ZigJointId.RightElbow);
-			l_elbow_pos = skel.GetJointLocalPositions(ZigJointId.LeftElbow);
-			r_wrist_pos = skel.GetJointLocalPositions(ZigJointId.RightWrist);
-			l_wrist_pos = skel.GetJointLocalPositions(ZigJointId.LeftWrist);
+			r_shoulder_pos = skel.GetJointWorldPosition(ZigJointId.RightShoulder);
+			l_shoulder_pos = skel.GetJointWorldPosition(ZigJointId.LeftShoulder);
+			r_elbow_pos = skel.GetJointWorldPosition(ZigJointId.RightElbow);
+			l_elbow_pos = skel.GetJointWorldPosition(ZigJointId.LeftElbow);
+			r_wrist_pos = skel.GetJointWorldPosition(ZigJointId.RightWrist);
+			l_wrist_pos = skel.GetJointWorldPosition(ZigJointId.LeftWrist);
 			position_values = new float[] {
 				l_shoulder_pos.x,
 				l_shoulder_pos.y,

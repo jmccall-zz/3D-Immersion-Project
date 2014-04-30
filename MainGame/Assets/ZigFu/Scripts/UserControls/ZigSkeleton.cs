@@ -267,9 +267,17 @@ public class ZigSkeleton : MonoBehaviour
 		return angles;
 	}
 
-	public Vector3 GetJointLocalPositions(ZigJointId joint) {
+	/* Return a local position which is relative to the objects parent transform */
+	public Vector3 GetJointLocalPosition(ZigJointId joint) {
 		Transform transform = GetJointTransform (joint);
 		Vector3 positions = transform.localPosition;
+		return positions;
+	}
+
+	/* Return a joint's world position */
+	public Vector3 GetJointWorldPosition(ZigJointId joint) {
+		Transform transform = GetJointTransform (joint);
+		Vector3 positions = transform.position;
 		return positions;
 	}
 

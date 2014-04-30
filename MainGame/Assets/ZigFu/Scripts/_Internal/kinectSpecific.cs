@@ -29,13 +29,14 @@ public class kinectSpecific : MonoBehaviour {
         return (int)angleOut;
     }
     bool readingAngle = false;
-    bool SeatedMode = false;
-    bool TrackSkeletonInNearMode = false;
-    bool NearMode = false;
+    //bool SeatedMode = false;
+    //bool TrackSkeletonInNearMode = false;
+    //bool NearMode = false;
     private Thread t;
     void OnGUI()
     {
-
+		// All but one kinect specific settings are disabled.  A user should only need to adjust the tilt of the
+		// camera for people of differing heights
         longWord = GUI.TextField(new Rect(10, 10, 200, 30), readingAngle ? getAngle().ToString() : longWord, 20);
         
         if (GUI.Button(new Rect(10, 40, 200, 30), "SetElevation"))
@@ -49,7 +50,7 @@ public class kinectSpecific : MonoBehaviour {
          
         }
 
-        readingAngle = GUI.Toggle(new Rect(10, 80, 200, 30), readingAngle, "Read Angle");      
+        /*readingAngle = GUI.Toggle(new Rect(10, 80, 200, 30), readingAngle, "Read Angle");      
 
       
         bool nNearMode = GUI.Toggle(new Rect(10, 160, 200, 20), NearMode, "Near Mode");
@@ -66,6 +67,6 @@ public class kinectSpecific : MonoBehaviour {
             TrackSkeletonInNearMode = nTrackSkeletonInNearMode;
             ZigInput.Instance.SetSkeletonTrackingSettings(SeatedMode, TrackSkeletonInNearMode);
         }
-        
+        */
     }
 }

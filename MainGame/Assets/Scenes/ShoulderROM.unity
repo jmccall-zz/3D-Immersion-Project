@@ -2139,6 +2139,7 @@ MonoBehaviour:
     showWebPlayerLogger: 0
   listeners: []
   Verbose: 1
+  usersInView: 0
 --- !u!4 &1286443990
 Transform:
   m_ObjectHideFlags: 0
@@ -3425,6 +3426,10 @@ Prefab:
       objectReference: {fileID: 1706856738}
     - target: {fileID: 100000, guid: 5466d3acc6c68c74f9218e17b7d6c017, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400008, guid: 5466d3acc6c68c74f9218e17b7d6c017, type: 2}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
