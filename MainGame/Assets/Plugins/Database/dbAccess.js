@@ -508,6 +508,25 @@ class dbAccess {
         }
         return readArray; // return matches
     }
+    
+    function SelectTableWhere(tableName : String, field : String, compare){
+        var query : String;
+        if (typeof compare === int)
+        	query = "SELECT * FROM " + tableName + " WHERE " + field + "="  + compare;	
+        else
+        	query = "SELECT * FROM " + tableName + " WHERE " + field + "='"  + compare + "'";
+        dbcmd = dbcon.CreateCommand();
+        dbcmd.CommandText = query; 
+        reader = dbcmd.ExecuteReader();
+        var readArray = new ArrayList();
+        while(reader.Read()){ 
+            var lineArray = new ArrayList();
+            for (i = 0; i < reader.FieldCount; i++)
+                lineArray.Add(reader.GetValue(i)); // This reads the entries in a row
+            readArray.Add(lineArray); // This makes an array of all the rows
+        }
+        return readArray; // return matches
+    }
  
     // This function deletes all the data in the given table.  Forever.  WATCH OUT! Use sparingly, if at all
     function DeleteTableContents(tableName : String){
@@ -587,8 +606,7 @@ class dbAccess {
             readArray.Push(reader.GetString(0)); // Fill array with all matches
         }
         return readArray; // return matches
-    }
- 
+    } 
  
     function CloseDB(){
     	if (reader != null)
