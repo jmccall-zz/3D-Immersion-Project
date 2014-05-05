@@ -1,5 +1,24 @@
 3D Immersion Script Reference:
 
+GAME SCENES:
+ReachBack
+
+ShoulderROM
+
+Login
+
+CalibrateGlove
+
+InteractiveObjectRoom
+
+ViewTables
+
+DatabaseView
+
+FirstScene
+
+GripStrength
+
 GAME SCRIPTS:
 GloveReader.cs -- C#
 	The GloveReader is an interface object for reading data from the glove we designed. It has various functions for getting raw data and gesture information from the glove. Unlike most scripts in our project, this one is not a UnityEngine MonoBehaviour it is a C# object that can be instantiated in any other script.
@@ -17,7 +36,7 @@ GloveReader.cs -- C#
 			GloveReader.LH_MiddleFinger
 			GloveReader.LH_RingFinger
 			GloveReader.LH_PinkyFinger
-			GloveReader.LH_GripIndex	-- Note grips are deprecated for now
+			GloveReader.LH_GripIndex	-- Note grip sensors are deprecated for now
 			GloveReader.LH_GripMiddle
 		
 	GloveReader.UpdateGestures -- Function
@@ -36,6 +55,7 @@ GrabLogic.cs -- C#
 	Script utilized by the an in-game object attached to the player's hand. The object is an invisible rectangle that we use to determine if the hand is making contact with another object, specifically objects we want to grab. The script checks if the hand is colliding with a cylinder and if the player is making the "grab" gesture. When these conditions are met, the script updates the positions of the cylinders to follow the hand.
 	
 RecordAndMoveCalibrate.cs -- C#
+	Script used by the glove calibration scene that controls the camera and writes the glove calibration data to the User's database profile. When a user presses space it snapshots the readings from the glove bend sensors and moves the camera to the next image.
 
 DATABASE SCRIPTS:
 
