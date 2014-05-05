@@ -104,7 +104,7 @@ class dbWindow(wx.Frame):
         plt.clf()
         #plt.plot(self.data_points[val][1:len(self.data_points[val])-1], "ro")
         plt.plot(x, y, "ro")
-        plt.axis([-50, 400, -50, 400])
+        #plt.axis([-50, 400, -50, 400])
         
         plt.draw()
         plt.show()
