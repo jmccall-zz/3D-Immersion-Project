@@ -82,6 +82,8 @@ class dbWindow(wx.Frame):
         
         self.sld.Bind(wx.EVT_SCROLL, self.OnSliderScroll)
 
+        
+        
         i = 0
         for index, item in enumerate(self.data_points):
             self.data_points[index][0] = i
@@ -90,21 +92,46 @@ class dbWindow(wx.Frame):
 
     def OnSliderScroll(self, event):
         obj = event.GetEventObject()
+
+        
+        # Val represents how far in the time series we will index
         val = obj.GetValue()
 
+        # Scale the value to seconds 
+        label = str(val/2.0) 
+        self.lbl = wx.StaticText(self.pnl, label=label, style=wx.ALIGN_CENTRE)
+
+        # Empty arrays used for plotting
         x = []
         y = []
         z = []
 
+        # Populate the arrays with the data points from the time series table
         for i in [1,4,7,10,13,16]:
             x.append(self.data_points[val][i])
             y.append(self.data_points[val][i+1])
             z.append(self.data_points[val][i+2])
+
+        
         
         plt.clf()
         #plt.plot(self.data_points[val][1:len(self.data_points[val])-1], "ro")
-        plt.plot(x, y, "ro")
-        #plt.axis([-50, 400, -50, 400])
+
+        a=[]
+        b=[]
+        c=[]
+        d=[]
+        for i in [0,2,4]:
+            a.append(x[i])
+            b.append(y[i])
+            c.append(x[i+1])
+            d.append(y[i+1])
+        
+        plt.plot(a, b, "r-o")
+        plt.plot(c, d, "r-o")
+        
+
+        plt.axis([-2, 2, -2, 2])
         
         plt.draw()
         plt.show()
