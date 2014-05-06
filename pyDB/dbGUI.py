@@ -99,7 +99,8 @@ class dbWindow(wx.Frame):
 
         # Scale the value to seconds 
         label = str(val/2.0) 
-        self.lbl = wx.StaticText(self.pnl, label=label, style=wx.ALIGN_CENTRE)
+        self.lbl = wx.StaticText(self.pnl, label="t = " + label + "seconds",
+                                 pos=(475,300), style=wx.ALIGN_CENTRE)
 
         # Empty arrays used for plotting
         x = []
