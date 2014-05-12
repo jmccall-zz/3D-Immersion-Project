@@ -253,32 +253,13 @@ public class ZigSkeleton : MonoBehaviour
         }
     }
 
-	/* Returns the Transform for the joint of specified ZigJointId */
-	public Transform GetJointTransform(ZigJointId joint) {
-		// Index array of joint transforms
-		return transforms[(int) joint];
+	/* Given a ZigJointId return a Vector3 of the corresponding local euler angles */ 
+	public Vector3 GetJointLocalEulerAngles(ZigJointId id) {
+		return transforms[(int) id].localEulerAngles;
 	}
 
-	/* Returns the localEulerAngles for a joint of specified ZigJointId */
-	public Vector3 GetJointLocalEulerAngles(ZigJointId joint) {
-
-		Transform transform = GetJointTransform (joint);
-		Vector3 angles = transform.localEulerAngles;
-		return angles;
+	/* Given a ZigJointId return a Vector3 of the corresponding joint world position */
+	public Vector3 GetJointWorldPosition (ZigJointId id) {
+		return transforms[(int)id].position;
 	}
-
-	/* Return a local position which is relative to the objects parent transform */
-	public Vector3 GetJointLocalPosition(ZigJointId joint) {
-		Transform transform = GetJointTransform (joint);
-		Vector3 positions = transform.localPosition;
-		return positions;
-	}
-
-	/* Return a joint's world position */
-	public Vector3 GetJointWorldPosition(ZigJointId joint) {
-		Transform transform = GetJointTransform (joint);
-		Vector3 positions = transform.position;
-		return positions;
-	}
-
 }

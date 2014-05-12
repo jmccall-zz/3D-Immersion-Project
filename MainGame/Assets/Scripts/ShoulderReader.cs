@@ -105,6 +105,7 @@ public class ShoulderReader : MonoBehaviour {
 			//Debug.Log ("Measuring Right Shoulder Abduction Angle");
 			joint_id = R_shoulder_id;
 		}
+
 		shoulder_angles = skeleton.GetJointLocalEulerAngles (joint_id);
 		//Debug.Log ("Angles: " + shoulder_angles.x + " " + shoulder_angles.y + " " + shoulder_angles.z);
 		abduction_angle = GetAbductionAngle (shoulder_angles);
@@ -133,6 +134,8 @@ public class ShoulderReader : MonoBehaviour {
 			UpdateMaxMinROM();
 		}
 
+		GUI.Label (new Rect (10, 165, 200, 30), "Read Angle:     " + shoulder_angles.z);
+		GUI.Label (new Rect (10, 200, 200, 30), "Abduction Angle:" + abduction_angle);
 	}
 
 	private void SampleJointData(ZigSkeleton skel) {
