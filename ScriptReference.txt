@@ -8,6 +8,7 @@ ShoulderROM
 Login
 
 CalibrateGlove
+	The CalibrateGlove scene is used in recording data at specific points on the gloves bend sensor range in order to match the sensors input with the game's hand animation. The user is presented an image of a hand that they are supposed to mimic, and then press "Space Bar" to move on to the next image and record that data.
 
 InteractiveObjectRoom
 
@@ -16,7 +17,8 @@ ViewTables
 DatabaseView
 
 FirstScene
-
+	This scene is a scene of our original ball game in which the player would essentially play handball in a room and we would record data about how the player throws the ball and such. The physics of the ball proved to be a greater challenge than we initially anticipated and this scene remains largely unfinished.
+	
 GripStrength
 
 GAME SCRIPTS:
@@ -56,7 +58,17 @@ GrabLogic.cs -- C#
 	
 RecordAndMoveCalibrate.cs -- C#
 	Script used by the glove calibration scene that controls the camera and writes the glove calibration data to the User's database profile. When a user presses space it snapshots the readings from the glove bend sensors and moves the camera to the next image.
-
+	
+CylinderLogic.cs -- C#
+	This is a game object script we use on the cylinder objects in the ReachBack scene. The purpose of this script is to detect when the cylinder has landed in the box and then send a message to the box that is used in keeping track of how many cylinders made it into the box and whether the game is finished. 
+	
+CylinderCatch.cs -- C#
+	This is a game object script we use on the bottom section of our box that we use to check how many cylinders have been caught in the box. When all the cylinders have been caught, we record the time it took in the database. 
+	
+WristControl.cs -- C#
+	This game object script is placed on the user's avatar's wrist. It reads accelerometer data from the GloveReader and then rotates the wrist object of the player accordingly.
+	
 DATABASE SCRIPTS:
 
 DATA GRAPH GUI SCRIPTS:
+ReadDB.py
