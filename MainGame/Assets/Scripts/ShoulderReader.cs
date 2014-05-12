@@ -26,8 +26,8 @@ public class ShoulderReader : MonoBehaviour {
 	private string scores_table;
 	private int user_id;
 
-	private bool record_joint_rotations = true;
-	private bool record_joint_positions = true;
+	private bool record_joint_rotations = false;
+	private bool record_joint_positions = false;
 	// Seconds between measurement of time series joint data
 	public float capture_rate = 0.5f;
 	
