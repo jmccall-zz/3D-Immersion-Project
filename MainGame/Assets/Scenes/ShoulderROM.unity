@@ -585,7 +585,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 317621822}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -.5, z: 0}
+  m_LocalPosition: {x: 0, y: -.0731836334, z: 0}
   m_LocalScale: {x: 30, y: .100000001, z: 30}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1994,7 +1994,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1134050080}
   m_Layer: 0
-  m_Name: LeftFoot
+  m_Name: LeftAnke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2927,7 +2927,7 @@ MonoBehaviour:
   LeftWrist: {fileID: 2126251694}
   LeftHand: {fileID: 827371867}
   LeftFingertip: {fileID: 0}
-  RightCollar: {fileID: 0}
+  RightCollar: {fileID: 868085863}
   RightShoulder: {fileID: 150141455}
   RightElbow: {fileID: 904915392}
   RightWrist: {fileID: 1113943245}
@@ -2936,12 +2936,11 @@ MonoBehaviour:
   LeftHip: {fileID: 537671249}
   LeftKnee: {fileID: 592971123}
   LeftAnkle: {fileID: 1134050080}
-  LeftFoot: {fileID: 0}
+  LeftFoot: {fileID: 1485533606}
   RightHip: {fileID: 1210589614}
   RightKnee: {fileID: 989358163}
   RightAnkle: {fileID: 1838632432}
-  RightFoot: {fileID: 0}
-  mirror: 0
+  RightFoot: {fileID: 1199845885}
   UpdateJointPositions: 0
   UpdateRootPosition: 1
   UpdateOrientation: 1
@@ -2977,8 +2976,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83250d3e96fdb504cbcf404fd7c3a5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  record_joint_rotations: 1
-  record_joint_positions: 1
   capture_rate: .5
   degrees_freedom: 10
   side_to_measure: 1
@@ -3391,7 +3388,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1838632432}
   m_Layer: 0
-  m_Name: RightFoot
+  m_Name: RightAnkle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
