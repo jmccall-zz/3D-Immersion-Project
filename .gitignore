@@ -1,6 +1,7 @@
 # Unity .gitignore file.
 .DS_Store
 MainGame/Library
+MainGame/Library/metadata/*
 MainGame/Library/*
 MainGame/*.booproj
 MainGame/*.unityproj

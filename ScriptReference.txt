@@ -1,0 +1,87 @@
+3D Immersion Script Reference:
+
+GAME SCENES:
+ReachBack
+
+ShoulderROM
+
+Login
+
+CalibrateGlove
+	The CalibrateGlove scene is used in recording data at specific points on the gloves bend sensor range in order to match the sensors input with the game's hand animation. The user is presented an image of a hand that they are supposed to mimic, and then press "Space Bar" to move on to the next image and record that data.
+
+InteractiveObjectRoom
+
+ViewTables
+
+DatabaseView
+
+FirstScene
+	This scene is a scene of our original ball game in which the player would essentially play handball in a room and we would record data about how the player throws the ball and such. The physics of the ball proved to be a greater challenge than we initially anticipated and this scene remains largely unfinished.
+	
+GripStrength
+
+GAME SCRIPTS:
+GloveReader.cs -- C#
+	The GloveReader is an interface object for reading data from the glove we designed. It has various functions for getting raw data and gesture information from the glove. Unlike most scripts in our project, this one is not a UnityEngine MonoBehaviour it is a C# object that can be instantiated in any other script.
+	
+	GloveReader.getValues -- Function
+		Returns an array of all the raw data from the glove sensors. There is a list of accessor functions (note these are functions not variables) for each data point in the array that describes what that member of the array is.
+			GloveReader.RH_IndexFinger	-- Bend Sensors
+			GloveReader.RH_MiddleFinger
+			GloveReader.RH_RingFinger
+			GloveReader.RH_PinkyFinger
+			GloveReader.RH_AccX			-- Accelerometer data
+			GloveReader.RH_AccY
+			GloveReader.RH_AccZ
+			GloveReader.LH_IndexFinger	-- Bend Sensors
+			GloveReader.LH_MiddleFinger
+			GloveReader.LH_RingFinger
+			GloveReader.LH_PinkyFinger
+			GloveReader.LH_GripIndex	-- Note grip sensors are deprecated for now
+			GloveReader.LH_GripMiddle
+		
+	GloveReader.UpdateGestures -- Function
+		Updates the gesture boolean variables (Do this before checking the two variables listed below)
+	
+	GloveReader.RightIsGrab -- Boolean
+		Checks if the right hand is making a grab gesture
+	
+	GloveReader.LeftIsGrab -- Boolean
+		Same is Right but checks the left hand.
+	
+Menu.js -- Javascript
+	Script that creates the escape menu when pressing the 'ESC' key. Loads a menu on key press that has a list of scenes to load as well as a quit button to close the application.
+	
+GrabLogic.cs -- C#
+	Script utilized by the an in-game object attached to the player's hand. The object is an invisible rectangle that we use to determine if the hand is making contact with another object, specifically objects we want to grab. The script checks if the hand is colliding with a cylinder and if the player is making the "grab" gesture. When these conditions are met, the script updates the positions of the cylinders to follow the hand.
+	
+RecordAndMoveCalibrate.cs -- C#
+	Script used by the glove calibration scene that controls the camera and writes the glove calibration data to the User's database profile. When a user presses space it snapshots the readings from the glove bend sensors and moves the camera to the next image.
+	
+CylinderLogic.cs -- C#
+	This is a game object script we use on the cylinder objects in the ReachBack scene. The purpose of this script is to detect when the cylinder has landed in the box and then send a message to the box that is used in keeping track of how many cylinders made it into the box and whether the game is finished. 
+	
+CylinderCatch.cs -- C#
+	This is a game object script we use on the bottom section of our box that we use to check how many cylinders have been caught in the box. When all the cylinders have been caught, we record the time it took in the database. 
+	
+WristControl.cs -- C#
+	This game object script is placed on the user's avatar's wrist. It reads accelerometer data from the GloveReader and then rotates the wrist object of the player accordingly.
+	
+DATABASE SCRIPTS:
+
+DATA GRAPH GUI SCRIPTS:
+
+Dependency List -- Python Packages:
+	- pyparsing
+	- matplotlib
+	- numpy
+	- python-dateutil
+	- pytz
+	- six
+	- wxPython
+	- Python 2.7
+	
+ReadDB.py
+
+dbGUI.py
