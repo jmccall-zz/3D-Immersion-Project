@@ -71,4 +71,17 @@ WristControl.cs -- C#
 DATABASE SCRIPTS:
 
 DATA GRAPH GUI SCRIPTS:
+
+Dependency List -- Python Packages:
+	- pyparsing
+	- matplotlib
+	- numpy
+	- python-dateutil
+	- pytz
+	- six
+	- wxPython
+	- Python 2.7
+	
 ReadDB.py
+
+dbGUI.py
