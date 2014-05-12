@@ -26,8 +26,8 @@ public class ShoulderReader : MonoBehaviour {
 	private string scores_table;
 	private int user_id;
 
-	public bool record_joint_rotations = true;
-	public bool record_joint_positions = true;
+	private bool record_joint_rotations = true;
+	private bool record_joint_positions = true;
 	// Seconds between measurement of time series joint data
 	public float capture_rate = 0.5f;
 	
@@ -128,14 +128,17 @@ public class ShoulderReader : MonoBehaviour {
 			side_to_measure = RIGHT;
 		if (GUI.Toggle (new Rect (120, 25, 50, 20), !side_to_measure, "Left"))
 			side_to_measure = LEFT;
+		// Toggle buttons to determine whether or not to sample joint positions and rotations
+		record_joint_positions = GUI.Toggle (new Rect (10, 50, 200, 20), record_joint_positions, "Record Joint Positions");
+		record_joint_rotations = GUI.Toggle (new Rect (10, 70, 200, 20), record_joint_rotations, "Record Joint Rotations");
 
 		// Store results and prompt user further
-		if (GUI.Button(new Rect(10, 120, 200, 30), "Store Max/Min Angle")){
+		if (GUI.Button(new Rect(10, 170, 200, 30), "Store Max/Min Angle")){
 			UpdateMaxMinROM();
 		}
 
-		GUI.Label (new Rect (10, 165, 200, 30), "Read Angle:     " + shoulder_angles.z);
-		GUI.Label (new Rect (10, 200, 200, 30), "Abduction Angle:" + abduction_angle);
+		GUI.Label (new Rect (10, 215, 200, 30), "Read Angle:     " + shoulder_angles.z);
+		GUI.Label (new Rect (10, 245, 200, 30), "Abduction Angle:" + abduction_angle);
 	}
 
 	private void SampleJointData(ZigSkeleton skel) {

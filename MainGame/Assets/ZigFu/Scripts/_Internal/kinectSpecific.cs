@@ -37,9 +37,9 @@ public class kinectSpecific : MonoBehaviour {
     {
 		// All but one kinect specific settings are disabled.  A user should only need to adjust the tilt of the
 		// camera for people of differing heights
-        longWord = GUI.TextField(new Rect(10, 50, 200, 30), readingAngle ? getAngle().ToString() : longWord, 20);
+        longWord = GUI.TextField(new Rect(10, 100, 200, 30), readingAngle ? getAngle().ToString() : longWord, 20);
         
-        if (GUI.Button(new Rect(10, 80, 200, 30), "SetElevation"))
+        if (GUI.Button(new Rect(10, 130, 200, 30), "SetElevation"))
         {
             
             angle = int.Parse(longWord);
