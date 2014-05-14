@@ -2976,7 +2976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83250d3e96fdb504cbcf404fd7c3a5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capture_rate: .5
+  capture_rate: .100000001
   degrees_freedom: 10
   side_to_measure: 1
 --- !u!1 &1595711495
