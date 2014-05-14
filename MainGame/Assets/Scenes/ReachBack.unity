@@ -1855,6 +1855,10 @@ GameObject:
   - 4: {fileID: 647287927}
   - 111: {fileID: 647287929}
   - 114: {fileID: 647287928}
+  - 114: {fileID: 647287933}
+  - 114: {fileID: 647287932}
+  - 114: {fileID: 647287931}
+  - 114: {fileID: 647287930}
   m_Layer: 0
   m_Name: Carl
   m_TagString: Untagged
@@ -1920,7 +1924,7 @@ MonoBehaviour:
   RightAnkle: {fileID: 1581842155}
   RightFoot: {fileID: 0}
   UpdateJointPositions: 0
-  UpdateRootPosition: 0
+  UpdateRootPosition: 1
   UpdateOrientation: 1
   RotateToPsiPose: 0
   RotationDamping: 30
@@ -1943,6 +1947,54 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 1
+--- !u!114 &647287930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 647287926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25314ad7a38720043843d812fdd4c192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wrist_name: RightHand
+--- !u!114 &647287931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 647287926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6f18dd1e12093240ad34214421c68f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &647287932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 647287926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f7edd4c53b887143b28c3c5558c50eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &647287933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 647287926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 757b1a72b923ced48af78acc9b3c59c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  record_joint_positions: 0
+  record_joint_rotations: 0
+  capture_rate: .100000001
 --- !u!1 &652523896
 GameObject:
   m_ObjectHideFlags: 0
@@ -3302,7 +3354,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 976724824}
-  - 114: {fileID: 976724825}
   m_Layer: 0
   m_Name: RightWrist
   m_TagString: Untagged
@@ -3322,19 +3373,6 @@ Transform:
   m_Children:
   - {fileID: 1086440219}
   m_Father: {fileID: 1635473139}
---- !u!114 &976724825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400018, guid: a73d597c02dc8434c97742fc3afea091,
-    type: 2}
-  m_PrefabInternal: {fileID: 1817659343}
-  m_GameObject: {fileID: 976724823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25314ad7a38720043843d812fdd4c192, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wrist_name: RightHand
 --- !u!1 &982570801
 GameObject:
   m_ObjectHideFlags: 0
@@ -5022,9 +5060,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400012, guid: a73d597c02dc8434c97742fc3afea091, type: 2}
       propertyPath: UpdateRootPosition
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11400018, guid: a73d597c02dc8434c97742fc3afea091, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: a73d597c02dc8434c97742fc3afea091, type: 2}
   m_RootGameObject: {fileID: 1392191428}
   m_IsPrefabParent: 0
