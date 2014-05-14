@@ -209,6 +209,35 @@ class dbAccess {
 	private var scores_constraints = "FOREIGN KEY(user_id) REFERENCES " + user_table + "(" + user_field_names[0] + ")";
 	
 	/* Structure for our time series tables */
+	private var gloves_field_names = new Array (
+		"time_id",
+		"l_index",
+		"l_middle",
+		"l_ring",
+		"l_pinky",
+		"l_thumb",
+		"r_index",
+		"r_middle",
+		"r_ring",
+		"r_pinky",
+		"r_thumb"
+	);	
+	private var gloves_field_values = new Array (
+		"DATETIME",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL"
+	);
+	private var gloves_constraints = "";
+	
+	/* Structure for our time series tables */
 	private var ts_field_names = new Array (
 		"time_id",
 		"l_shoulder_x",
@@ -364,6 +393,10 @@ class dbAccess {
     function PositionsTableName(scene_name : String, id : int) {
     	return scene_name + "Pos_" + id;
     }
+    /* Return a glove data time series table name given a base scene and user id */
+    function GloveTableName(scene_name : String, id : int) {
+    	return scene_name + "Glove_" + id;
+    }
     
     /* Create necessary time series tables for a new user given their primary id */
     function CreateTimeSeriesTables(id : int) {
@@ -371,7 +404,7 @@ class dbAccess {
 		CreateTable(PositionsTableName(cylinder_reach_scene, id), ts_field_names, ts_field_values, ts_constraints);
 		CreateTable(RotationsTableName(shoulder_rom_scene, id), ts_field_names, ts_field_values, ts_constraints);
 		CreateTable(PositionsTableName(shoulder_rom_scene, id), ts_field_names, ts_field_values, ts_constraints);
-		
+		CreateTable(GloveTableName(cylinder_reach_scene, id), gloves_field_names, gloves_field_values, gloves_constraints);
     }
     
     function InsertTimeSeriesRotations(id : int, scene_name : String, values : Array) {
@@ -381,7 +414,6 @@ class dbAccess {
     		query += "," + values[i];
     	}
     	query += ")";
-    	//Debug.Log("Writing rotations to table: " + table_name + "\nQuery: " + values.ToString());
     	dbcmd = dbcon.CreateCommand();
         dbcmd.CommandText = query; 
         reader = dbcmd.ExecuteReader();
@@ -394,7 +426,18 @@ class dbAccess {
     		query += "," + values[i];
     	}
     	query += ")";
-    	//Debug.Log("Writing rotations to table: " + table_name + "\nQuery: " + values.ToString());
+    	dbcmd = dbcon.CreateCommand();
+        dbcmd.CommandText = query; 
+        reader = dbcmd.ExecuteReader();
+    }
+    
+    function InsertTimeSeriesGloveData(id : int, scene_name : String, values : Array) {
+    	var table_name = GloveTableName (scene_name, id);
+    	var query = "INSERT INTO " + table_name + " VALUES (datetime('now')";
+    	for (var i = 0; i < values.length; i++) {
+    		query += "," + values[i];
+    	}
+    	query += ")";
     	dbcmd = dbcon.CreateCommand();
         dbcmd.CommandText = query; 
         reader = dbcmd.ExecuteReader();
