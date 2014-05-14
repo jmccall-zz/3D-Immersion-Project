@@ -37,18 +37,20 @@ class dbAccess {
 		"created_dtm",	// Date of creation
 		"first_name",
 		"last_name",
-		// Format of time series tables names is: "<Measurement>_<p_id>"
-		// Default example: "Rotations_1"
+		// Format of time series tables names is: "<Scene><Measurement>_<p_id>"
+		// Default example: "ShoulderROMRot_1"
 		"shoulder_rom_rot",	// Name of time series rotation table
 		"shoulder_rom_pos",	// Name of time series position table
 		"cyl_reach_rot",
-		"cyl_reach_pos"
+		"cyl_reach_pos",
+		"cyl_reach_glv"
 	);
 	private var user_field_values = new Array (
 		"INTEGER PRIMARY KEY",
 		"DATETIME",
 		"VARCHAR(100)",
 		"VARCHAR(100)",
+		"VARCHAR(50)",
 		"VARCHAR(50)",
 		"VARCHAR(50)",
 		"VARCHAR(50)",
@@ -208,7 +210,7 @@ class dbAccess {
 	);
 	private var scores_constraints = "FOREIGN KEY(user_id) REFERENCES " + user_table + "(" + user_field_names[0] + ")";
 	
-	/* Structure for our time series tables */
+	/* Structure for our time series glove table */
 	private var gloves_field_names = new Array (
 		"time_id",
 		"l_index",
@@ -237,7 +239,7 @@ class dbAccess {
 	);
 	private var gloves_constraints = "";
 	
-	/* Structure for our time series tables */
+	/* Structure for our time series rotation and position tables */
 	private var ts_field_names = new Array (
 		"time_id",
 		"l_shoulder_x",
@@ -394,8 +396,8 @@ class dbAccess {
     	return scene_name + "Pos_" + id;
     }
     /* Return a glove data time series table name given a base scene and user id */
-    function GloveTableName(scene_name : String, id : int) {
-    	return scene_name + "Glove_" + id;
+    function GlovesTableName(scene_name : String, id : int) {
+    	return scene_name + "Glv_" + id;
     }
     
     /* Create necessary time series tables for a new user given their primary id */
@@ -404,7 +406,7 @@ class dbAccess {
 		CreateTable(PositionsTableName(cylinder_reach_scene, id), ts_field_names, ts_field_values, ts_constraints);
 		CreateTable(RotationsTableName(shoulder_rom_scene, id), ts_field_names, ts_field_values, ts_constraints);
 		CreateTable(PositionsTableName(shoulder_rom_scene, id), ts_field_names, ts_field_values, ts_constraints);
-		CreateTable(GloveTableName(cylinder_reach_scene, id), gloves_field_names, gloves_field_values, gloves_constraints);
+		CreateTable(GlovesTableName(cylinder_reach_scene, id), gloves_field_names, gloves_field_values, gloves_constraints);
     }
     
     function InsertTimeSeriesRotations(id : int, scene_name : String, values : Array) {
@@ -432,7 +434,7 @@ class dbAccess {
     }
     
     function InsertTimeSeriesGloveData(id : int, scene_name : String, values : Array) {
-    	var table_name = GloveTableName (scene_name, id);
+    	var table_name = GlovesTableName (scene_name, id);
     	var query = "INSERT INTO " + table_name + " VALUES (datetime('now')";
     	for (var i = 0; i < values.length; i++) {
     		query += "," + values[i];
@@ -448,9 +450,11 @@ class dbAccess {
     	var default_id = 1;
     	
 		var query = "INSERT INTO " + user_table + " VALUES (NULL,datetime('now'),'" + default_first_name + "','" + 
-			default_last_name + "','" + RotationsTableName(shoulder_rom_scene, default_id) + "','" + 
-			PositionsTableName(shoulder_rom_scene, default_id) + "','" + RotationsTableName(cylinder_reach_scene, default_id) +
-			"','" + PositionsTableName(cylinder_reach_scene, default_id) + "');";
+			default_last_name + "','" + RotationsTableName(shoulder_rom_scene, default_id) + 
+			"','" + PositionsTableName(shoulder_rom_scene, default_id) + 
+			"','" + RotationsTableName(cylinder_reach_scene, default_id) +
+			"','" + PositionsTableName(cylinder_reach_scene, default_id) +
+			"','" + GlovesTableName(cylinder_reach_scene, default_id) + "');";
 		// Create user table and insert defaults
 		CreateTable (user_table, user_field_names, user_field_values, user_constraints);
 		BasicQuery(query);
@@ -495,7 +499,7 @@ class dbAccess {
     	
     	if (user_id < 0) {
 			// Insert user's name into database
-			query = "INSERT INTO " + user_table + " VALUES (NULL,datetime('now'),'" + first + "','" + last + "',NULL,NULL,NULL,NULL);";
+			query = "INSERT INTO " + user_table + " VALUES (NULL,datetime('now'),'" + first + "','" + last + "',NULL,NULL,NULL,NULL,NULL);";
 			results = BasicQuery(query);
 			
 			Debug.Log("Creating User: " + first + " " + last);
@@ -507,8 +511,10 @@ class dbAccess {
 			
 			// Create time series tables for user and add their names to profiles table
 			query = "UPDATE " + user_table + " SET shoulder_rom_rot='" + RotationsTableName(shoulder_rom_scene, user_id) + 
-				"',shoulder_rom_pos='" + PositionsTableName(shoulder_rom_scene, user_id) + "',cyl_reach_rot='" + 
-				RotationsTableName(cylinder_reach_scene, user_id) + "',cyl_reach_pos='" + PositionsTableName(cylinder_reach_scene, user_id) + 
+				"',shoulder_rom_pos='" + PositionsTableName(shoulder_rom_scene, user_id) + 
+				"',cyl_reach_rot='" + RotationsTableName(cylinder_reach_scene, user_id) + 
+				"',cyl_reach_pos='" + PositionsTableName(cylinder_reach_scene, user_id) + 
+				"',cyl_reach_glv='" + GlovesTableName(cylinder_reach_scene, user_id) +
 				"' WHERE p_id=" + user_id + ";";
 			results = BasicQuery(query);
 
@@ -555,6 +561,7 @@ class dbAccess {
 		DropTable(PositionsTableName(shoulder_rom_scene, id));
 		DropTable(RotationsTableName(cylinder_reach_scene, id));
 		DropTable(PositionsTableName(cylinder_reach_scene, id));
+		DropTable(GlovesTableName(cylinder_reach_scene, id));
 	}
 	
 	/* Delete all calibration data for this user. */
