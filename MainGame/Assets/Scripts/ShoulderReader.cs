@@ -95,7 +95,7 @@ public class ShoulderReader : MonoBehaviour {
 			time_old = time_new;
 			// Check to make sure one user is actually in the Kinect's view
 			if (zig_control.usersInView == 1) {
-				sampler.SampleAllJoints(skeleton, user_id, record_rotations : record_joint_rotations, record_positions : record_joint_positions);
+				sampler.SampleAllJoints(skeleton, user_id, db_control.shoulder_rom_scene, record_rotations : record_joint_rotations, record_positions : record_joint_positions);
 			}
 		}
 

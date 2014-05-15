@@ -25,7 +25,7 @@ public class JointSampler {
 	 * These angles will then be added as a row into a user's time series tables
 	 * TODO: Create a way for the caller to be more specific about what joints to map
 	 */
-	public void SampleAllJoints(ZigSkeleton skel, int user_id, bool record_rotations = true, bool record_positions = true) {
+	public void SampleAllJoints(ZigSkeleton skel, int user_id, string scene_name, bool record_rotations = true, bool record_positions = true) {
 		Vector3 r_shoulder_rot;
 		Vector3 r_shoulder_pos;
 		Vector3 r_elbow_rot;
@@ -168,7 +168,7 @@ public class JointSampler {
 				r_foot_rot.z
 			};
 			db_control.OpenDB();
-			db_control.InsertTimeSeriesRotations(active_user, db_control.shoulder_rom_scene, rotation_values);
+			db_control.InsertTimeSeriesRotations(active_user, scene_name, rotation_values);
 			db_control.CloseDB();
 		}
 		
@@ -265,7 +265,7 @@ public class JointSampler {
 				r_foot_pos.z
 			};
 			db_control.OpenDB();
-			db_control.InsertTimeSeriesPositions(active_user, db_control.shoulder_rom_scene, position_values);
+			db_control.InsertTimeSeriesPositions(active_user, scene_name, position_values);
 			db_control.CloseDB();
 		}
 	}
