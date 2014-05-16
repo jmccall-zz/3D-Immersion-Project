@@ -223,7 +223,7 @@ GUITexture:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2142703587}
   m_Enabled: 1
-  m_Texture: {fileID: 2800000, guid: aab27200ddc72874d9fce63ebf169f8b, type: 3}
+  m_Texture: {fileID: 2800000, guid: 7e625569d1788294d840d99a8e47de24, type: 3}
   m_Color: {r: .5, g: .5, b: .5, a: .5}
   m_PixelInset:
     serializedVersion: 2
