@@ -26,7 +26,7 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 	private string left_calibration_table;
 	private string user_table;
 	
-	public string next_level = "ReachBack";
+	public string next_level = "SceneSwitch";
 	
 	
 	// Use this for initialization

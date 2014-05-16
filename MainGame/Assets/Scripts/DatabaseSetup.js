@@ -246,9 +246,9 @@ function LoadNextScene(){
 		Debug.Log("Loading Calibration Scene");
 	// If a calibration entry is found, go straight to our game scene
 	} else {
-	Debug.Log("Loading Game Scene");
+	Debug.Log("Loading Scene Selection");
 		db_control.CloseDB();
-		Application.LoadLevel(db_control.cylinder_reach_scene);
+		Application.LoadLevel("SceneSwitch");
 	}	
 }
 
