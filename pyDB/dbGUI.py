@@ -108,7 +108,7 @@ class dbWindow(wx.Frame):
         z = []
 
         # Populate the arrays with the data points from the time series table
-        for i in [1,4,7,10,13,16]:
+        for i in range(1,67)[0::3]:
             x.append(self.data_points[val][i])
             y.append(self.data_points[val][i+1])
             z.append(self.data_points[val][i+2])
@@ -128,9 +128,9 @@ class dbWindow(wx.Frame):
             c.append(x[i+1])
             d.append(y[i+1])
         
-        plt.plot(a, b, "r-o")
-        plt.plot(c, d, "r-o")
-        
+        #plt.plot(a, b, "r-o")
+        #plt.plot(c, d, "r-o")
+        plt.plot(x,y, "ro")
 
         plt.axis([-2, 2, -2, 2])
         
