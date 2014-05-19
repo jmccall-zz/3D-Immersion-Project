@@ -13,7 +13,6 @@ public class JointSampler {
 
 	private dbAccess db_control;
 	private int active_user;
-	private GloveReader reader;
 
 	public JointSampler() {
 		init = true;
@@ -21,9 +20,10 @@ public class JointSampler {
 		active_user = PlayerPrefs.GetInt ("ActiveUser", 1);
 	}
 
-	public void SampleGloves(ZigSkeleton skel, int user_id, string scene_name) {
-		reader = new GloveReader();
-		
+	/*
+	 * Accept a GloveReader instance and store relevant values into the database
+	 */
+	public void SampleGloves(GloveReader reader, int user_id, string scene_name) {
 		float [] values = reader.getValues ();
 		float l_index = 0;
 		float l_middle = 0;
