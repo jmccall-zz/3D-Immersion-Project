@@ -25,11 +25,15 @@ public class FingerControl : MonoBehaviour {
 		adjustJointTilts ("RightHandMiddle1", degrees: Models.fingers[1], knuckle: Models.fingers[4], hand: RIGHT);
 		adjustJointTilts ("RightHandRing1", degrees: Models.fingers[2], knuckle: Models.fingers[4], hand: RIGHT);
 		adjustJointTilts ("RightHandPinky1", degrees: Models.fingers[3], knuckle: Models.fingers[4], hand: RIGHT);
-		adjustJointTilts ("LeftHandIndex1", degrees: Models.fingers[4], knuckle: Models.fingers[9], hand: LEFT);
-		adjustJointTilts ("LeftHandMiddle1", degrees: Models.fingers[5], knuckle: Models.fingers[9], hand: LEFT);
-		adjustJointTilts ("LeftHandRing1", degrees: Models.fingers[6], knuckle: Models.fingers[9], hand: LEFT);
-		adjustJointTilts ("LeftHandPinky1", degrees: Models.fingers[7], knuckle: Models.fingers[9], hand: LEFT);
-
+//		adjustJointTilts ("LeftHandIndex1", degrees: Models.fingers[4], knuckle: Models.fingers[9], hand: LEFT);
+//		adjustJointTilts ("LeftHandMiddle1", degrees: Models.fingers[5], knuckle: Models.fingers[9], hand: LEFT);
+//		adjustJointTilts ("LeftHandRing1", degrees: Models.fingers[6], knuckle: Models.fingers[9], hand: LEFT);
+//		adjustJointTilts ("LeftHandPinky1", degrees: Models.fingers[7], knuckle: Models.fingers[9], hand: LEFT);
+		// Bake in ZEROS for the left hand because we don't have a left handed glove yet
+		adjustJointTilts ("LeftHandIndex1", hand: LEFT);
+		adjustJointTilts ("LeftHandMiddle1", hand: LEFT);
+		adjustJointTilts ("LeftHandRing1", hand: LEFT);
+		adjustJointTilts ("LeftHandPinky1", hand: LEFT);
 	}
 	
 	/* 
