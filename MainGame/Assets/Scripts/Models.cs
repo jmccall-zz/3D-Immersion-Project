@@ -166,11 +166,16 @@ public class Models : MonoBehaviour {
 			fingers[4] = scale_finger(dims[reader.RH_Knuckle()], Right_Knuckle_Blocks);
 
 			// Scale left hand fingers to degrees 0 - 90
-			fingers[5] = scale_finger(dims[reader.LH_IndexFinger()], Left_Index_Finger_Blocks);
-			fingers[6] = scale_finger(dims[reader.LH_MiddleFinger()], Left_Middle_Finger_Blocks);
-			fingers[7] = scale_finger(dims[reader.LH_RingFinger()], Left_Ring_Finger_Blocks);
-			fingers[8] = scale_finger(dims[reader.LH_PinkyFinger()], Left_Pinky_Finger_Blocks);
-			fingers[9] = scale_finger(dims[reader.LH_Knuckle()], Left_Knuckle_Blocks);
+//			fingers[5] = scale_finger(dims[reader.LH_IndexFinger()], Left_Index_Finger_Blocks);
+//			fingers[6] = scale_finger(dims[reader.LH_MiddleFinger()], Left_Middle_Finger_Blocks);
+//			fingers[7] = scale_finger(dims[reader.LH_RingFinger()], Left_Ring_Finger_Blocks);
+//			fingers[8] = scale_finger(dims[reader.LH_PinkyFinger()], Left_Pinky_Finger_Blocks);
+//			fingers[9] = scale_finger(dims[reader.LH_Knuckle()], Left_Knuckle_Blocks);
+			fingers[5] = 0;
+			fingers[6] = 0;
+			fingers[7] = 0;
+			fingers[8] = 0;
+			fingers[9] = 0;
 			
 		} catch (Exception e) {
 			errorcounter++;
