@@ -13,11 +13,49 @@ public class JointSampler {
 
 	private dbAccess db_control;
 	private int active_user;
+	private GloveReader reader;
 
 	public JointSampler() {
 		init = true;
 		db_control = new dbAccess ();
 		active_user = PlayerPrefs.GetInt ("ActiveUser", 1);
+	}
+
+	public void SampleGloves(ZigSkeleton skel, int user_id, string scene_name) {
+		reader = new GloveReader();
+		
+		float [] values = reader.getValues ();
+		float l_index = 0;
+		float l_middle = 0;
+		float l_ring = 0;
+		float l_pinky = 0;
+		float l_thumb = 0;
+		float l_knuckle = 0;
+		float r_index = values [reader.RH_IndexFinger ()];
+		float r_middle = values [reader.RH_MiddleFinger ()];
+		float r_ring = values [reader.RH_RingFinger ()];
+		float r_pinky = values [reader.RH_PinkyFinger ()];
+		float r_thumb = 0;
+		float r_knuckle = values [reader.RH_Knuckle ()];
+
+		float [] values_in = new float [] {
+			l_index = 0,
+			l_middle = 0,
+			l_ring = 0,
+			l_pinky = 0,
+			l_thumb = 0,
+			l_knuckle = 0,
+			r_index = values [reader.RH_IndexFinger ()],
+			r_middle = values [reader.RH_MiddleFinger ()],
+			r_ring = values [reader.RH_RingFinger ()],
+			r_pinky = values [reader.RH_PinkyFinger ()],
+			r_thumb = 0,
+			r_knuckle = values [reader.RH_Knuckle ()]
+		};
+
+		db_control.OpenDB();
+		db_control.InsertTimeSeriesGloveData(active_user, scene_name, values_in);
+		db_control.CloseDB();
 	}
 
 	/*
