@@ -5,7 +5,7 @@ using System;
 
 public class Models : MonoBehaviour {
 	
-	static public float[] fingers = new float[8];
+	static public float[] fingers = new float[10];
 	static public float[] accelerometer = new float[3];
 
 	private GloveReader reader;
@@ -44,14 +44,13 @@ public class Models : MonoBehaviour {
 			          dims[7] + "\n" +
 			          dims[8] + "\n" +
 			          dims[9] + "\n" +
-			          dims[10] + "\n");
-			*/
-			// accelerometer (0, 1, 2) --> (x, y, z)
-			accelerometer[0] = dims[4];
-			accelerometer[1] = dims[5];
-			accelerometer[2] = dims[6];
-			/* Scale text file values */
+			          dims[10] + "\n");*/
 
+			// accelerometer (0, 1, 2) --> (x, y, z)
+			//accelerometer[0] = dims[5];
+			//accelerometer[1] = dims[6];
+			//accelerometer[2] = dims[7];
+			/* Scale text file values */
 			////////////////////////Right_Index block definitions/////////////////////
 			int [] Right_Index_Finger_Blocks  =  {
 				reader.rightFingerZones[0],
@@ -95,7 +94,16 @@ public class Models : MonoBehaviour {
 				reader.rightFingerZones[26],
 				reader.rightFingerZones[27]
 			};
-
+			/////////////////////Right_Knuckle block definitions////////////////////
+			int [] Right_Knuckle_Blocks  =  {
+				reader.rightFingerZones[28],
+				reader.rightFingerZones[29],
+				reader.rightFingerZones[30],
+				reader.rightFingerZones[31],
+				reader.rightFingerZones[32], 
+				reader.rightFingerZones[33],
+				reader.rightFingerZones[34]
+			};
 			///////////////////////Left_Index block definitions/////////////////////
 			int [] Left_Index_Finger_Blocks  =  {
 				reader.leftFingerZones[0],
@@ -140,17 +148,29 @@ public class Models : MonoBehaviour {
 				reader.leftFingerZones[27]
 			};
 
+			/////////////////////Left_Knuckle block definitions////////////////////
+			int [] Left_Knuckle_Blocks  =  {
+				reader.leftFingerZones[28],
+				reader.leftFingerZones[29],
+				reader.leftFingerZones[30],
+				reader.leftFingerZones[31],
+				reader.leftFingerZones[32], 
+				reader.leftFingerZones[33],
+				reader.leftFingerZones[34]
+			};
 			// Scale right hand fingers to degrees 0 - 90
 			fingers[0] = scale_finger(dims[reader.RH_IndexFinger()], Right_Index_Finger_Blocks);
 			fingers[1] = scale_finger(dims[reader.RH_MiddleFinger()], Right_Middle_Finger_Blocks);
 			fingers[2] = scale_finger(dims[reader.RH_RingFinger()], Right_Ring_Finger_Blocks);
 			fingers[3] = scale_finger(dims[reader.RH_PinkyFinger()], Right_Pinky_Finger_Blocks);
+			fingers[4] = scale_finger(dims[reader.RH_Knuckle()], Right_Knuckle_Blocks);
 
 			// Scale left hand fingers to degrees 0 - 90
-			fingers[4] = scale_finger(dims[reader.LH_IndexFinger()], Left_Index_Finger_Blocks);
-			fingers[5] = scale_finger(dims[reader.LH_MiddleFinger()], Left_Middle_Finger_Blocks);
-			fingers[6] = scale_finger(dims[reader.LH_RingFinger()], Left_Ring_Finger_Blocks);
-			fingers[7] = scale_finger(dims[reader.LH_PinkyFinger()], Left_Pinky_Finger_Blocks);
+			fingers[5] = scale_finger(dims[reader.LH_IndexFinger()], Left_Index_Finger_Blocks);
+			fingers[6] = scale_finger(dims[reader.LH_MiddleFinger()], Left_Middle_Finger_Blocks);
+			fingers[7] = scale_finger(dims[reader.LH_RingFinger()], Left_Ring_Finger_Blocks);
+			fingers[8] = scale_finger(dims[reader.LH_PinkyFinger()], Left_Pinky_Finger_Blocks);
+			fingers[9] = scale_finger(dims[reader.LH_Knuckle()], Left_Knuckle_Blocks);
 			
 		} catch (Exception e) {
 			errorcounter++;

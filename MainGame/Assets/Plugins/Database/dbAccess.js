@@ -88,10 +88,24 @@ class dbAccess {
 		"pinky_45",
 		"pinky_60",
 		"pinky_75",
-		"pinky_90"
+		"pinky_90",
+		"knuckle_0",
+		"knuckle_15",
+		"knuckle_30",
+		"knuckle_45",
+		"knuckle_60",
+		"knuckle_75",
+		"knuckle_90"
 	);	
 	private var calib_field_values = new Array (
 		"INTEGER",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
 		"REAL",
 		"REAL",
 		"REAL",
@@ -153,6 +167,13 @@ class dbAccess {
 		500,
 		400, 
 		200,
+		26000,
+		20000,
+		16000,
+		14000,
+		13000,
+		12000,
+		14000,
 		100
 	);
 	
@@ -179,6 +200,13 @@ class dbAccess {
 		276,
 		244,
 		126,
+		3,
+		632,
+		571,
+		429,
+		253,
+		207, 
+		39,
 		3,
 		632,
 		571,
@@ -218,14 +246,18 @@ class dbAccess {
 		"l_ring",
 		"l_pinky",
 		"l_thumb",
+		"l_knuckle",
 		"r_index",
 		"r_middle",
 		"r_ring",
 		"r_pinky",
-		"r_thumb"
+		"r_thumb",
+		"r_knuckle"
 	);	
 	private var gloves_field_values = new Array (
 		"DATETIME",
+		"REAL",
+		"REAL",
 		"REAL",
 		"REAL",
 		"REAL",

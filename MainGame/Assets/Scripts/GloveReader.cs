@@ -19,37 +19,43 @@ public class GloveReader {
 	private const int NinetyDegrees = 6;
 
 	public int RH_IndexFinger () {
-		return 1;
-	}
-	public int RH_MiddleFinger() {
-		return 2;
-	}
-	public int RH_RingFinger () {
-		return 3;
-	}
-	public int RH_PinkyFinger () {
 		return 0;
 	}
-	public int RH_AccX () {
+	public int RH_MiddleFinger() {
+		return 1;
+	}
+	public int RH_RingFinger () {
+		return 2;
+	}
+	public int RH_PinkyFinger () {
+		return 3;
+	}
+	public int RH_Knuckle () {
 		return 4;
 	}
-	public int RH_AccY () {
+	public int RH_AccX () {
 		return 5;
 	}
-	public int RH_AccZ () {
+	public int RH_AccY () {
 		return 6;
 	}
-	public int LH_IndexFinger () {
+	public int RH_AccZ () {
 		return 7;
 	}
-	public int LH_MiddleFinger () {
+	public int LH_IndexFinger () {
 		return 8;
 	}
-	public int LH_RingFinger () {
+	public int LH_MiddleFinger () {
 		return 9;
 	}
-	public int LH_PinkyFinger () {
+	public int LH_RingFinger () {
 		return 10;
+	}
+	public int LH_PinkyFinger () {
+		return 11;
+	}
+	public int LH_Knuckle () {
+		return 12;
 	}
 	public int LH_GripIndex (){
 		return 12;
@@ -58,7 +64,7 @@ public class GloveReader {
 		return 11;
 	}
 
-	private string right_hand_path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\testfile.txt");
+	private string right_hand_path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\GloveData.txt");
 	private string left_hand_path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\GloveData.txt");
 	public bool init;
 	public bool RightIsGrab;
@@ -66,7 +72,7 @@ public class GloveReader {
 	public float[] sensorValues;
 	private string [] readLines;
 	private ArrayList allFingerZones;
-	const int numOfDataPointsR = 7;
+	const int numOfDataPointsR = 8;
 	const int numOfDataPointsL = 5;
 	public int[] rightFingerZones;
 	public int[] leftFingerZones;
@@ -99,8 +105,8 @@ public class GloveReader {
 	 */
 	private ArrayList readDB(int user_id) {
 		ArrayList fingerBlocks = new ArrayList();
-		int [] rightFingerBlocks = new int [28];
-		int [] leftFingerBlocks = new int [28];
+		int [] rightFingerBlocks = new int [35];
+		int [] leftFingerBlocks = new int [35];
 
 		rightFingerBlocks = GetCalibrationRow (db_control.right_calib_table, user_id);
 		leftFingerBlocks = GetCalibrationRow (db_control.left_calib_table, user_id);
@@ -109,6 +115,7 @@ public class GloveReader {
 		fingerBlocks.Add (rightFingerBlocks);
 		fingerBlocks.Add (leftFingerBlocks);
 
+		Debug.Log ("Got the calibration data: " + rightFingerBlocks[0]);
 		return fingerBlocks;
 	}
 
@@ -117,7 +124,7 @@ public class GloveReader {
 	 * it in the form of an integer array.
 	 */ 
 	private int [] GetCalibrationRow(string table_name, int user_id) {
-		int [] blocks = new int[28];
+		int [] blocks = new int[35];
 		string query;
 		ArrayList results = new ArrayList();
 		ArrayList row = new ArrayList();

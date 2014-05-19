@@ -12,8 +12,8 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 	// These 29 fields represent all the columns in the calibration table.  Storing them in 
 	// a large list allows us to simple pass the structure into a database control function
 	// for the database insertion. NOTE: Index zero is the active user_id.
-	private float[] rightCalibrationPoints = new float[29];
-	private float[] leftCalibrationPoints = new float[29];
+	private float[] rightCalibrationPoints = new float[36];
+	private float[] leftCalibrationPoints = new float[36];
 	
 	public const int MAX_TRANSITIONS = 13;
 	private int transitionCount = 0;
@@ -91,14 +91,16 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 			rightCalibrationPoints [index] = values[reader.RH_IndexFinger()];
 			rightCalibrationPoints [index + 7] = values[reader.RH_MiddleFinger()];	
 			rightCalibrationPoints [index + 14] = values[reader.RH_RingFinger()];	
-			rightCalibrationPoints [index + 21] = values[reader.RH_PinkyFinger()];	
+			rightCalibrationPoints [index + 21] = values[reader.RH_PinkyFinger()];
+			rightCalibrationPoints [index + 28] = values[reader.RH_Knuckle()];
 		} else if (transitionCount < 14) {
 			// Set base index for reference
 			index = transitionCount - 6;
 			leftCalibrationPoints [index] = values[reader.LH_IndexFinger()];
 			leftCalibrationPoints [index + 7] = values[reader.LH_MiddleFinger()];	
 			leftCalibrationPoints [index + 14] = values[reader.LH_RingFinger()];	
-			leftCalibrationPoints [index + 21] = values[reader.LH_PinkyFinger()];	
+			leftCalibrationPoints [index + 21] = values[reader.LH_PinkyFinger()];
+			leftCalibrationPoints [index + 28] = values[reader.LH_Knuckle()];
 		} else {
 			Debug.Log("End of scene. No more data to capture.");
 		}

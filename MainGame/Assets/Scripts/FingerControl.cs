@@ -21,14 +21,14 @@ public class FingerControl : MonoBehaviour {
 	}
 	
 	void Update () {
-		adjustJointTilts ("RightHandIndex1", degrees: Models.fingers[0], hand: RIGHT);
-		adjustJointTilts ("RightHandMiddle1", degrees: Models.fingers[1], hand: RIGHT);
-		adjustJointTilts ("RightHandRing1", degrees: Models.fingers[2], hand: RIGHT);
-		adjustJointTilts ("RightHandPinky1", degrees: Models.fingers[3], hand: RIGHT);
-		adjustJointTilts ("LeftHandIndex1", degrees: Models.fingers[4], hand: LEFT);
-		adjustJointTilts ("LeftHandMiddle1", degrees: Models.fingers[5], hand: LEFT);
-		adjustJointTilts ("LeftHandRing1", degrees: Models.fingers[6], hand: LEFT);
-		adjustJointTilts ("LeftHandPinky1", degrees: Models.fingers[7], hand: LEFT);
+		adjustJointTilts ("RightHandIndex1", degrees: Models.fingers[0], knuckle: Models.fingers[4], hand: RIGHT);
+		adjustJointTilts ("RightHandMiddle1", degrees: Models.fingers[1], knuckle: Models.fingers[4], hand: RIGHT);
+		adjustJointTilts ("RightHandRing1", degrees: Models.fingers[2], knuckle: Models.fingers[4], hand: RIGHT);
+		adjustJointTilts ("RightHandPinky1", degrees: Models.fingers[3], knuckle: Models.fingers[4], hand: RIGHT);
+		adjustJointTilts ("LeftHandIndex1", degrees: Models.fingers[4], knuckle: Models.fingers[9], hand: LEFT);
+		adjustJointTilts ("LeftHandMiddle1", degrees: Models.fingers[5], knuckle: Models.fingers[9], hand: LEFT);
+		adjustJointTilts ("LeftHandRing1", degrees: Models.fingers[6], knuckle: Models.fingers[9], hand: LEFT);
+		adjustJointTilts ("LeftHandPinky1", degrees: Models.fingers[7], knuckle: Models.fingers[9], hand: LEFT);
 
 	}
 	
@@ -41,16 +41,16 @@ public class FingerControl : MonoBehaviour {
 	 * @param hand: The rotation values used to adjust the fingers are opposite for the right
 	 * and left hand respectively.
 	 */
-	void adjustJointTilts (string objectName, float degrees = 0, bool hand = RIGHT) {
+	void adjustJointTilts (string objectName, float degrees = 0, float knuckle = 0, bool hand = RIGHT) {
 		/* Adjust z-axis euler angle for all finger joints based on the degree value given */ 
 		Transform transform = GameObject.Find (objectName).transform;
 		
 		/********** Adjust base joint ***********/
 		if ((degrees <= j1MaxRot) && (degrees > 0)) {
 			if (hand == RIGHT)
-				transform.localEulerAngles = new Vector3 (0, 0, -degrees);
+				transform.localEulerAngles = new Vector3 (0, 0, -knuckle);
 			else
-				transform.localEulerAngles = new Vector3 (0, 0, degrees);
+				transform.localEulerAngles = new Vector3 (0, 0, knuckle);
 
 		} else if (degrees <= 0) {
 			transform.localEulerAngles = new Vector3 (0, 0, 0);

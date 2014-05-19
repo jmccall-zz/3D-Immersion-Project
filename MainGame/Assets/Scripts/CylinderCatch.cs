@@ -27,9 +27,6 @@ public class CylinderCatch : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log (catchCount);
-
-
 		if (catchCount < 3) {
 			timer += Time.deltaTime;
 		} else {
