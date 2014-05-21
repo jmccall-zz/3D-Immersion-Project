@@ -70,6 +70,34 @@ WristControl.cs -- C#
 	
 DATABASE SCRIPTS:
 
+DatabaseSetup.js -- Javascript
+	- path: \3D-Immersion-Project\MainGame\Assets\Scripts\DatabaseSetup.js
+	Intro:
+		This script is the motor behind the login scene.  It controls what the user sees and also manipulates the database based on user input.
+
+	Start():
+		On scene start-up the script checks for the existence of a user profiles table.  If that table does not exist, it is assumed other tables do not aswell.  As a result the entire database will be regenerated and any existing data gone forever.  Unfortunately, in order to make changes to the database schema, the database file itself (as defined in in "dbAccess.js") must be deleted and this script must be executed (by running the Login scene) after the alterations. This results in a fresh, empty database tables with the most recent schema changes.
+
+	OnGUI():
+		This is where all the login options are displayed.  Users can also configure some actions to be taken after they are logged in such as whether to force the calibration scene (although calibration data still exists).  This routine also handle user creation and deletion with the help of the database access class dbAccess.js.
+
+dbAccess.js -- Javascript
+	- path: \3D-Immersion-Project\MainGame\Assets\Plugins\Database\dbAccess.js
+	Intro:
+		This is the centralized database access class for this project.  Any and all database manipulations should ultimately be executed with this class. 
+
+	Init:
+		The database schema is defined at the top of this file.  All table names, fields, and types are defined here.  Scene names and default user information is also defined here.  In scripts that contain database access routines you will notice a common pattern.
+		The database is openned, accessed, and closed with no routines in between.  This is our best effort at preventing access conflicts.
+
+	Functions:
+		All the database functions in the file should be referenced in between OpenDB() and CloseDB() calls. 
+		C# example:
+			private dbAcess db_control = new dbAccess();
+			db_control.OpenDB();
+			db_control.InsertTimeSeriesRotations(active_user, scene_name, rotation_values);
+			db_control.CloseDB();
+
 DATA GRAPH GUI SCRIPTS:
 
 Dependency List -- Python Packages:
