@@ -3,8 +3,8 @@ using System.Collections;
 
 public class SampleControl : MonoBehaviour {
 
-	public bool record_joint_data = false;	
-	public bool record_glove_data = false;	
+	public bool record_joint_data = true;	
+	public bool record_glove_data = true;	
 	public float capture_rate = 0.1f;
 
 	private JointSampler sampler;
