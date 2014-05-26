@@ -2,15 +2,18 @@
 
 GAME SCENES:
 ReachBack
+The user is tasked with moving four cylinders placed around him/her into a box in front of the user. Two of the cylinders are on a shelf above the user and the other two are on a counter behind the user. The scene records there position data continuously and stores the time it takes the user to place the objects in the box.
 
 ShoulderROM
 
 Login
+This is the opening scene of our game. The user logs in to the user profile by typing in their name. This either loads an existing profile or creates a new profile. If the profile is new, the game loads the calibrate scene. If not, the game loads the ReachBack scene.
 
 CalibrateGlove
 	The CalibrateGlove scene is used in recording data at specific points on the gloves bend sensor range in order to match the sensors input with the game's hand animation. The user is presented an image of a hand that they are supposed to mimic, and then press "Space Bar" to move on to the next image and record that data.
 
 InteractiveObjectRoom
+This is a scene we created for experimenting with the Kinects movement tracking. The user can walk around and interact with objects in a room. It is very simple but it allows us to test the Kinects position tracking for accuracy.
 
 ViewTables
 
