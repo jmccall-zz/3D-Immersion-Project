@@ -35,9 +35,9 @@ public class GrabLogic : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision) {
 		reader.UpdateGestures ();
-		if (collision.transform.name == "Cylinder" && right && reader.RightIsGrab) {
+		if (collision.transform.parent.name == "Cylinders" && right && reader.RightIsGrab) {
 			objectTransform = collision.transform;
-		} else if (collision.transform.name == "Cylinder" && left && reader.LeftIsGrab) {
+		} else if (collision.transform.parent.name == "Cylinders" && left && reader.LeftIsGrab) {
 			objectTransform = collision.transform;
 		}
 	}

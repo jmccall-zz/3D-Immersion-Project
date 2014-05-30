@@ -53,7 +53,7 @@
      <Compile Include="Assets\Scripts\DontGoThroughThings.js" />
      <Compile Include="Assets\Scripts\HitBall.js" />
      <Compile Include="Assets\Scripts\Menu.js" />
-     <Compile Include="Assets\Scripts\RecordAndMove.js" />
+     <Compile Include="Assets\Scripts\TextGenerator.js" />
      <None Include="Assets\Standard Assets\Terrain Assets\Trees Ambient-Occlusion\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
      <None Include="Assets\Standard Assets\Tessellation Shaders\BumpedSpecularSmooth.shader" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />

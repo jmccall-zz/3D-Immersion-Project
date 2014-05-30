@@ -58,10 +58,10 @@ public class GloveReader {
 		return 12;
 	}
 	public int LH_GripIndex (){
-		return 12;
+		return 13;
 	}
 	public int LH_GripMiddle() {
-		return 11;
+		return 14;
 	}
 
 	private string right_hand_path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\GloveData.txt");

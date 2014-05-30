@@ -1984,7 +1984,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 647287926}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25314ad7a38720043843d812fdd4c192, type: 3}
   m_Name: 
@@ -2023,8 +2023,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 757b1a72b923ced48af78acc9b3c59c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  record_joint_positions: 1
-  record_joint_rotations: 1
+  record_joint_data: 1
+  record_glove_data: 1
   capture_rate: .100000001
 --- !u!1 &652523896
 GameObject:

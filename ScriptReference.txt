@@ -71,6 +71,8 @@ CylinderCatch.cs -- C#
 WristControl.cs -- C#
 	This game object script is placed on the user's avatar's wrist. It reads accelerometer data from the GloveReader and then rotates the wrist object of the player accordingly.
 	
+TextGen.cs -- C#
+	This script controls the state of the range of motion scenes exercises. Essentially it describes buttons and text boxes to display during the game the control the scenes' exercise instructions.
 DATABASE SCRIPTS:
 
 DatabaseSetup.js -- Javascript

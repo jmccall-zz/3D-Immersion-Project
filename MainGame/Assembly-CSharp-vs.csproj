@@ -67,12 +67,15 @@
      <Compile Include="Assets\Scripts\FingerControl.cs" />
      <Compile Include="Assets\Scripts\GloveReader.cs" />
      <Compile Include="Assets\Scripts\GrabLogic.cs" />
+     <Compile Include="Assets\Scripts\JointSampler.cs" />
+     <Compile Include="Assets\Scripts\LevelSelect.cs" />
      <Compile Include="Assets\Scripts\Models.cs" />
      <Compile Include="Assets\Scripts\PressureMax.cs" />
      <Compile Include="Assets\Scripts\ReachBackGUI.cs" />
      <Compile Include="Assets\Scripts\RecordAndMoveCalibrate.cs" />
-     <Compile Include="Assets\Scripts\SceneControl.cs" />
+     <Compile Include="Assets\Scripts\SampleControl.cs" />
      <Compile Include="Assets\Scripts\ShoulderReader.cs" />
+     <Compile Include="Assets\Scripts\TextGen.cs" />
      <Compile Include="Assets\Scripts\TimeControl.cs" />
      <Compile Include="Assets\Scripts\WristControl.cs" />
      <Compile Include="Assets\ZigFu\SampleScenes\_Data\Scripts\ExitOnEscape.cs" />
