@@ -185,8 +185,8 @@ public class Models : MonoBehaviour {
 	 * calibration blocks 75 & 90. The highest of the calibration values for 75 & 90 (in the database) should be "max".
 	 * @param max_degrees: The upper boundary of the degree range we are in. In our previous example this would be 90
 	 */ 
-	float get_degrees (float value, int max, int min, int max_degrees, int scale_factor = 15) {
-		float scale = (max - min) / scale_factor;
+	float get_degrees (float value, int max, int min, int max_degrees) {
+		float scale = (max - min)/90;
 		return max_degrees - ((value - min) / scale);
 	}
 
@@ -201,18 +201,19 @@ public class Models : MonoBehaviour {
 	 * degrees of bend. At 0, 15, 30, 45, 60, 75, and 90 degrees this raw glove data is collected.
 	 */
 	float scale_finger(float value, int [] blocks, int scale_factor = 15){
+
 		float degrees = -1;
 		int max;
 		int min;
 
 		// If we get a raw value higher than our full extension calibrated value, set degrees to 0
-		if (value >= blocks[0])
+		if (value >= blocks[0] - 1)
 			return 0;
 
 		// If we get a raw value lower than our calibrated closed fist, set degrees to 90
-		else if (value <= blocks[6])
+		else if (value <= blocks[6] + 1)
 			return 90;
-
+		/*
 		// Cycle through ranges to determine correct scaling
 		for (int i = 0; i < 6; i++) {
 			// Check if input value is exactly equal to one of our calibration points
@@ -233,8 +234,12 @@ public class Models : MonoBehaviour {
 			// boundaries then we should be setting the value to 0 or 90. 
 			Debug.Log("Could not scale this finger. Value didn't fall in any range\n" +
 			          "Value: " + value);
-		}
+		}*/
+		degrees = get_degrees (value, blocks [0], blocks [6], 90);
 
+
+				
+	
 		return degrees;
 	}
 }

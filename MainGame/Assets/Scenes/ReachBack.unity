@@ -1943,8 +1943,8 @@ MonoBehaviour:
   RightCollar: {fileID: 435608460}
   RightShoulder: {fileID: 791753358}
   RightElbow: {fileID: 1635473139}
-  RightWrist: {fileID: 976724824}
-  RightHand: {fileID: 1086440219}
+  RightWrist: {fileID: 0}
+  RightHand: {fileID: 0}
   RightFingertip: {fileID: 0}
   LeftHip: {fileID: 1206296528}
   LeftKnee: {fileID: 752354604}

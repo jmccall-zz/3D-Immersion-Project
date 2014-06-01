@@ -34,12 +34,21 @@ public class ShoulderReader : MonoBehaviour {
 	
 	// The localEulerAngles of the shoulder. This array of length three represents
 	// x, y, and z rotation angles.
-	private Vector3 shoulder_angles;
+	private Vector3 l_shoulder_angles;
+	private Vector3 r_shoulder_angles;
 	// Measured abduction angle observed and calculated
-	private float abduction_angle;
+	private float l_abduction_angle;
+	private float r_abduction_angle;
 	// Maximum/minimum measured abduction angles
-	private float max_abduction = 0.0f;
-	private float min_abduction = 180.0f;
+	private float l_max_abduction = 0.0f;
+	private float l_min_abduction = 180.0f;
+	private float r_max_abduction = 0.0f;
+	private float r_min_abduction = 180.0f;
+	private float l_side_hold = 0.0f;
+	private float r_side_hold = 0.0f;
+	private float l_front_hold = 0.0f;
+	private float r_front_hold = 0.0f;
+
 	// Y-axis rotational boundaries.  Measurements of shoulder abduction angle will only be measured if
 	// the shoulder's y-axis rotation is in this range!
 	private float max_y_rotation;
@@ -52,7 +61,13 @@ public class ShoulderReader : MonoBehaviour {
 	public float degrees_freedom = 10.0f;
 	private const bool LEFT = false;
 	private const bool RIGHT = true;
-	public bool side_to_measure = RIGHT;
+	//public bool side_to_measure = RIGHT;
+	private int currentExercise;
+	private string exercise;
+	private GUIStyle style;
+	private string instructions;
+	private bool inPosition;
+	private float timer_hold;
 
 	// Use this for initialization
 	void Start () {
@@ -65,15 +80,15 @@ public class ShoulderReader : MonoBehaviour {
 		// This script is attached to Carl so GetComponent can be called directly
 		skeleton = GetComponent <ZigSkeleton>();
 
-		shoulder_angles = new Vector3();
-
+		l_shoulder_angles = new Vector3();
+		r_shoulder_angles = new Vector3();
 
 		db_control = new dbAccess ();
 		user_id = PlayerPrefs.GetInt ("ActiveUser", 1);
 		// DEBUG: Access some application run-time data.  Compare this output to where the scene was loaded from
-		Debug.Log ("isEditor: " + Application.isEditor + "\nisLoadinglevel: " + Application.isLoadingLevel + "\nLoadedLevelName: " + Application.loadedLevelName + 
-		           "\nplatform: " + Application.platform + "\nGenuine: " + Application.genuine + "\ngenuineCheckAvailable: " + Application.genuineCheckAvailable +
-		           "\nbackgroundLoadingPriority: " + Application.backgroundLoadingPriority);
+		//Debug.Log ("isEditor: " + Application.isEditor + "\nisLoadinglevel: " + Application.isLoadingLevel + "\nLoadedLevelName: " + Application.loadedLevelName + 
+		//           "\nplatform: " + Application.platform + "\nGenuine: " + Application.genuine + "\ngenuineCheckAvailable: " + Application.genuineCheckAvailable +
+		//           "\nbackgroundLoadingPriority: " + Application.backgroundLoadingPriority);
 
 		// Calculate max and min y-axis rotations to allow abduction measurements
 		max_y_rotation = degrees_freedom;
@@ -82,11 +97,84 @@ public class ShoulderReader : MonoBehaviour {
 		// Get zig joint identification numbers for each shoulder
 		R_shoulder_id = ZigJointId.RightShoulder;
 		L_shoulder_id = ZigJointId.LeftShoulder;
+
+		currentExercise = 0;
+		exercise = "Press Next To Start";
+		style = new GUIStyle();
+		instructions = " ";
+		timer_hold = 0;
+		inPosition = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//Debug.Log ("In update() for shoulder reader");
+		switch (currentExercise) {
+		case 0: exercise = "Press Next To Start";
+			instructions = " ";
+			break;
+
+		// Max/min shoulder abduction right arm
+		case 1: exercise = "2";
+			instructions = "2";
+			r_shoulder_angles = skeleton.GetJointLocalEulerAngles (R_shoulder_id);
+			r_abduction_angle = GetAbductionAngle (r_shoulder_angles);
+			if (l_abduction_angle != -1) {
+				// Check if max or min abduction angles have been reached
+				if (r_abduction_angle > r_max_abduction) 
+					r_max_abduction = r_abduction_angle;
+				if (r_abduction_angle < r_min_abduction)
+					r_min_abduction = r_abduction_angle;
+			}
+			break;
+
+		// Max/min shoulder abduction left arm
+		case 2: exercise = "3";
+			instructions = "4";
+			l_shoulder_angles = skeleton.GetJointLocalEulerAngles (L_shoulder_id);
+			l_abduction_angle = GetAbductionAngle (l_shoulder_angles);
+			if (l_abduction_angle != -1) {
+				// Check if max or min abduction angles have been reached
+				if (l_abduction_angle > l_max_abduction) 
+					l_max_abduction = l_abduction_angle;
+				if (l_abduction_angle < l_min_abduction)
+					l_min_abduction = l_abduction_angle;
+			}
+			break;
+
+		// How long can you hold right arm out to the side
+		case 3: exercise = "4";
+			instructions = "4";
+			break;
+
+		// How long can you hold left arm out to the side
+		case 4: exercise = "5";
+			instructions = "5";
+			break;
+
+		// How long can you hold right arm out in front
+		case 5: exercise = "6";
+			instructions = "6";
+			break;
+
+		// How long can you hold left arm out in front
+		case 6: exercise = "7";
+			instructions = "7";
+			break;
+
+		// Final page with test results yay!!!
+		case 7: exercise = "8";
+			instructions = "8";
+			break;
+
+		default: currentExercise = 0;
+			instructions = " "; 
+			break;
+		}
+		
+		timer_hold += Time.deltaTime;
+
+		/*******************************************************************/
+		/*************** Routine for sampling all body joints **************/
 		time_new += Time.deltaTime;
 		time_diff = time_new - time_old;
 
@@ -98,49 +186,77 @@ public class ShoulderReader : MonoBehaviour {
 				sampler.SampleAllJoints(skeleton, user_id, db_control.shoulder_rom_scene, record_rotations : record_joint_rotations, record_positions : record_joint_positions);
 			}
 		}
-
-		// Determine which shoulder we will be sampling
-		if (side_to_measure == LEFT) {
-			//Debug.Log ("Measuring Left Shoulder Abduction Angle");
-			joint_id = L_shoulder_id;
-		} else {
-			//Debug.Log ("Measuring Right Shoulder Abduction Angle");
-			joint_id = R_shoulder_id;
-		}
-
-		shoulder_angles = skeleton.GetJointLocalEulerAngles (joint_id);
-		//Debug.Log ("Angles: " + shoulder_angles.x + " " + shoulder_angles.y + " " + shoulder_angles.z);
-		abduction_angle = GetAbductionAngle (shoulder_angles);
-
-		// Check if abduction angle could be measured
-		if (abduction_angle != -1) {
-			// Check if max or min abduction angles have been reached
-			if (abduction_angle > max_abduction)
-				max_abduction = abduction_angle;
-			if (abduction_angle < min_abduction)
-				min_abduction = abduction_angle;
-		}
+		/*******************************************************************/
 	}
 
 	/* Display instructions and check for scene switch */
 	void OnGUI() {
+		if (GUI.Button (new Rect (Screen.width/2 + 50, Screen.height-50,100,40), "Next")) {
+			currentExercise++;
+			// Store max/min right shoulder abduction angle
+			if (currentExercise == 2) {
+				UpdateMaxMinROM(r_max : r_max_abduction, r_min : r_min_abduction);
+			
+			// Store max/min left shoulder abduction angle
+			} else if (currentExercise == 3) {
+				UpdateMaxMinROM(l_max : l_max_abduction, l_min : l_min_abduction);
+
+			// 
+			} else if (currentExercise == 4) {
+				UpdateMaxMinROM(l_max : l_max_abduction, l_min : l_min_abduction);
+				
+			} else if (currentExercise == 5) {
+				UpdateMaxMinROM(l_max : l_max_abduction, l_min : l_min_abduction);
+				
+			} else if (currentExercise == 6) {
+				UpdateMaxMinROM(l_max : l_max_abduction, l_min : l_min_abduction);
+				
+			} else if (currentExercise == 7) {
+				UpdateMaxMinROM(l_max : l_max_abduction, l_min : l_min_abduction);
+				
+			} else if (currentExercise > 7) {
+				currentExercise = 7;
+			} else {
+				timer_hold = 0;
+			}
+		}
+		if (GUI.Button (new Rect (Screen.width/2 - 50, Screen.height-50,100,40), "Prev")) {
+			currentExercise--;
+			if (currentExercise < 0) {
+				currentExercise = 0;
+			} else {
+				timer_hold = 0;
+			}
+		}
+		style.fontSize = 25;
+		style.alignment = TextAnchor.LowerCenter;
+		GUI.Label (new Rect(Screen.width/2, Screen.height-100, 160, 40), exercise, style);
+		
+		style.alignment = TextAnchor.UpperCenter;
+		if (currentExercise == 3) {
+			GUI.Label (new Rect (Screen.width / 2, 200, 160, 40), timer_hold.ToString ().Remove (4), style);	
+		}
+		
+		style.fontSize = 60;
+		
+		GUI.Label (new Rect(Screen.width/2, 50, 160, 40), exercise, style);	
 		// Toggle buttons to determine which side to measure
-		GUI.Label (new Rect (10, 15, 200, 30), "Side to Measure:");
-		if (GUI.Toggle (new Rect (120, 5, 50, 20), side_to_measure, "Right"))
-			side_to_measure = RIGHT;
-		if (GUI.Toggle (new Rect (120, 25, 50, 20), !side_to_measure, "Left"))
-			side_to_measure = LEFT;
+		//GUI.Label (new Rect (10, 15, 200, 30), "Side to Measure:");
+		//if (GUI.Toggle (new Rect (120, 5, 50, 20), side_to_measure, "Right"))
+		//	side_to_measure = RIGHT;
+		//if (GUI.Toggle (new Rect (120, 25, 50, 20), !side_to_measure, "Left"))
+		//	side_to_measure = LEFT;
 		// Toggle buttons to determine whether or not to sample joint positions and rotations
-		record_joint_positions = GUI.Toggle (new Rect (10, 50, 200, 20), record_joint_positions, "Record Joint Positions");
-		record_joint_rotations = GUI.Toggle (new Rect (10, 70, 200, 20), record_joint_rotations, "Record Joint Rotations");
+		//record_joint_positions = GUI.Toggle (new Rect (10, 50, 200, 20), record_joint_positions, "Record Joint Positions");
+		//record_joint_rotations = GUI.Toggle (new Rect (10, 70, 200, 20), record_joint_rotations, "Record Joint Rotations");
 
 		// Store results and prompt user further
-		if (GUI.Button(new Rect(10, 170, 200, 30), "Store Max/Min Angle")){
-			UpdateMaxMinROM();
-		}
+		//if (GUI.Button(new Rect(10, 170, 200, 30), "Store Max/Min Angle")){
+		//	UpdateMaxMinROM();
+		//}
 
-		GUI.Label (new Rect (10, 215, 200, 30), "Read Angle:     " + shoulder_angles.z);
-		GUI.Label (new Rect (10, 245, 200, 30), "Abduction Angle:" + abduction_angle);
+		//GUI.Label (new Rect (10, 215, 200, 30), "Read Angle:     " + shoulder_angles.z);
+		//GUI.Label (new Rect (10, 245, 200, 30), "Abduction Angle:" + abduction_angle);
 	}
 
 	/*
@@ -162,22 +278,36 @@ public class ShoulderReader : MonoBehaviour {
 	}
 
 	/* Update the maximum and minimum shoulder abduction angles for this user in the database. */
-	private void UpdateMaxMinROM() {
-		string max_rom_field;
-		string min_rom_field;
+	private void UpdateMaxMinROM(float r_max = -1.0f, float l_max = -1.0f, float r_min = -1.0f, float l_min = -1.0f) {
+		string r_max_field = "r_shoulder_rom_max";
+		string l_max_field = "l_shoulder_rom_max";
+		string r_min_field = "r_shoulder_rom_min";
+		string l_min_field = "l_shoulder_rom_min";
+		string query;
 
-		if (side_to_measure == RIGHT) {
-			max_rom_field = "r_shoulder_rom_max";
-			min_rom_field = "r_shoulder_rom_min";
-		} else {
-			max_rom_field = "l_shoulder_rom_max";
-			min_rom_field = "l_shoulder_rom_min";
+		// Open up the database yee
+		db_control.OpenDB ();
+
+		if (r_max == -1.0f) {
+			query = "UPDATE " + db_control.scores_table + " SET " + r_max_field + "=" + r_max + " WHERE user_id=" + user_id + ";";
+			db_control.BasicQuery(query);
 		}
 
-		string query = "UPDATE " + db_control.scores_table + " SET " + max_rom_field + "=" + max_abduction + "," + 
-			min_rom_field + "=" + min_abduction + " WHERE user_id=" + user_id + ";";
-		db_control.OpenDB ();
-		db_control.BasicQuery (query);
+		if (l_max == -1.0f) {
+			query = "UPDATE " + db_control.scores_table + " SET " + l_max_field + "=" + l_max + " WHERE user_id=" + user_id + ";";
+			db_control.BasicQuery(query);
+		}
+
+		if (r_min == -1.0f) {
+			query = "UPDATE " + db_control.scores_table + " SET " + r_min_field + "=" + r_min + " WHERE user_id=" + user_id + ";";
+			db_control.BasicQuery(query);
+		}
+
+		if (l_min == -1.0f) {
+			query = "UPDATE " + db_control.scores_table + " SET " + l_min_field + "=" + l_min + " WHERE user_id=" + user_id + ";";
+			db_control.BasicQuery(query);
+		}
+
 		db_control.CloseDB ();
 	}
 

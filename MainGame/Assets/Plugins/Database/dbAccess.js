@@ -225,7 +225,11 @@ class dbAccess {
 		"l_shoulder_rom_max",
 		"l_shoulder_rom_min",
 		"r_shoulder_rom_max",
-		"r_shoulder_rom_min"
+		"r_shoulder_rom_min",
+		"l_tpose_time",
+		"r_tpose_time",
+		"l_arm_front_time",
+		"r_arm_front_time"
 	);	
 	private var scores_field_values = new Array (
 		"INTEGER",
@@ -234,7 +238,11 @@ class dbAccess {
 		"REAL",
 		"REAL",
 		"REAL",
-		"REAL"
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL",
+		"REAL"		
 	);
 	private var scores_constraints = "FOREIGN KEY(user_id) REFERENCES " + user_table + "(" + user_field_names[0] + ")";
 	
@@ -492,7 +500,7 @@ class dbAccess {
 		BasicQuery(query);
 
 		// Create results table and initialize a column for new user
-		query = "INSERT INTO " + scores_table + " VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL);";
+		query = "INSERT INTO " + scores_table + " VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);";
 		CreateTable (scores_table, scores_field_names, scores_field_values, scores_constraints);
 		BasicQuery(query); 
 

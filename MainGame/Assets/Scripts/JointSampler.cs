@@ -25,12 +25,12 @@ public class JointSampler {
 	 */
 	public void SampleGloves(GloveReader reader, int user_id, string scene_name) {
 		float [] values = reader.getValues ();
-		float l_index = 0;
-		float l_middle = 0;
-		float l_ring = 0;
-		float l_pinky = 0;
+		float l_index = values [reader.LH_IndexFinger()];
+		float l_middle = values [reader.LH_MiddleFinger()];
+		float l_ring = values [reader.LH_RingFinger()];
+		float l_pinky = values [reader.LH_PinkyFinger()];
 		float l_thumb = 0;
-		float l_knuckle = 0;
+		float l_knuckle = values [reader.LH_Knuckle ()];
 		float r_index = values [reader.RH_IndexFinger ()];
 		float r_middle = values [reader.RH_MiddleFinger ()];
 		float r_ring = values [reader.RH_RingFinger ()];
@@ -39,18 +39,18 @@ public class JointSampler {
 		float r_knuckle = values [reader.RH_Knuckle ()];
 
 		float [] values_in = new float [] {
-			l_index = 0,
-			l_middle = 0,
-			l_ring = 0,
-			l_pinky = 0,
-			l_thumb = 0,
-			l_knuckle = 0,
-			r_index = values [reader.RH_IndexFinger ()],
-			r_middle = values [reader.RH_MiddleFinger ()],
-			r_ring = values [reader.RH_RingFinger ()],
-			r_pinky = values [reader.RH_PinkyFinger ()],
-			r_thumb = 0,
-			r_knuckle = values [reader.RH_Knuckle ()]
+			l_index,
+			l_middle,
+			l_ring,
+			l_pinky,
+			l_thumb,
+			l_knuckle,
+			r_index,
+			r_middle,
+			r_ring,
+			r_pinky,
+			r_thumb,
+			r_knuckle
 		};
 
 		db_control.OpenDB();

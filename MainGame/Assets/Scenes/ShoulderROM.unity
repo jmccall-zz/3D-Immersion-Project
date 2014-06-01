@@ -3016,8 +3016,8 @@ MonoBehaviour:
   RightCollar: {fileID: 868085863}
   RightShoulder: {fileID: 150141455}
   RightElbow: {fileID: 904915392}
-  RightWrist: {fileID: 1113943245}
-  RightHand: {fileID: 1842931388}
+  RightWrist: {fileID: 0}
+  RightHand: {fileID: 0}
   RightFingertip: {fileID: 0}
   LeftHip: {fileID: 537671249}
   LeftKnee: {fileID: 592971123}
@@ -3064,7 +3064,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capture_rate: .100000001
   degrees_freedom: 10
-  side_to_measure: 1
 --- !u!1 &1595711495
 GameObject:
   m_ObjectHideFlags: 0
