@@ -148,7 +148,7 @@ dbGUI.py
 	SelectDataScreen(event)
 		This function gets called when the button declared in InitUI() is pressed. It takes the user id from the User Name string and uses it to get a list of names for all the time series data tables. These tables are specific to each user and exercise combination. These names are used to populate another dropdown menu for selecting what exercise data you want to look at. This dropdown menu calls the OnSelectTable function when activated.
 	OnSelectTable(event)
-		This function gets a list of time series data points from the data base for use in graphing. Also a slider widget is created for moving through the graph.
+		This function gets a list of time series data points from the data base for use in graphing. Also a slider widget is created for moving through the graph. When the slider is moved it calls the OnSliderScroll function.
 	OnSliderScroll(event)
-	
+		This function is responsible for actually populating and drawing the data plot. It takes the list of data points, turns them into lists of x, y, and z coordinates respectively, and then plots those points in the graph against each other. Also this function updates a text label that says the value in seconds into the exercise the current plot represents.	
 	
