@@ -64,16 +64,14 @@ public class GloveReader {
 		return 14;
 	}
 
-	private string right_hand_path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\GloveData.txt");
-	private string left_hand_path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\GloveData.txt");
+	private string hand_path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\GloveData.txt");
 	public bool init;
 	public bool RightIsGrab;
 	public bool LeftIsGrab;
 	public float[] sensorValues;
 	private string [] readLines;
 	private ArrayList allFingerZones;
-	const int numOfDataPointsR = 8;
-	const int numOfDataPointsL = 5;
+	const int numOfDataPoints = 13;
 	public int[] rightFingerZones;
 	public int[] leftFingerZones;
 
@@ -186,21 +184,15 @@ public class GloveReader {
 	}
 
 	public float[] getValues() {
-		// Get strings from both right hand and left hand files
-		string [] lines_one = readSelectLines (right_hand_path, numOfDataPointsR);
-		string [] lines_two = readSelectLines (left_hand_path, numOfDataPointsL);
+		// Get strings from hand data file
+		string [] lines = readSelectLines (hand_path, numOfDataPoints);
 		// Float arrays for right and left and hands
-		float [] f_array_R;
-		float [] f_array_L;
-		if (lines_one != null && lines_two != null) {
+		float [] f_array;
+		if (lines != null) {
 			// Get float arrays
-			f_array_R = stringArrayToFloatArray (lines_one);
-			f_array_L = stringArrayToFloatArray (lines_two);
-			// Combine right hand and left hand arrays into one array
-			float [] dims = new float[f_array_R.Length + f_array_L.Length];
-			f_array_R.CopyTo(dims, 0);
-			f_array_L.CopyTo(dims, f_array_R.Length);
-			return dims;
+			f_array = stringArrayToFloatArray (lines);
+
+			return f_array;
 		} else {
 			return null;
 		}
