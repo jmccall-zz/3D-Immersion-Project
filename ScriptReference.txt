@@ -1,19 +1,28 @@
 3D Immersion Script Reference:
 
+Software:
+	Unity3D
+		- All the Kinect and Oculus Plugins are contained inside the Unity project
+	Oculus SDK -- can be found at developer.oculusvr.com
+	Python 2.7
+	Visual Studio
+	ORCad 
+	
+
 GAME SCENES:
 ReachBack
-The user is tasked with moving four cylinders placed around him/her into a box in front of the user. Two of the cylinders are on a shelf above the user and the other two are on a counter behind the user. The scene records there position data continuously and stores the time it takes the user to place the objects in the box.
+	The user is tasked with moving four cylinders placed around him/her into a box in front of the user. Two of the cylinders are on a shelf above the user and the other two are on a counter behind the user. The scene records there position data continuously and stores the time it takes the user to place the objects in the box.
 
 ShoulderROM
 
 Login
-This is the opening scene of our game. The user logs in to the user profile by typing in their name. This either loads an existing profile or creates a new profile. If the profile is new, the game loads the calibrate scene. If not, the game loads the ReachBack scene.
+	This is the opening scene of our game. The user logs in to the user profile by typing in their name. This either loads an existing profile or creates a new profile. If the profile is new, the game loads the calibrate scene. If not, the game loads the ReachBack scene.
 
 CalibrateGlove
 	The CalibrateGlove scene is used in recording data at specific points on the gloves bend sensor range in order to match the sensors input with the game's hand animation. The user is presented an image of a hand that they are supposed to mimic, and then press "Space Bar" to move on to the next image and record that data.
 
 InteractiveObjectRoom
-This is a scene we created for experimenting with the Kinects movement tracking. The user can walk around and interact with objects in a room. It is very simple but it allows us to test the Kinects position tracking for accuracy.
+	This is a scene we created for experimenting with the Kinects movement tracking. The user can walk around and interact with objects in a room. It is very simple but it allows us to test the Kinects position tracking for accuracy.
 
 ViewTables
 
@@ -73,6 +82,7 @@ WristControl.cs -- C#
 	
 TextGen.cs -- C#
 	This script controls the state of the range of motion scenes exercises. Essentially it describes buttons and text boxes to display during the game the control the scenes' exercise instructions.
+
 DATABASE SCRIPTS:
 
 DatabaseSetup.js -- Javascript
@@ -116,5 +126,29 @@ Dependency List -- Python Packages:
 	- Python 2.7
 	
 ReadDB.py
-
+	This script provides an interface to get necessary data from the database without having to specify SQL queries manually. The following is the interface description.
+		readDB.dbReader() 
+			This function returns a new dbReader object.
+		dbReader.readNames()
+			Returns a list of strings of all the users names in the database along with the user ID number. The format is <id> <first name> <last name> for example "1 Bob Builder". 
+		dbReader.readExerciseTables(id)
+			This function takes a user id (obtained in the string from dbReader.readNames()) and returns a list of time series table names for each exercise associated with the given user ID. 
+		dbReader.readTimeTables(table_name)
+			Takes a string representing the desired time series data table (a list of these are retrieved in the readExerciseTables function) and returns a list with all the datapoints from this time series data table. These data points are XYZ locations of each joint or rotation values of each joint.
+			
 dbGUI.py
+	This script describes a GUI for selecting what user data to graph in the graphing utility. This script should be executed directly in order to run the graphing GUI. In the future this can be compiled into an executable if necessary. Because this is a wxPython module I recommend looking at the wxPython tutorial located here <http://zetcode.com/wxpython/> to help understand how it works. Essentially this program can be thought of as event driven. The user interacts with menus and this causes function calls that progress the GUI to a different state. 
+	InitUI() 
+		This function creates the wx panel object that we put our GUI widgets into and populates it with the initial widgets. These widgets are as follows:
+			- dropdown menu of all the User Names in the database (calls the OnSelect function when clicked)
+			- a text box that displays the selected user
+			- a button that causes the GUI to progress to the next screen (it calls the SelectDataScreen function when pressed).
+	OnSelect(event)
+		Updates the static text box to the currently selected User Name from the initial dropdown menu.
+	SelectDataScreen(event)
+		This function gets called when the button declared in InitUI() is pressed. It takes the user id from the User Name string and uses it to get a list of names for all the time series data tables. These tables are specific to each user and exercise combination. These names are used to populate another dropdown menu for selecting what exercise data you want to look at. This dropdown menu calls the OnSelectTable function when activated.
+	OnSelectTable(event)
+		This function gets a list of time series data points from the data base for use in graphing. Also a slider widget is created for moving through the graph.
+	OnSliderScroll(event)
+	
+	

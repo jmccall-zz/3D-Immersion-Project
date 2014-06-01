@@ -55,16 +55,22 @@ class dbWindow(wx.Frame):
 
     # Called When the User clicks Go in the first menu
     def SelectDataScreen(self, event):
+	# retrieve selected user name
         self.userName = (self.st.GetLabel())
         print(str(self.userName))
+		
+	# Get the user ID integer value from the selected user string
         pos = str(self.userName).find(' ')
-
         self.p_id = int(self.userName[0:pos])
         print(self.p_id)
+
+        # Read the exercise tables names associated with the given user id
         tables = self.reader.readExerciseTables(self.p_id)
-        
+
+        # destroy all widgets
         self.destroyAll()
         
+	# Create new dropdown menus for the second screen context menus
         self.cb1 = wx.ComboBox(self.pnl, pos=(50, 300), choices=tables, 
             style=wx.CB_READONLY)
         self.widgets.append(self.cb1)
@@ -72,9 +78,6 @@ class dbWindow(wx.Frame):
 
     def OnSelectTable(self, event):
         self.data_points = self.reader.readTimeTables(event.GetString())
-        #self.cb2 = wx.ComboBox(self.pnl, pos = (200, 300), choices=data_points[0],
-        #                      style=wx.CB_READONLY)
-        #self.widgets.append(self.cb2)
 
         self.sld = wx.Slider(self.pnl, value=len(self.data_points), minValue=0,
                              maxValue=(len(self.data_points)/2), pos=(200, 300), 
@@ -112,26 +115,9 @@ class dbWindow(wx.Frame):
             x.append(self.data_points[val][i])
             y.append(self.data_points[val][i+1])
             z.append(self.data_points[val][i+2])
-
-        
-        
+               
         plt.clf()
-        #plt.plot(self.data_points[val][1:len(self.data_points[val])-1], "ro")
-
-        a=[]
-        b=[]
-        c=[]
-        d=[]
-        for i in [0,2,4]:
-            a.append(x[i])
-            b.append(y[i])
-            c.append(x[i+1])
-            d.append(y[i+1])
-        
-        #plt.plot(a, b, "r-o")
-        #plt.plot(c, d, "r-o")
         plt.plot(x,y, "ro")
-
         plt.axis([-2, 2, -2, 2])
         
         plt.draw()
