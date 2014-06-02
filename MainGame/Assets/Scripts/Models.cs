@@ -52,7 +52,7 @@ public class Models : MonoBehaviour {
 			//accelerometer[2] = dims[7];
 			/* Scale text file values */
 			////////////////////////Right_Index block definitions/////////////////////
-			int [] Right_Index_Finger_Blocks  =  {
+			float [] Right_Index_Finger_Blocks  =  {
 				reader.rightFingerZones[0],
 				reader.rightFingerZones[1]/*,
 				reader.rightFingerZones[2],
@@ -63,7 +63,7 @@ public class Models : MonoBehaviour {
 			};	
 
 			////////////////////////Right_Middle finger block definitions//////////////
-			int [] Right_Middle_Finger_Blocks  =  {
+			float [] Right_Middle_Finger_Blocks  =  {
 				reader.rightFingerZones[2],
 				reader.rightFingerZones[3]/*,
 				reader.rightFingerZones[9],
@@ -74,7 +74,7 @@ public class Models : MonoBehaviour {
 			};
 
 			//////////////////////Right_Ring finger block definitions//////////////////
-			int [] Right_Ring_Finger_Blocks  =  {
+			float [] Right_Ring_Finger_Blocks  =  {
 				reader.rightFingerZones[4],
 				reader.rightFingerZones[5]/*,
 				reader.rightFingerZones[16],
@@ -85,7 +85,7 @@ public class Models : MonoBehaviour {
 			};
 			
 			/////////////////////Right_Pinky block definitions////////////////////
-			int [] Right_Pinky_Finger_Blocks  =  {
+			float [] Right_Pinky_Finger_Blocks  =  {
 				reader.rightFingerZones[6],
 				reader.rightFingerZones[7]/*,
 				reader.rightFingerZones[23],
@@ -95,7 +95,7 @@ public class Models : MonoBehaviour {
 				reader.rightFingerZones[27]*/
 			};
 			/////////////////////Right_Knuckle block definitions////////////////////
-			int [] Right_Knuckle_Blocks  =  {
+			float [] Right_Knuckle_Blocks  =  {
 				reader.rightFingerZones[8],
 				reader.rightFingerZones[9]/*,
 				reader.rightFingerZones[30],
@@ -105,7 +105,7 @@ public class Models : MonoBehaviour {
 				reader.rightFingerZones[34]*/
 			};
 			///////////////////////Left_Index block definitions/////////////////////
-			int [] Left_Index_Finger_Blocks  =  {
+			float [] Left_Index_Finger_Blocks  =  {
 				reader.leftFingerZones[0],
 				reader.leftFingerZones[1]/*,
 				reader.leftFingerZones[2],
@@ -116,7 +116,7 @@ public class Models : MonoBehaviour {
 			};
 			
 			////////////////////////Left_Middle finger block definitions//////////////
-			int [] Left_Middle_Finger_Blocks  =  {
+			float [] Left_Middle_Finger_Blocks  =  {
 				reader.leftFingerZones[2],
 				reader.leftFingerZones[3]/*,
 				reader.leftFingerZones[9],
@@ -127,7 +127,7 @@ public class Models : MonoBehaviour {
 			};
 			
 			//////////////////////Left_Ring finger block definitions//////////////////
-			int [] Left_Ring_Finger_Blocks  =  {
+			float [] Left_Ring_Finger_Blocks  =  {
 				reader.leftFingerZones[4],
 				reader.leftFingerZones[5]/*,
 				reader.leftFingerZones[16],
@@ -138,7 +138,7 @@ public class Models : MonoBehaviour {
 			};
 			
 			/////////////////////Left_Pinky block definitions////////////////////
-			int [] Left_Pinky_Finger_Blocks  =  {
+			float [] Left_Pinky_Finger_Blocks  =  {
 				reader.leftFingerZones[6],
 			 	reader.leftFingerZones[7]/*,
 				reader.leftFingerZones[23],
@@ -149,7 +149,7 @@ public class Models : MonoBehaviour {
 			};
 
 			/////////////////////Left_Knuckle block definitions////////////////////
-			int [] Left_Knuckle_Blocks  =  {
+			float [] Left_Knuckle_Blocks  =  {
 				reader.leftFingerZones[8],
 				reader.leftFingerZones[9]/*,
 				reader.leftFingerZones[30],
@@ -186,7 +186,7 @@ public class Models : MonoBehaviour {
 	 * calibration blocks 75 & 90. The highest of the calibration values for 75 & 90 (in the database) should be "max".
 	 * @param max_degrees: The upper boundary of the degree range we are in. In our previous example this would be 90
 	 */ 
-	float get_degrees (float value, int max, int min, int max_degrees) {
+	float get_degrees (float value, float max, float min, float max_degrees) {
 		float scale = (max - min)/90;
 		return max_degrees - ((value - min) / scale);
 	}
@@ -201,11 +201,11 @@ public class Models : MonoBehaviour {
 	 * @param blocks: Calibration blocks for the finger.  These are values determined in the calibration scene for certain 
 	 * degrees of bend. At 0, 15, 30, 45, 60, 75, and 90 degrees this raw glove data is collected.
 	 */
-	float scale_finger(float value, int [] blocks, int scale_factor = 15){
+	float scale_finger(float value, float [] blocks, int scale_factor = 15){
 
 		float degrees = -1;
-		int max;
-		int min;
+		float max;
+		float min;
 
 		// If we get a raw value higher than our full extension calibrated value, set degrees to 0
 		if (value >= blocks [0] - 1)
