@@ -496,7 +496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   instructions: {fileID: 1837401071}
-  next_level: ReachBack
+  next_level: SceneSwitch
 --- !u!45 &1878209486
 Skybox:
   m_ObjectHideFlags: 0
@@ -551,5 +551,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 575b4a14d6779b54f83526d54a267499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textFieldString: Name
-  MenuState: 0

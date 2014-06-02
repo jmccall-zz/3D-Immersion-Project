@@ -50,6 +50,7 @@ public class ShoulderReader : MonoBehaviour {
 	private float r_front_hold = 0.0f;
 
 	private float arm_position_start = 0.0f;
+	private float arm_position_live = 0.0f;
 
 	// Y-axis rotational boundaries.  Measurements of shoulder abduction angle will only be measured if
 	// the shoulder's y-axis rotation is in this range!
@@ -62,7 +63,9 @@ public class ShoulderReader : MonoBehaviour {
 	private float time_start = -1.0f;
 
 	// Degrees of rotation in both direction allowed for abduction measurement
-	public float degrees_freedom = 10.0f;
+	public int frame_delay = 20;
+	private int frame_count = 0;
+	public float degrees_freedom = 20.0f;
 	private const bool LEFT = false;
 	private const bool RIGHT = true;
 	//public bool side_to_measure = RIGHT;
@@ -118,7 +121,7 @@ public class ShoulderReader : MonoBehaviour {
 
 		// Max/min shoulder abduction right arm
 		case 1: exercise = "Right Arm Range of Motion";
-			instructions = "Raise arm as high and as low as possible";
+			instructions = "Raise arm as high and as low as you can";
 			r_shoulder_angles = skeleton.GetJointLocalEulerAngles (R_shoulder_id);
 			r_abduction_angle = GetAbductionAngle (r_shoulder_angles);
 			if (r_abduction_angle != -1) {
@@ -132,7 +135,7 @@ public class ShoulderReader : MonoBehaviour {
 
 		// Max/min shoulder abduction left arm
 		case 2: exercise = "Left Arm Range of Motion";
-			instructions = "Raise arm as high and as low as possible";
+			instructions = "Raise arm as high and as low as you can";
 			l_shoulder_angles = skeleton.GetJointLocalEulerAngles (L_shoulder_id);
 			l_abduction_angle = GetAbductionAngle (l_shoulder_angles);
 			if (l_abduction_angle != -1) {
@@ -146,75 +149,139 @@ public class ShoulderReader : MonoBehaviour {
 
 		// How long can you hold right arm out to the side
 		case 3: exercise = "Right Arm Strength Test";
-			instructions = "Reach right arm out and hold";
+			instructions = "Hold right arm out to the side and\nhold the arm there as long you can";
 			if (time_start != -1.0f) {
 				// Check if we've exceeded our 30 second limit
-				if ((time_live - time_start) > 30)
+				if ((time_live - time_start) > 30) {
 					r_side_hold = 30;
+					time_start = -1.0f;
+				}
+				for (frame_count = 0; frame_count < frame_delay; frame_count++) {
+					// Capture current arm position
+					arm_position_live = skeleton.GetJointLocalEulerAngles(R_shoulder_id).z;
 
-				// Check if the shoulder has moved out of position
-				if ((skeleton.GetJointLocalEulerAngles(R_shoulder_id).z - arm_position_start) > degrees_freedom)
-					r_side_hold = time_live - time_start;
+					// Check if the shoulder has moved out of position. If it has wait another frame and check again
+					if ((arm_position_live - arm_position_start) > degrees_freedom)
+						continue;
+					else
+						break;
 
-				if ((skeleton.GetJointLocalEulerAngles(R_shoulder_id).z - arm_position_start) < -degrees_freedom)
+					if ((arm_position_live - arm_position_start) < -degrees_freedom)
+						continue;
+					else
+						break;
+				}
+
+				// If we have been out of range for frame_delay number of frames. Set the hold time!
+				if (frame_count >= frame_delay) {
 					r_side_hold = time_live - time_start;
+					time_start = -1.0f;
+				}					
 			}
 			break;
 
 		// How long can you hold left arm out to the side
 		case 4: exercise = "Left Arm Strength Test";
-			instructions = "Reach left are out and hold";
+			instructions = "Hold left arm out to the side and\nhold the arm there as long you can";
 			if (time_start != -1.0f) {
 				// Check if we've exceeded our 30 second limit
-				if ((time_live - time_start) > 30)
+				if ((time_live - time_start) > 30) {
 					l_side_hold = 30;
+					time_start = -1.0f;
+				}
+				for (frame_count = 0; frame_count < frame_delay; frame_count++) {
+					// Capture current arm position
+					arm_position_live = skeleton.GetJointLocalEulerAngles(L_shoulder_id).z;
+					
+					// Check if the shoulder has moved out of position. If it has wait another frame and check again
+					if ((arm_position_live - arm_position_start) > degrees_freedom)
+						continue;
+					else
+						break;
+					
+					if ((arm_position_live - arm_position_start) < -degrees_freedom)
+						continue;
+					else
+						break;
+				}
 				
-				// Check if the shoulder has moved out of position
-				if ((skeleton.GetJointLocalEulerAngles(L_shoulder_id).z - arm_position_start) > degrees_freedom)
+				// If we have been out of range for frame_delay number of frames. Set the hold time!
+				if (frame_count >= frame_delay) {
 					l_side_hold = time_live - time_start;
-				
-				if ((skeleton.GetJointLocalEulerAngles(L_shoulder_id).z - arm_position_start) < -degrees_freedom)
-					l_side_hold = time_live - time_start;
+					time_start = -1.0f;
+				}					
 			}
 			break;
 
 		// How long can you hold right arm out in front
 		case 5: exercise = "Right Arm Strength Test";
-			instructions = "Reach right arm out in front and hold";
+			instructions = "Raise right arm infront of you and\nhold the arm there as long you can";
 			if (time_start != -1.0f) {
 				// Check if we've exceeded our 30 second limit
-				if ((time_live - time_start) > 30)
+				if ((time_live - time_start) > 30) {
 					r_front_hold = 30;
+					time_start = -1.0f;
+				}
+				for (frame_count = 0; frame_count < frame_delay; frame_count++) {
+					// Capture current arm position
+					arm_position_live = skeleton.GetJointLocalEulerAngles(R_shoulder_id).z;
+					
+					// Check if the shoulder has moved out of position. If it has wait another frame and check again
+					if ((arm_position_live - arm_position_start) > degrees_freedom)
+						continue;
+					else
+						break;
+					
+					if ((arm_position_live - arm_position_start) < -degrees_freedom)
+						continue;
+					else
+						break;
+				}
 				
-				// Check if the shoulder has moved out of position
-				if ((skeleton.GetJointLocalEulerAngles(R_shoulder_id).z - arm_position_start) > degrees_freedom)
+				// If we have been out of range for frame_delay number of frames. Set the hold time!
+				if (frame_count >= frame_delay) {
 					r_front_hold = time_live - time_start;
-				
-				if ((skeleton.GetJointLocalEulerAngles(R_shoulder_id).z - arm_position_start) < -degrees_freedom)
-					r_front_hold = time_live - time_start;
+					time_start = -1.0f;
+				}					
 			}
 			break;
 
 		// How long can you hold left arm out in front
 		case 6: exercise = "Left Arm Strength Test";
-			instructions = "Reach left arm out in front and hold";
+			instructions = "Raise left arm infront of you and\nhold the arm there as long you can";
 			if (time_start != -1.0f) {
 				// Check if we've exceeded our 30 second limit
-				if ((time_live - time_start) > 30)
+				if ((time_live - time_start) > 30) {
 					l_front_hold = 30;
+					time_start = -1.0f;
+				}
+				for (frame_count = 0; frame_count < frame_delay; frame_count++) {
+					// Capture current arm position
+					arm_position_live = skeleton.GetJointLocalEulerAngles(L_shoulder_id).z;
+					
+					// Check if the shoulder has moved out of position. If it has wait another frame and check again
+					if ((arm_position_live - arm_position_start) > degrees_freedom)
+						continue;
+					else
+						break;
+					
+					if ((arm_position_live - arm_position_start) < -degrees_freedom)
+						continue;
+					else
+						break;
+				}
 				
-				// Check if the shoulder has moved out of position
-				if ((skeleton.GetJointLocalEulerAngles(L_shoulder_id).z - arm_position_start) > degrees_freedom)
+				// If we have been out of range for frame_delay number of frames. Set the hold time!
+				if (frame_count >= frame_delay) {
 					l_front_hold = time_live - time_start;
-				
-				if ((skeleton.GetJointLocalEulerAngles(L_shoulder_id).z - arm_position_start) < -degrees_freedom)
-					l_front_hold = time_live - time_start;
+					time_start = -1.0f;
+				}					
 			}
 			break;
 
 		// Final page with test results yay!!!
-		case 7: exercise = "8";
-			instructions = "8";
+		case 7: exercise = "Results";
+			instructions = "";
 			break;
 
 		default: currentExercise = 0;
@@ -233,6 +300,7 @@ public class ShoulderReader : MonoBehaviour {
 			// Check to make sure one user is actually in the Kinect's view
 			if (zig_control.usersInView == 1) {
 				sampler.SampleAllJoints(skeleton, user_id, db_control.shoulder_rom_scene, record_rotations : record_joint_rotations, record_positions : record_joint_positions);
+				Debug.Log ("Calling SampleAllJoints() now");
 			}
 		}
 		/*******************************************************************/
@@ -270,12 +338,17 @@ public class ShoulderReader : MonoBehaviour {
 				time_start = -1.0f;
 
 			} else if (currentExercise > 7) {
-				currentExercise = 7;
+				Debug.Log ("here");
+
+				 currentExercise = 7;
 			} else {
 				Debug.Log ("Current exercise value is crazy");
 			}
 		}
-
+		if (currentExercise == 7) GUI.Box(new Rect(Screen.width/2 - 200, Screen.height/2-200, 400, 400), "Range of Motion Results:\nLeft - Max " + l_max_abduction 
+		                                  + "\nLeft - Min " + l_min_abduction + "\nRight - Max " + r_max_abduction + "\nRight - Min " + r_min_abduction + 
+										"\n\nStrength Test Results:\nRight Arm Side Hold - " + r_side_hold + "\nLeft Arm Side Hold - " + l_side_hold + 
+		                                  "\nRight Arm Front Hold - " + r_front_hold + "\nLeft Arm Front Hold - " + l_front_hold);
 		// If we are in exercise 4 through 7 we want to display a start button
 		// When the start button is pressed we want to set our start time
 		foreach (int num in new int [] {3, 4, 5, 6}) {
@@ -300,16 +373,17 @@ public class ShoulderReader : MonoBehaviour {
 		//style = GUI.skin.GetStyle ("Label");
 		style.fontSize = 25;
 		style.alignment = TextAnchor.LowerCenter;
-		GUI.Label (new Rect(Screen.width/2 - 50, Screen.height-100, 160, 40), instructions, style);
+		GUI.Label (new Rect(Screen.width/2 - 50, Screen.height-100, 160, 40), exercise, style);
 		
 		style.alignment = TextAnchor.UpperCenter;
-		//if (currentExercise == 3) {
-		//	GUI.Label (new Rect (Screen.width / 2, 200, 160, 40), time_hold.ToString ().Remove (4), style);	
-		//}
+		if (currentExercise > 2 && currentExercise < 7) {
+			if (time_start != -1.0f)
+				GUI.Label (new Rect (Screen.width / 2, 200, 160, 40), (time_live - time_start).ToString (), style);	
+		}
 		
-		style.fontSize = 60;
+		style.fontSize = 40;
 		
-		GUI.Label (new Rect(Screen.width/2 - 50, 50, 160, 40), exercise, style);	
+		GUI.Label (new Rect(Screen.width/2 - 50, 50, 160, 40), instructions, style);	
 		// Toggle buttons to determine which side to measure
 		//GUI.Label (new Rect (10, 15, 200, 30), "Side to Measure:");
 		//if (GUI.Toggle (new Rect (120, 5, 50, 20), side_to_measure, "Right"))

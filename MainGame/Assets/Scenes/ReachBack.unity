@@ -1890,6 +1890,7 @@ GameObject:
   - 114: {fileID: 647287932}
   - 114: {fileID: 647287931}
   - 114: {fileID: 647287930}
+  - 114: {fileID: 647287934}
   m_Layer: 0
   m_Name: Carl
   m_TagString: Untagged
@@ -1937,8 +1938,8 @@ MonoBehaviour:
   LeftCollar: {fileID: 138773042}
   LeftShoulder: {fileID: 2047340195}
   LeftElbow: {fileID: 1626658876}
-  LeftWrist: {fileID: 678137089}
-  LeftHand: {fileID: 1194175770}
+  LeftWrist: {fileID: 0}
+  LeftHand: {fileID: 0}
   LeftFingertip: {fileID: 0}
   RightCollar: {fileID: 435608460}
   RightShoulder: {fileID: 791753358}
@@ -1984,12 +1985,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 647287926}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25314ad7a38720043843d812fdd4c192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wrist_name: LeftHand
+  wrist_name: RightWrist
 --- !u!114 &647287931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2026,6 +2027,18 @@ MonoBehaviour:
   record_joint_data: 1
   record_glove_data: 1
   capture_rate: .100000001
+--- !u!114 &647287934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 647287926}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25314ad7a38720043843d812fdd4c192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wrist_name: LeftWrist
 --- !u!1 &652523896
 GameObject:
   m_ObjectHideFlags: 0
@@ -5545,8 +5558,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 575b4a14d6779b54f83526d54a267499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textFieldString: Name
-  MenuState: 0
 --- !u!1 &1972879771
 GameObject:
   m_ObjectHideFlags: 0
