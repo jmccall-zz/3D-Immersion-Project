@@ -273,15 +273,18 @@ namespace msp430_serail_comunication_form
                 }
                 if (data[i].StartsWith("F"))
                 {
-                    Acc_Xbox.Text = data[i].TrimStart('F');
+                    AccX = data[i].TrimStart('F');
+                    Acc_Xbox.Text = AccX;
                 }
                 if (data[i].StartsWith("G"))
                 {
-                    Acc_Ybox.Text = data[i].TrimStart('G');
+                    AccY = data[i].TrimStart('G');
+                    Acc_Ybox.Text = AccY;
                 }
                 if (data[i].StartsWith("I"))
                 {
-                    Acc_Zbox.Text = data[i].TrimStart('I');
+                    AccZ = data[i].TrimStart('I');
+                    Acc_Zbox.Text = AccZ;
                 }
                 if (data[i].StartsWith("J"))
                 {
@@ -310,13 +313,13 @@ namespace msp430_serail_comunication_form
                 ERROR_BOX2.AppendText("\t");
                 if (data[i].StartsWith("A"))
                 {
-                    Finger_32 = data[i].TrimStart('A');
-                    finger_3box2.Text = Finger_32;
+                    Finger_42 = data[i].TrimStart('A');
+                    finger_4box2.Text = Finger_42;
                 }
                 if (data[i].StartsWith("B"))
                 {
-                    Finger_42 = data[i].TrimStart('B');
-                    finger_4box2.Text = Finger_42;
+                    Finger_32 = data[i].TrimStart('B');
+                    finger_3box2.Text = Finger_32;
                 }
                 if (data[i].StartsWith("C"))
                 {
@@ -325,8 +328,8 @@ namespace msp430_serail_comunication_form
                 }
                 if (data[i].StartsWith("D"))
                 {
-                    Finger_52 = data[i].TrimStart('D');
-                    finger_5box2.Text = Finger_52;
+                    Finger_12 = data[i].TrimStart('D');
+                    finger_1box2.Text = Finger_12;
                 }
                 if (data[i].StartsWith("E"))
                 {
@@ -334,20 +337,23 @@ namespace msp430_serail_comunication_form
                 }
                 if (data[i].StartsWith("F"))
                 {
-                    Acc_Xbox2.Text = data[i].TrimStart('F');
+                    AccX2 = data[i].TrimStart('F');
+                    Acc_Xbox2.Text = AccX2;
                 }
                 if (data[i].StartsWith("G"))
                 {
-                    Acc_Ybox2.Text = data[i].TrimStart('G');
+                    AccY2 = data[i].TrimStart('G');
+                    Acc_Ybox2.Text = AccY2;
                 }
                 if (data[i].StartsWith("I"))
                 {
-                    Acc_Zbox2.Text = data[i].TrimStart('I');
+                    AccZ2 = data[i].TrimStart('I');
+                    Acc_Zbox2.Text = AccZ2;
                 }
                 if (data[i].StartsWith("J"))
                 {
-                    Finger_12 = data[i].TrimStart('J');
-                    finger_1box2.Text = Finger_12;
+                    Finger_52 = data[i].TrimStart('J');
+                    finger_5box2.Text = Finger_52;
                 }
                 if (data[i].StartsWith("K"))
                 {

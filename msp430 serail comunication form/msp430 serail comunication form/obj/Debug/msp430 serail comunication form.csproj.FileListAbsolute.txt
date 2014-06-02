@@ -16,3 +16,12 @@ C:\Users\klebras\Dropbox\3DImmersionProjects\msp430 serail comunication form\msp
 C:\Users\klebras\Dropbox\3DImmersionProjects\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430_serail_comunication_form.GLOVE_DATA.resources
 C:\Users\klebras\Dropbox\3DImmersionProjects\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430_serail_comunication_form.Properties.Resources.resources
 C:\Users\klebras\Dropbox\3DImmersionProjects\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430 serail comunication form.csproj.GenerateResource.Cache
+C:\Users\klebras\Documents\GitHub\3D-Immersion-Project\msp430 serail comunication form\msp430 serail comunication form\bin\Debug\msp430 serail comunication form.exe.config
+C:\Users\klebras\Documents\GitHub\3D-Immersion-Project\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430 serail comunication form.exe
+C:\Users\klebras\Documents\GitHub\3D-Immersion-Project\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430 serail comunication form.pdb
+C:\Users\klebras\Documents\GitHub\3D-Immersion-Project\msp430 serail comunication form\msp430 serail comunication form\bin\Debug\msp430 serail comunication form.exe
+C:\Users\klebras\Documents\GitHub\3D-Immersion-Project\msp430 serail comunication form\msp430 serail comunication form\bin\Debug\msp430 serail comunication form.pdb
+C:\Users\klebras\Documents\GitHub\3D-Immersion-Project\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430 serail comunication form.csprojResolveAssemblyReference.cache
+C:\Users\klebras\Documents\GitHub\3D-Immersion-Project\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430_serail_comunication_form.GLOVE_DATA.resources
+C:\Users\klebras\Documents\GitHub\3D-Immersion-Project\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430_serail_comunication_form.Properties.Resources.resources
+C:\Users\klebras\Documents\GitHub\3D-Immersion-Project\msp430 serail comunication form\msp430 serail comunication form\obj\Debug\msp430 serail comunication form.csproj.GenerateResource.Cache
