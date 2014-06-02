@@ -1525,7 +1525,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 576642635}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: .0516317338, z: .0404126272}
+  m_LocalPosition: {x: -5.083021e-15, y: .0710256547, z: .0253900234}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1972879772}
@@ -1984,12 +1984,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 647287926}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25314ad7a38720043843d812fdd4c192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wrist_name: RightHand
+  wrist_name: LeftHand
 --- !u!114 &647287931
 MonoBehaviour:
   m_ObjectHideFlags: 0

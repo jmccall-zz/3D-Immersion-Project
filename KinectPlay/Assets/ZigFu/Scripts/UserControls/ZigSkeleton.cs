@@ -33,25 +33,21 @@ public class ZigSkeleton : MonoBehaviour
     public Transform RightKnee;
     public Transform RightAnkle;
     public Transform RightFoot;
-    static public bool mirror = false;
+    public bool mirror = false;
     public bool UpdateJointPositions = false;
     public bool UpdateRootPosition = false;
     public bool UpdateOrientation = true;
     public bool RotateToPsiPose = false;
     public float RotationDamping = 30.0f;
     public float Damping = 30.0f;
-	public float[] filter = new float[100];
     public Vector3 Scale = new Vector3(0.001f, 0.001f, 0.001f);
 
     public Vector3 PositionBias = Vector3.zero;
-
-	public GUIText angles;
 
     private Transform[] transforms;
     private Quaternion[] initialRotations;
     private Vector3 rootPosition;
 
-	// Return opposite joint of that given
     ZigJointId mirrorJoint(ZigJointId joint)
     {
         switch (joint)
@@ -109,7 +105,6 @@ public class ZigSkeleton : MonoBehaviour
     {
         int jointCount = Enum.GetNames(typeof(ZigJointId)).Length;
 
-		// Initialize list of our joint transforms
         transforms = new Transform[jointCount];
         initialRotations = new Quaternion[jointCount];
 
@@ -156,13 +151,11 @@ public class ZigSkeleton : MonoBehaviour
 
     void Start()
     {
-		Debug.Log ("Start");
         // start out in calibration pose
         if (RotateToPsiPose)
         {
             RotateToCalibrationPose();
         }
-		angles.text = "This nowwwww";
     }
 
     void UpdateRoot(Vector3 skelRoot)
@@ -176,7 +169,6 @@ public class ZigSkeleton : MonoBehaviour
     }
 
     void UpdateRotation(ZigJointId joint, Quaternion orientation)
-
     {
         joint = mirror ? mirrorJoint(joint) : joint;
         // make sure something is hooked up to this joint
@@ -200,64 +192,8 @@ public class ZigSkeleton : MonoBehaviour
     {
         return new Vector3(mirror ? -vec.x : vec.x, vec.y, vec.z);
     }
-
-	float[] shiftArray(float[] array, float newValue = 0.0f)
-	{
-		/* Shift the contents of an array ultimately removing the final index.  Also set the 0 index to 0.0f.
-		 * @param newValue: Float value to be inserted into the first index of the new array
-		 */
-		int length = array.Length;
-		float[] shifted = new float[length];
-		shifted[0] = newValue;
-		for (int i = 1; i < length; i++) {
-			shifted[i] = array[i - 1];
-		}
-		return shifted;
-	}
-
-	void UpdateElbowPercentage()
-	{
-		double percentRange;
-		float RightElbow_x = RightElbow.localPosition.x;
-		float RightElbow_y = RightElbow.localPosition.y;
-		float RightShoulder_x = RightShoulder.localPosition.x;
-		float RightShoulder_y = RightShoulder.localPosition.y;
-		// If elbow is higher than the shoulder
-		bool raised = RightElbow_y > RightShoulder_y;
-
-		// Calculate distance from shoulder to elbow. Add 10 as to avoid negative numbers.  This will serve as our range
-		double upperArmLength = Math.Sqrt(Math.Pow(((RightElbow_x) - (RightShoulder_x)), 2.0f) + Math.Pow(((RightElbow_y) - (RightShoulder_y)), 2.0f));
-
-		// Difference between
-		float diff_x = Math.Abs(RightElbow_x - RightShoulder_x);
-
-
-		percentRange = (diff_x / upperArmLength) * 100;
-		percentRange = percentRange / 2;
-		if (raised == true){ 
-			percentRange = (Math.Abs(percentRange - 100) + 50) / 2;
-		}
-
-		//filter = shiftArray(filter, newValue: (float)percentRange);
-
-		// Set font size
-		angles.fontSize = 18;
-		// Print Right elbow readings to gui
-		angles.text = "RightElbow:\n" +
-			"Pos.x: " + RightElbow_x.ToString() +
-			"\nPos.y: " + RightElbow_y.ToString() +
-			"\nRightShoulder:\n" +
-			"Pos.x: " + RightShoulder_x.ToString() +
-			"\nPos.y: " + RightShoulder_y.ToString()+
-			"\nRaised: " + raised.ToString() +
-			"\nLength: " + upperArmLength.ToString() +
-			"\nDiff: " + diff_x.ToString() +
-			"\nPercentRange: " + percentRange.ToString();
-	}
-
     void UpdatePosition(ZigJointId joint, Vector3 position)
     {
-		Debug.Log ("UpdatePosition");
         joint = mirror ? mirrorJoint(joint) : joint;
         // make sure something is hooked up to this joint
         if (!transforms[(int)joint])
@@ -269,8 +205,6 @@ public class ZigSkeleton : MonoBehaviour
         {
             Vector3 dest = Vector3.Scale(position, doMirror(Scale)) - rootPosition;
             transforms[(int)joint].localPosition = Vector3.Lerp(transforms[(int)joint].localPosition, dest, Time.deltaTime * Damping);
-
-			UpdateElbowPercentage();
         }
     }
 
@@ -307,7 +241,6 @@ public class ZigSkeleton : MonoBehaviour
 
     void Zig_UpdateUser(ZigTrackedUser user)
     {
-		Debug.Log ("Zig_UpdateUser");
         UpdateRoot(user.Position);
         if (user.SkeletonTracked)
         {

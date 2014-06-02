@@ -31,9 +31,9 @@ public class WristControl : MonoBehaviour {
 			Debug.Log (readArray [i]);
 		}*/
 		if (readArray != null) {
-			wrist_rotation_x = readArray[4];
-			wrist_rotation_y = readArray[5];
-			wrist_rotation_z = readArray[6]; 
+			wrist_rotation_x = readArray[reader.LH_AccX()];
+			wrist_rotation_y = readArray[reader.LH_AccY()];
+			wrist_rotation_z = readArray[reader.LH_AccZ()]; 
 			/*Debug.Log (wrist_rotation_x);
 			Debug.Log (wrist_rotation_y);
 			Debug.Log (wrist_rotation_z);*/
@@ -62,8 +62,8 @@ public class WristControl : MonoBehaviour {
 			//Debug.Log (rotation_x);
 			//Debug.Log (rotation_y);
 			//Debug.Log (rotation_z);
-			float rot_y = 180 + transform.parent.transform.eulerAngles.y;
-			transform.eulerAngles = new Vector3(rotation_x,rot_y, rotation_z);
+			float rot_y = 180 + wrist_transform.parent.transform.eulerAngles.y;
+			wrist_transform.eulerAngles = new Vector3(rotation_x,rot_y, rotation_z);
 		}
 	}
 	

@@ -90,31 +90,31 @@ class dbAccess {
 	/* Right Calibration Table Defaults */
 	private var default_right_calib_data = new Array (
 		1,
-		399,
-		32700,
-		26800,
-		23000,
-		23000,
-		23000,
-		23000,
-		23000,
-		23000,
-		23000
+		365,
+		98,
+		376,
+		295,
+		381,
+		304,
+		395,
+		310,
+		383,
+		251
 	);
 	
 	/* Left Calibration Table Defaults */
 	private var default_left_calib_data = new Array (
 		1,
-		399,
-		927,
-		781,
-		451,
-		23000,
-		23000,
-		23000,
-		23000,
-		23000,
-		23000
+		344,
+		1,
+		381,
+		265,
+		393,
+		273,
+		388,
+		302,
+		383,
+		318
 	);
 
 	/* Results Table Structure */
