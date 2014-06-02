@@ -12,12 +12,12 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 	// These 29 fields represent all the columns in the calibration table.  Storing them in 
 	// a large list allows us to simple pass the structure into a database control function
 	// for the database insertion. NOTE: Index zero is the active user_id.
-	private float[] rightCalibrationPoints = new float[36];
-	private float[] leftCalibrationPoints = new float[36];
+	private float[] rightCalibrationPoints = new float[11];
+	private float[] leftCalibrationPoints = new float[11];
 	
-	public const int MAX_TRANSITIONS = 13;
+	public const int MAX_TRANSITIONS = 3;
 	private int transitionCount = 0;
-	private int[] finger_extensions = {100, 83, 66, 50, 33, 17, 0, 100, 83, 66, 50, 33, 17, 0};
+	private int[] finger_extensions = {100, 0, 100, 0};
 
 	// Database Player Preference Information (from Login Scene)
 	private int active_user;
@@ -83,24 +83,25 @@ public class RecordAndMoveCalibrate : MonoBehaviour {
 		//float [] values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
 		float [] values = reader.getValues();
 		int index = 0;
-
+		Debug.Log (values.Length);
 		// Set calibrations for the right hand during first 7 transitions
-		if (transitionCount < 7) {
+		if (transitionCount < 2) {
 			// Set base index for reference
 			index = transitionCount + 1;
 			rightCalibrationPoints [index] = values[reader.RH_IndexFinger()];
-			rightCalibrationPoints [index + 7] = values[reader.RH_MiddleFinger()];	
-			rightCalibrationPoints [index + 14] = values[reader.RH_RingFinger()];	
-			rightCalibrationPoints [index + 21] = values[reader.RH_PinkyFinger()];
-			rightCalibrationPoints [index + 28] = values[reader.RH_Knuckle()];
-		} else if (transitionCount < 14) {
+			rightCalibrationPoints [index + 2] = values[reader.RH_MiddleFinger()];	
+			rightCalibrationPoints [index + 4] = values[reader.RH_RingFinger()];	
+			rightCalibrationPoints [index + 6] = values[reader.RH_PinkyFinger()];
+			rightCalibrationPoints [index + 8] = values[reader.RH_Knuckle()];
+		} else if (transitionCount < 4) {
 			// Set base index for reference
-			index = transitionCount - 6;
+			//Debug.Log ("yo");
+			index = transitionCount - 1;
 			leftCalibrationPoints [index] = values[reader.LH_IndexFinger()];
-			leftCalibrationPoints [index + 7] = values[reader.LH_MiddleFinger()];	
-			leftCalibrationPoints [index + 14] = values[reader.LH_RingFinger()];	
-			leftCalibrationPoints [index + 21] = values[reader.LH_PinkyFinger()];
-			leftCalibrationPoints [index + 28] = values[reader.LH_Knuckle()];
+			leftCalibrationPoints [index + 2] = values[reader.LH_MiddleFinger()];	
+			leftCalibrationPoints [index + 4] = values[reader.LH_RingFinger()];	
+			leftCalibrationPoints [index + 6] = values[reader.LH_PinkyFinger()];
+			leftCalibrationPoints [index + 8] = values[reader.LH_Knuckle()];
 		} else {
 			Debug.Log("End of scene. No more data to capture.");
 		}

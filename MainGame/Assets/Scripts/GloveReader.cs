@@ -7,9 +7,9 @@ using System;
 
 public class GloveReader {
 	private const int IndexFinger = 0;	
-	private const int MiddleFinger = 7;
-	private const int RingFinger = 14;
-	private const int PinkyFinger = 21;
+	private const int MiddleFinger = 2;
+	private const int RingFinger = 4;
+	private const int PinkyFinger = 6;
 	private const int ZeroDegrees = 0;
 	private const int FifteenDegrees = 1;
 	private const int ThirtyDegrees = 2;
@@ -57,11 +57,17 @@ public class GloveReader {
 	public int LH_Knuckle () {
 		return 12;
 	}
-	public int LH_GripIndex (){
+	public int LH_AccX () {
 		return 13;
 	}
-	public int LH_GripMiddle() {
+	public int LH_AccY () {
 		return 14;
+	}
+	public int LH_AccZ () {
+		return 15;
+	}
+	public int LH_GripMiddle () {
+		return 16;
 	}
 
 	private string hand_path = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\GloveData.txt");
@@ -71,7 +77,7 @@ public class GloveReader {
 	public float[] sensorValues;
 	private string [] readLines;
 	private ArrayList allFingerZones;
-	const int numOfDataPoints = 13;
+	const int numOfDataPoints = 16;
 	public int[] rightFingerZones;
 	public int[] leftFingerZones;
 
@@ -103,8 +109,8 @@ public class GloveReader {
 	 */
 	private ArrayList readDB(int user_id) {
 		ArrayList fingerBlocks = new ArrayList();
-		int [] rightFingerBlocks = new int [35];
-		int [] leftFingerBlocks = new int [35];
+		int [] rightFingerBlocks = new int [10];
+		int [] leftFingerBlocks = new int [10];
 
 		rightFingerBlocks = GetCalibrationRow (db_control.right_calib_table, user_id);
 		leftFingerBlocks = GetCalibrationRow (db_control.left_calib_table, user_id);
@@ -122,7 +128,7 @@ public class GloveReader {
 	 * it in the form of an integer array.
 	 */ 
 	private int [] GetCalibrationRow(string table_name, int user_id) {
-		int [] blocks = new int[35];
+		int [] blocks = new int[10];
 		string query;
 		ArrayList results = new ArrayList();
 		ArrayList row = new ArrayList();
@@ -157,28 +163,28 @@ public class GloveReader {
 		sensorValues = this.getValues ();
 
 		// Update Right Hand Grab gesture
-		if (sensorValues[0] < rightFingerZones[IndexFinger + FortyFiveDegrees] ||
-		    sensorValues[1] < rightFingerZones[MiddleFinger + FortyFiveDegrees] || 
-		    sensorValues[2] < rightFingerZones[RingFinger + FortyFiveDegrees] || 
-		    sensorValues[3] < rightFingerZones[PinkyFinger + FortyFiveDegrees]) {
+		if (sensorValues[0] < (((rightFingerZones[IndexFinger]-rightFingerZones[IndexFinger+1])/2) + rightFingerZones[IndexFinger+1]) ||
+		    sensorValues[1] < (((rightFingerZones[MiddleFinger]-rightFingerZones[MiddleFinger+1])/2) + rightFingerZones[MiddleFinger+1]) || 
+		    sensorValues[2] < (((rightFingerZones[RingFinger]-rightFingerZones[RingFinger+1])/2) + rightFingerZones[RingFinger+1]) || 
+		    sensorValues[3] < (((rightFingerZones[PinkyFinger]-rightFingerZones[PinkyFinger+1])/2) + rightFingerZones[PinkyFinger+1])) {
 			RightIsGrab = true;
-		} else if (sensorValues[0] > rightFingerZones[IndexFinger + FortyFiveDegrees] &&
-		           sensorValues[1] > rightFingerZones[MiddleFinger + FortyFiveDegrees] && 
-		           sensorValues[2] > rightFingerZones[RingFinger + FortyFiveDegrees] && 
-		           sensorValues[3] > rightFingerZones[PinkyFinger + FortyFiveDegrees]) {
+		} else { /*if (sensorValues[0] > (((rightFingerZones[IndexFinger]-rightFingerZones[IndexFinger+1])/2) + rightFingerZones[IndexFinger+1]) &&
+		           sensorValues[1] > (((rightFingerZones[MiddleFinger]-rightFingerZones[MiddleFinger+1])/2) + rightFingerZones[MiddleFinger+1]) && 
+		           sensorValues[2] > (((rightFingerZones[RingFinger]-rightFingerZones[RingFinger+1])/2) + rightFingerZones[RingFinger+1]) && 
+		           sensorValues[3] > (((rightFingerZones[PinkyFinger]-rightFingerZones[PinkyFinger+1])/2) + rightFingerZones[PinkyFinger+1])) */
 			RightIsGrab = false;
 		}
 
 		// Update Left Hand Grab gesture
-		if (sensorValues[this.LH_IndexFinger()] < leftFingerZones[IndexFinger + FortyFiveDegrees] ||
-		    sensorValues[this.LH_MiddleFinger()] < leftFingerZones[MiddleFinger + FortyFiveDegrees] || 
-		    sensorValues[this.LH_RingFinger()] < leftFingerZones[RingFinger + FortyFiveDegrees] || 
-		    sensorValues[this.LH_PinkyFinger()] < leftFingerZones[PinkyFinger + FortyFiveDegrees]) {
+		if (sensorValues[this.LH_IndexFinger()] < (((leftFingerZones[IndexFinger]-leftFingerZones[IndexFinger+1])/2) + leftFingerZones[IndexFinger+1]) ||
+		    sensorValues[this.LH_MiddleFinger()] < (((leftFingerZones[IndexFinger]-leftFingerZones[IndexFinger+1])/2) + leftFingerZones[IndexFinger+1]) || 
+		    sensorValues[this.LH_RingFinger()] < (((leftFingerZones[IndexFinger]-leftFingerZones[IndexFinger+1])/2) + leftFingerZones[IndexFinger+1]) || 
+		    sensorValues[this.LH_PinkyFinger()] < (((leftFingerZones[IndexFinger]-leftFingerZones[IndexFinger+1])/2) + leftFingerZones[IndexFinger+1])) {
 			LeftIsGrab = true;
-		} else if (sensorValues[this.LH_IndexFinger()] > leftFingerZones[IndexFinger + FortyFiveDegrees] &&
+		} else {/*if (sensorValues[this.LH_IndexFinger()] > leftFingerZones[IndexFinger + FortyFiveDegrees] &&
 		           sensorValues[this.LH_MiddleFinger()] > leftFingerZones[MiddleFinger + FortyFiveDegrees] && 
 		           sensorValues[this.LH_RingFinger()] > leftFingerZones[RingFinger + FortyFiveDegrees] && 
-		           sensorValues[this.LH_PinkyFinger()] > leftFingerZones[PinkyFinger + FortyFiveDegrees]) {
+		           sensorValues[this.LH_PinkyFinger()] > leftFingerZones[PinkyFinger + FortyFiveDegrees])*/ 
 			LeftIsGrab = false;
 		}
 	}
@@ -194,6 +200,7 @@ public class GloveReader {
 
 			return f_array;
 		} else {
+			Debug.Log ("ey glovereader");
 			return null;
 		}
 	}

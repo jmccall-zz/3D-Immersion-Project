@@ -54,109 +54,109 @@ public class Models : MonoBehaviour {
 			////////////////////////Right_Index block definitions/////////////////////
 			int [] Right_Index_Finger_Blocks  =  {
 				reader.rightFingerZones[0],
-				reader.rightFingerZones[1],
+				reader.rightFingerZones[1]/*,
 				reader.rightFingerZones[2],
 				reader.rightFingerZones[3],
 				reader.rightFingerZones[4], 
 				reader.rightFingerZones[5],
-				reader.rightFingerZones[6]
+				reader.rightFingerZones[6]*/
 			};	
 
 			////////////////////////Right_Middle finger block definitions//////////////
 			int [] Right_Middle_Finger_Blocks  =  {
-				reader.rightFingerZones[7],
-				reader.rightFingerZones[8],
+				reader.rightFingerZones[2],
+				reader.rightFingerZones[3]/*,
 				reader.rightFingerZones[9],
 				reader.rightFingerZones[10],
 				reader.rightFingerZones[11], 
 				reader.rightFingerZones[12],
-				reader.rightFingerZones[13]
+				reader.rightFingerZones[13]*/
 			};
 
 			//////////////////////Right_Ring finger block definitions//////////////////
 			int [] Right_Ring_Finger_Blocks  =  {
-				reader.rightFingerZones[14],
-				reader.rightFingerZones[15],
+				reader.rightFingerZones[4],
+				reader.rightFingerZones[5]/*,
 				reader.rightFingerZones[16],
 				reader.rightFingerZones[17],
 				reader.rightFingerZones[18], 
 				reader.rightFingerZones[19],
-				reader.rightFingerZones[20]
+				reader.rightFingerZones[20]*/
 			};
 			
 			/////////////////////Right_Pinky block definitions////////////////////
 			int [] Right_Pinky_Finger_Blocks  =  {
-				reader.rightFingerZones[21],
-				reader.rightFingerZones[22],
+				reader.rightFingerZones[6],
+				reader.rightFingerZones[7]/*,
 				reader.rightFingerZones[23],
 				reader.rightFingerZones[24],
 				reader.rightFingerZones[25], 
 				reader.rightFingerZones[26],
-				reader.rightFingerZones[27]
+				reader.rightFingerZones[27]*/
 			};
 			/////////////////////Right_Knuckle block definitions////////////////////
 			int [] Right_Knuckle_Blocks  =  {
-				reader.rightFingerZones[28],
-				reader.rightFingerZones[29],
+				reader.rightFingerZones[8],
+				reader.rightFingerZones[9]/*,
 				reader.rightFingerZones[30],
 				reader.rightFingerZones[31],
 				reader.rightFingerZones[32], 
 				reader.rightFingerZones[33],
-				reader.rightFingerZones[34]
+				reader.rightFingerZones[34]*/
 			};
 			///////////////////////Left_Index block definitions/////////////////////
 			int [] Left_Index_Finger_Blocks  =  {
 				reader.leftFingerZones[0],
-				reader.leftFingerZones[1],
+				reader.leftFingerZones[1]/*,
 				reader.leftFingerZones[2],
 				reader.leftFingerZones[3],
 				reader.leftFingerZones[4], 
 				reader.leftFingerZones[5],
-				reader.leftFingerZones[6]
+				reader.leftFingerZones[6]*/
 			};
 			
 			////////////////////////Left_Middle finger block definitions//////////////
 			int [] Left_Middle_Finger_Blocks  =  {
-				reader.leftFingerZones[7],
-				reader.leftFingerZones[8],
+				reader.leftFingerZones[2],
+				reader.leftFingerZones[3]/*,
 				reader.leftFingerZones[9],
 				reader.leftFingerZones[10],
 				reader.leftFingerZones[11], 
 				reader.leftFingerZones[12],
-				reader.leftFingerZones[13]
+				reader.leftFingerZones[13]*/
 			};
 			
 			//////////////////////Left_Ring finger block definitions//////////////////
 			int [] Left_Ring_Finger_Blocks  =  {
-				reader.leftFingerZones[14],
-				reader.leftFingerZones[15],
+				reader.leftFingerZones[4],
+				reader.leftFingerZones[5]/*,
 				reader.leftFingerZones[16],
 				reader.leftFingerZones[17],
 				reader.leftFingerZones[18], 
 				reader.leftFingerZones[19],
-				reader.leftFingerZones[20]
+				reader.leftFingerZones[20]*/
 			};
 			
 			/////////////////////Left_Pinky block definitions////////////////////
 			int [] Left_Pinky_Finger_Blocks  =  {
-				reader.leftFingerZones[21],
-			 	reader.leftFingerZones[22],
+				reader.leftFingerZones[6],
+			 	reader.leftFingerZones[7]/*,
 				reader.leftFingerZones[23],
 				reader.leftFingerZones[24],
 				reader.leftFingerZones[25], 
 				reader.leftFingerZones[26],
-				reader.leftFingerZones[27]
+				reader.leftFingerZones[27]*/
 			};
 
 			/////////////////////Left_Knuckle block definitions////////////////////
 			int [] Left_Knuckle_Blocks  =  {
-				reader.leftFingerZones[28],
-				reader.leftFingerZones[29],
+				reader.leftFingerZones[8],
+				reader.leftFingerZones[9]/*,
 				reader.leftFingerZones[30],
 				reader.leftFingerZones[31],
 				reader.leftFingerZones[32], 
 				reader.leftFingerZones[33],
-				reader.leftFingerZones[34]
+				reader.leftFingerZones[34]*/
 			};
 			// Scale right hand fingers to degrees 0 - 90
 			fingers[0] = scale_finger(dims[reader.RH_IndexFinger()], Right_Index_Finger_Blocks);
@@ -171,7 +171,8 @@ public class Models : MonoBehaviour {
 			fingers[7] = scale_finger(dims[reader.LH_RingFinger()], Left_Ring_Finger_Blocks);
 			fingers[8] = scale_finger(dims[reader.LH_PinkyFinger()], Left_Pinky_Finger_Blocks);
 			fingers[9] = scale_finger(dims[reader.LH_Knuckle()], Left_Knuckle_Blocks);
-			
+
+			Debug.Log (Left_Index_Finger_Blocks[0].ToString() + Left_Index_Finger_Blocks[1].ToString());
 		} catch (Exception e) {
 			errorcounter++;
 			//Debug.Log("Couldn't update fingers: "+errorcounter + e.ToStRight_Ring() + e.StackTrace);
@@ -207,11 +208,11 @@ public class Models : MonoBehaviour {
 		int min;
 
 		// If we get a raw value higher than our full extension calibrated value, set degrees to 0
-		if (value >= blocks[0] - 1)
+		if (value >= blocks [0] - 1)
 			return 0;
 
 		// If we get a raw value lower than our calibrated closed fist, set degrees to 90
-		else if (value <= blocks[6] + 1)
+		else if (value <= blocks[1] + 1)
 			return 90;
 		/*
 		// Cycle through ranges to determine correct scaling
@@ -235,7 +236,7 @@ public class Models : MonoBehaviour {
 			Debug.Log("Could not scale this finger. Value didn't fall in any range\n" +
 			          "Value: " + value);
 		}*/
-		degrees = get_degrees (value, blocks [0], blocks [6], 90);
+		degrees = get_degrees (value, blocks [0], blocks [1], 90);
 
 
 				
